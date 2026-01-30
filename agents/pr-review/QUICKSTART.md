@@ -29,6 +29,11 @@ bash scripts/install.sh
 cd ~/your-project
 
 # Start reviewing a PR (replace 123 with actual PR number)
+cd /path/to/agent-box/agents/pr-review
+uv run pr-agent review 123
+
+# Or activate the virtual environment first
+source .venv/bin/activate
 pr-agent review 123
 ```
 

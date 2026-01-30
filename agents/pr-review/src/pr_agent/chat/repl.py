@@ -9,7 +9,7 @@ from prompt_toolkit.history import FileHistory
 from rich.console import Console
 from rich.markdown import Markdown
 
-from ..copilot import CopilotClient, CopilotError
+from ..agent_client import CustomCopilotClient, CopilotError
 from ..models import PRData
 from ..state import Session
 
@@ -29,7 +29,7 @@ class ChatREPL:
         self.session = session
         self.repo_root = repo_root
         self.pr_data = session.pr_data
-        self.copilot: Optional[CopilotClient] = None
+        self.copilot: Optional[CustomCopilotClient] = None
         
         # Setup prompt session
         history_file = Path.home() / ".pr-agent-history"
@@ -40,12 +40,26 @@ class ChatREPL:
         # Initialize Copilot client
         console.print("[dim]Initializing AI assistant...[/dim]")
         try:
-            self.copilot = CopilotClient()
+            self.copilot = CustomCopilotClient()
             await self.copilot._ensure_started()
         except CopilotError as e:
+            error_msg = str(e)
             console.print(f"[red]❌ Failed to initialize Copilot: {e}[/red]")
-            console.print("[yellow]Note: Make sure the Copilot CLI is installed:[/yellow]")
-            console.print("[yellow]  gh extension install github/gh-copilot[/yellow]")
+            
+            if "protocol version mismatch" in error_msg.lower():
+                console.print()
+                console.print("[yellow]⚠️  SDK/CLI Version Mismatch[/yellow]")
+                console.print("[dim]The GitHub Copilot SDK and CLI are out of sync.[/dim]")
+                console.print()
+                console.print("[bold]Quick Fix Options:[/bold]")
+                console.print("1. Wait for GitHub to release an updated gh-copilot extension")
+                console.print("2. Use the Copilot Chat in VS Code or GitHub.com for now")
+                console.print()
+                console.print("[dim]This is a known issue with the Copilot SDK being newer than the CLI.[/dim]")
+                console.print("[dim]We'll update the agent once the CLI is updated.[/dim]")
+            else:
+                console.print("[yellow]Note: Make sure the Copilot CLI is installed:[/yellow]")
+                console.print("[yellow]  gh extension install github/gh-copilot[/yellow]")
             return
         
         # Build initial context

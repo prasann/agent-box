@@ -1,10 +1,10 @@
 """GitHub Copilot SDK integration."""
 
 import asyncio
-import subprocess
 from typing import Iterator, Optional
 
-from copilot.client import CopilotClient as _CopilotClient
+from copilot import CopilotClient
+
 
 
 class CopilotError(Exception):
@@ -12,12 +12,12 @@ class CopilotError(Exception):
     pass
 
 
-class CopilotClient:
+class CustomCopilotClient:
     """Wrapper for GitHub Copilot SDK client."""
     
     def __init__(self):
         """Initialize Copilot client."""
-        self._client: Optional[_CopilotClient] = None
+        self._client: Optional[CopilotClient] = None
         self._session = None
         self._loop = None
     
@@ -25,7 +25,7 @@ class CopilotClient:
         """Ensure client is started."""
         if self._client is None:
             try:
-                self._client = _CopilotClient()
+                self._client = CopilotClient()
                 await self._client.start()
             except Exception as e:
                 raise CopilotError(f"Failed to start Copilot client: {e}")
@@ -168,7 +168,7 @@ async def test_copilot_connection_async() -> bool:
         True if connection successful
     """
     try:
-        client = CopilotClient()
+        client = CustomCopilotClient()
         response = await client.chat_async([
             {"role": "user", "content": "Say 'OK' if you can hear me."}
         ])

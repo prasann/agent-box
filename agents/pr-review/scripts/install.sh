@@ -23,4 +23,10 @@ uv pip install -e .
 
 echo "✅ Installation complete!"
 echo ""
-echo "Try running: pr-agent --help"
+echo "To use pr-agent, run it with uv:"
+echo "  uv run pr-agent --help"
+echo "  uv run pr-agent review <pr-number>"
+echo ""
+echo "Or activate the virtual environment:"
+echo "  source .venv/bin/activate"
+echo "  pr-agent --help"

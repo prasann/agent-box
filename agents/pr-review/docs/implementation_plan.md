@@ -14,7 +14,7 @@
 ## Technology Stack
 
 ### Core Technologies
-- **Python**: 3.10+ (using modern features)
+- **Python**: 3.13+ (using modern features)
 - **Package Manager**: `uv` (fast, modern alternative to pip/poetry)
 - **GitHub Copilot SDK**: For AI reasoning (need to verify Python client availability)
 - **CLI Framework**: `click` (standard, simple)
@@ -99,7 +99,7 @@ pr-agent --help
 [project]
 name = "pr-agent"
 version = "0.1.0"
-requires-python = ">=3.10"
+requires-python = ">=3.13"
 dependencies = [
     "click>=8.1.0",
     "prompt-toolkit>=3.0.0",

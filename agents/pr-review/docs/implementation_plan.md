@@ -194,29 +194,41 @@ class SessionManager:
 ```
 
 #### 1.5 Copilot SDK Integration (Day 4-5)
-- [ ] Research GitHub Copilot SDK Python client (verify it exists!)
-- [ ] If no official SDK: Plan alternative (OpenAI API? GitHub Copilot API?)
+- [ ] Install GitHub Copilot SDK: `uv add github-copilot-sdk`
+- [ ] Review SDK docs: https://github.com/github/copilot-sdk
 - [ ] Create `copilot/client.py` wrapper
-- [ ] Implement authentication (via GitHub token)
+- [ ] Implement authentication (via GitHub token from gh CLI)
 - [ ] Test basic chat completion
 
-**Tech Approach (needs verification):**
+**Tech Approach:**
 ```python
-# Option 1: If GitHub Copilot SDK exists
-from github_copilot import CopilotClient
+# GitHub Copilot SDK (confirmed available)
+# Install: pip install github-copilot-sdk
+from github_copilot_sdk import CopilotClient
 
+# Get token from gh CLI
+def get_github_token():
+    result = subprocess.run(
+        ['gh', 'auth', 'token'],
+        capture_output=True, text=True
+    )
+    return result.stdout.strip()
+
+# Initialize client
 client = CopilotClient(token=get_github_token())
-response = client.chat(messages=[...])
 
-# Option 2: If using OpenAI-compatible API
-import openai
-client = openai.OpenAI(
-    base_url="https://api.githubcopilot.com",
-    api_key=get_github_token()
-)
+# Chat completion
+response = client.chat(messages=[
+    {"role": "system", "content": "You are a code reviewer."},
+    {"role": "user", "content": "What are the main changes?"}
+])
+
+# Streaming responses
+for chunk in client.chat_stream(messages=[...]):
+    print(chunk.content, end='', flush=True)
 ```
 
-**⚠️ BLOCKER**: Need to verify Copilot SDK Python availability!
+**Note**: Check SDK documentation for exact API and authentication methods.
 
 #### 1.6 Basic Chat REPL (Day 5-6)
 - [ ] Create `chat/repl.py` with prompt_toolkit
@@ -567,18 +579,18 @@ uv lock
 ```toml
 [project]
 dependencies = [
-    "click>=8.1.0",           # CLI framework
-    "prompt-toolkit>=3.0.0",  # Interactive REPL
-    "rich>=13.0.0",           # Terminal formatting
-    "pydantic>=2.0.0",        # Data validation
-    # Note: Copilot SDK pending verification
+    "click>=8.1.0",             # CLI framework
+    "prompt-toolkit>=3.0.0",    # Interactive REPL
+    "rich>=13.0.0",             # Terminal formatting
+    "pydantic>=2.0.0",          # Data validation
+    "github-copilot-sdk",       # GitHub Copilot AI
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0.0",
-    "ruff>=0.1.0",           # Linter/formatter
-    "mypy>=1.0.0",           # Type checking
+    "ruff>=0.1.0",             # Linter/formatter
+    "mypy>=1.0.0",             # Type checking
 ]
 ```
 
@@ -615,24 +627,24 @@ dev = [
 
 ## Risks & Mitigations
 
-### Risk 1: GitHub Copilot SDK Availability
-**Impact**: High  
-**Mitigation**: Research alternatives early (OpenAI API, other LLMs)
-
-### Risk 2: Context Too Large
+### Risk 1: Context Too Large for Copilot
 **Impact**: Medium  
-**Mitigation**: Implement smart chunking, token counting
+**Mitigation**: Implement smart chunking, token counting, prioritize important context
 
-### Risk 3: gh CLI Rate Limits
+### Risk 2: gh CLI Rate Limits
 **Impact**: Low  
-**Mitigation**: Cache aggressively, handle rate limit errors
+**Mitigation**: Cache aggressively, handle rate limit errors gracefully
+
+### Risk 3: Copilot SDK API Changes
+**Impact**: Low  
+**Mitigation**: Pin SDK version, keep wrapper isolated for easy updates
 
 ---
 
 ## Next Steps
 
-1. **Immediate**: Verify GitHub Copilot SDK Python availability
-2. **Day 1**: Start Phase 1.1 - Project scaffolding
+1. **Immediate**: ✅ GitHub Copilot SDK confirmed available - `pip install github-copilot-sdk`
+2. **Day 1**: Start Phase 1.1 - Project scaffolding with uv
 3. **Week 1**: Complete Phase 1 foundation
 4. **Week 2+**: Iterate through phases
 

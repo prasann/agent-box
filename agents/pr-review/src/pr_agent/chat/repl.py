@@ -198,6 +198,9 @@ class ChatREPL:
         elif parsed.type == CommandType.PREVIEW:
             self.command_handler.handle_preview()
         
+        elif parsed.type == CommandType.EDIT:
+            self.command_handler.handle_edit()
+        
         elif parsed.type == CommandType.GENERATE:
             review_text = self.command_handler.handle_generate()
             if review_text:

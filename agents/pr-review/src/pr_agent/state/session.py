@@ -31,6 +31,7 @@ class Session:
         self.feedback: FeedbackCollection = FeedbackCollection(
             pr_number=pr_data.metadata.number
         )
+        self.metadata: dict = {}  # Additional session metadata
     
     @property
     def pr_number(self) -> int:
@@ -59,6 +60,27 @@ class Session:
             "role": role,
             "content": content
         })
+    
+    def set_metadata(self, key: str, value: any) -> None:
+        """Set a metadata value.
+        
+        Args:
+            key: Metadata key
+            value: Metadata value
+        """
+        self.metadata[key] = value
+    
+    def get_metadata(self, key: str, default: any = None) -> any:
+        """Get a metadata value.
+        
+        Args:
+            key: Metadata key
+            default: Default value if key not found
+            
+        Returns:
+            Metadata value or default
+        """
+        return self.metadata.get(key, default)
     
     def save(self) -> None:
         """Save session .items:

@@ -15,6 +15,7 @@ class CommandType(str, Enum):
     FEEDBACK_DELETE = "delete"
     GENERATE = "generate"
     PREVIEW = "preview"
+    EDIT = "edit"
     POST = "post"
     STATUS = "status"
     CONTEXT = "context"
@@ -99,6 +100,7 @@ class CommandParser:
             'del': CommandType.FEEDBACK_DELETE,
             'generate': CommandType.GENERATE,
             'preview': CommandType.PREVIEW,
+            'edit': CommandType.EDIT,
             'post': CommandType.POST,
             'status': CommandType.STATUS,
             'context': CommandType.CONTEXT,
@@ -244,9 +246,12 @@ Available Commands:
   
   /preview
       Preview the review before posting to GitHub
+  edit
+      Open review draft in your text editor ($EDITOR)
   
   /post [action]
       Post the review to GitHub
+      Actions: approve, request-changes, comment (default), auto (suggested
       Actions: approve, request-changes, comment (default)
       Example: /post request-changes
 
@@ -287,8 +292,12 @@ def get_command_examples() -> dict[CommandType, list[str]]:
         CommandType.GENERATE: [
             "/generate",
         ],
-        CommandType.PREVIEW: [
-            "/preview",
+        CommandType.EDIT: [
+            "/edit",
+        ],
+        CommandType.POST: [
+            "/post",
+            "/post autoiew",
         ],
         CommandType.POST: [
             "/post",

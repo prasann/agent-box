@@ -1,6 +1,11 @@
 """Command handlers for the chat interface."""
 
 from typing import Optional
+from pathlib import Path
+import subprocess
+import tempfile
+import os
+
 from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
@@ -14,6 +19,10 @@ from pr_agent.chat.commands import (
 )
 from pr_agent.models.feedback import FeedbackSeverity
 from pr_agent.context.context_builder import PRContext
+from pr_agent.agent.review_generator import (
+    ReviewGenerator,
+    GitHubReviewPoster
+)
 
 
 class CommandHandler:
@@ -229,30 +238,134 @@ class CommandHandler:
             self.console.print("\n⚠️  No feedback items to generate review from", style="yellow")
             return ""
         
-        review_text = self.session.feedback.format_for_github_review()
-        return review_text
+        # Create review generator
+        generator = ReviewGenerator(
+            pr_metadata=self.session.pr_data.metadata,
+            feedback=self.session.feedback
+        )
+        
+        # Generate review body
+        review_text = generator.generate_review_body(include_summary=True)
+        
+        if not self.session.feedback.items:
+            self.console.print("\n⚠️  No feedback items to preview", style="yellow")
+            return False
+        
+        # Create review generator
+        generator = ReviewGenerator(
+            pr_metadata=self.session.pr_data.metadata,
+            feedback=self.session.feedback
+        )
+        
+        # Get preview with decision
+        preview_text = generator.preview_review()
+        
+        # Display preview
+        self.console.print("\n")
+        self.console.print(preview_text)
+        
+        return True
     
-    def handle_preview(self) -> bool:
-        """Handle /preview command - shows review preview.
+    def handle_edit(self) -> bool:
+        """Handle /edit command - opens review draft in editor.
         
         Returns:
             True if successful
         """
-        review_text = self.handle_generate()
+        # Generate review if not already generated
+        draft_path = self.session.session_dir / "review_draft.md"
         
-        if not review_text:
+        if not draft_path.exists():
+            self.handle_generate()
+        
+        # Get editor from environment
+        editor = os.environ.get('EDITOR', 'vim')
+        
+        try:
+            # Open editor
+            subprocess.run([editor, str(draft_path)], check=True)
+            self.console.print(f"\n✓ Review edited. Preview with /preview or post with /post")
+        if not self.session.feedback.items:
+            self.console.print("\n⚠️  No feedback items to post", style="yellow")
             return False
         
-        self.console.print("\n")
-        self.console.print(Panel(
-            Markdown(review_text),
-            title="👁️  Review Preview",
-            border_style="green",
-            expand=False
-        ))
+        # Create poster
+        poster = GitHubReviewPoster(
+            pr_number=self.session.pr_number,
+            owner=self.session.owner,
+            repo=self.session.repo
+        )
         
-        return True
-    
+        # Check authentication
+        is_auth, auth_msg = poster.check_gh_authenticated()
+        if not is_auth:
+            self.console.print(f"\n✗ {auth_msg}", style="red")
+            return False
+        
+        # Create review generator
+        generator = ReviewGenerator(
+            pr_metadata=self.session.pr_data.metadata,
+            feedback=self.session.feedback
+        )
+        
+        # Check if draft exists and use it, otherwise generate
+        draft_path = self.session.session_dir / "review_draft.md"
+        if draft_path.exists():
+            review_text = draft_path.read_text()
+            self.console.print("\n📄 Using edited review draft")
+        else:
+            review_text = generator.generate_review_body(include_summary=True)
+        
+        # Show preview
+        self.console.print("\n📤 Preparing to post review...\n")
+        self.console.print("=" * 80)
+        self.console.print(Markdown(review_text))
+        self.console.print("=" * 80)
+        
+        # Auto-determine action if not specified or suggest based on severity
+        if action == "auto":
+            action = generator.generate_review_decision().lower().replace('_', '-')
+            self.console.print(f"\n💡 Suggested action: [bold]{action}[/bold]")
+        
+        # Confirm
+        self.console.print(f"\n⚠️  This will post a review with action: [bold]{action}[/bold]")
+        self.console.print(f"   PR: #{self.session.pr_number} - {self.session.pr_data.metadata.title}")
+        response = input("\nContinue? (yes/no): ")
+        
+        if response.lower() not in ['yes', 'y']:
+            self.console.print("\n✗ Cancelled", style="yellow")
+            return False
+        
+        # Post review
+        self.console.print("\n📡 Posting review to GitHub...")
+        
+        # Map action to gh CLI format
+        action_map = {
+            'approve': 'APPROVE',
+            'request-changes': 'REQUEST_CHANGES',
+            'comment': 'COMMENT'
+        }
+        gh_action = action_map.get(action, 'COMMENT')
+        
+        success, message = poster.post_review(
+            review_body=review_text,
+            action=gh_action
+        )
+        
+        if success:
+            self.console.print(f"\n✓ {message}", style="green")
+            review_url = poster.get_pr_review_url()
+            self.console.print(f"   View at: {review_url}")
+            
+            # Mark review as posted in session
+            self.session.set_metadata("review_posted", True)
+            self.session.set_metadata("review_posted_at", str(Path.cwd()))
+            self.session.save()
+            
+            return True
+        else:
+            self.console.print(f"\n✗ {message}", style="red")
+            return Fals
     def handle_post(self, action: str = "comment") -> bool:
         """Handle /post command - posts review to GitHub.
         

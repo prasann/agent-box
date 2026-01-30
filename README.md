@@ -4,10 +4,11 @@ A collection of standalone AI agents for macOS that run locally and leverage Git
 
 ## Current Agents
 
-### PR Review Agent (In Development)
+### [PR Review Agent](agents/pr-review/) (In Development)
 Autonomous PR review agent that helps understand, analyze, and review GitHub pull requests through an interactive chat interface.
 
-See [pr_review_agent_approach.md](pr_review_agent_approach.md) for detailed implementation approach.
+**Status**: Planning Phase  
+**Docs**: [MVP Spec](agents/pr-review/docs/mvp_spec.md) | [Approach](agents/pr-review/docs/approach.md)
 
 ## Philosophy
 

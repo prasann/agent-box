@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Optional
 
 from ..models import PRData
+from ..models.feedback import FeedbackCollection
 from .storage import SessionStorage, StorageError
 
 
@@ -27,7 +28,9 @@ class Session:
         self.session_dir = session_dir
         self.storage = storage
         self.conversation: list[dict] = []
-        self.feedback: list[dict] = []
+        self.feedback: FeedbackCollection = FeedbackCollection(
+            pr_number=pr_data.metadata.number
+        )
     
     @property
     def pr_number(self) -> int:
@@ -58,9 +61,7 @@ class Session:
         })
     
     def save(self) -> None:
-        """Save session state to disk."""
-        self.storage.save_conversation(self.session_dir, self.conversation)
-        if self.feedback:
+        """Save session .items:
             self.storage.save_feedback(self.session_dir, self.feedback)
     
     def load_conversation(self) -> None:
@@ -68,6 +69,8 @@ class Session:
         self.conversation = self.storage.load_conversation(self.session_dir)
     
     def load_feedback(self) -> None:
+        """Load feedback from disk."""
+        self.feedback = self.storage.load_feedback(self.session_dir, self.pr_numbe
         """Load feedback from disk."""
         self.feedback = self.storage.load_feedback(self.session_dir)
 
@@ -103,6 +106,35 @@ class SessionManager:
         self.storage.save_pr_data(session_dir, pr_data)
         
         session = Session(pr_data, session_dir, self.storage)
+        return session
+    
+    def resume_session(
+        self,
+        owner: str,
+        repo: str,
+        pr_number: int,
+        pr_data: PRData
+    ) -> Session:
+        """Resume an existing session.
+        
+        Args:
+            owner: Repository owner
+            repo: Repository name
+            pr_number: PR number
+            pr_data: PR data (refreshed from GitHub)
+            
+        Returns:
+            Resumed session with loaded conversation and feedback
+        """
+        session_dir = self.storage.get_session_dir(owner, repo, pr_number)
+        
+        if not session_dir.exists():
+            raise ValueError(f"Session does not exist for PR #{pr_number}")
+        
+        session = Session(pr_data, session_dir, self.storage)
+        session.load_conversation()
+        session.load_feedback()
+        
         return session
     
     def session_exists(self, owner: str, repo: str, pr_number: int) -> bool:

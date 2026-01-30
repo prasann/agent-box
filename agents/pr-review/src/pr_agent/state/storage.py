@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Optional
 
 from ..models import PRData
+from ..models.feedback import FeedbackCollection
 
 
 class StorageError(Exception):
@@ -137,40 +138,43 @@ class SessionStorage:
         except Exception as e:
             raise StorageError(f"Failed to load conversation: {e}")
     
-    def save_feedback(self, session_dir: Path, feedback_items: list[dict]) -> None:
-        """Save feedback items.
+    def save_feedback(self, session_dir: Path, feedback_collection: FeedbackCollection) -> None:
+        """Save feedback collection.
         
         Args:
             session_dir: Session directory path
-            feedback_items: List of feedback items
+            feedback_collection: Feedback collection to save
         """
         try:
             feedback_file = session_dir / "feedback.json"
             data = {
                 "updated_at": datetime.now().isoformat(),
-                "items": feedback_items
+                "pr_number": feedback_collection.pr_number,
+                "next_id": feedback_collection.next_id,
+                "items": [item.model_dump(mode="json") for item in feedback_collection.items]
             }
             with open(feedback_file, "w") as f:
-                json.dump(data, f, indent=2)
+                json.dump(data, f, indent=2, default=str)
         except Exception as e:
             raise StorageError(f"Failed to save feedback: {e}")
     
-    def load_feedback(self, session_dir: Path) -> list[dict]:
-        """Load feedback items.
+    def load_feedback(self, session_dir: Path, pr_number: int) -> FeedbackCollection:
+        """Load feedback collection.
         
         Args:
             session_dir: Session directory path
+            pr_number: PR number
             
         Returns:
-            List of feedback items
+            Feedback collection
         """
         try:
             feedback_file = session_dir / "feedback.json"
             if not feedback_file.exists():
-                return []
+                return FeedbackCollection(pr_number=pr_number)
             
             with open(feedback_file, "r") as f:
                 data = json.load(f)
-                return data.get("items", [])
+                return FeedbackCollection.model_validate(data)
         except Exception as e:
             raise StorageError(f"Failed to load feedback: {e}")

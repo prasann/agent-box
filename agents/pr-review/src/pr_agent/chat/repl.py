@@ -1,0 +1,196 @@
+"""Interactive chat REPL for PR review."""
+
+import asyncio
+from pathlib import Path
+from typing import Callable, Optional
+
+from prompt_toolkit import PromptSession
+from prompt_toolkit.history import FileHistory
+from rich.console import Console
+from rich.markdown import Markdown
+
+from ..copilot import CopilotClient, CopilotError
+from ..models import PRData
+from ..state import Session
+
+console = Console()
+
+
+class ChatREPL:
+    """Interactive chat REPL for PR review."""
+    
+    def __init__(self, session: Session, repo_root: Path):
+        """Initialize chat REPL.
+        
+        Args:
+            session: PR review session
+            repo_root: Repository root directory
+        """
+        self.session = session
+        self.repo_root = repo_root
+        self.pr_data = session.pr_data
+        self.copilot: Optional[CopilotClient] = None
+        
+        # Setup prompt session
+        history_file = Path.home() / ".pr-agent-history"
+        self.prompt_session = PromptSession(history=FileHistory(str(history_file)))
+        
+    async def start(self) -> None:
+        """Start the chat REPL."""
+        # Initialize Copilot client
+        console.print("[dim]Initializing AI assistant...[/dim]")
+        try:
+            self.copilot = CopilotClient()
+            await self.copilot._ensure_started()
+        except CopilotError as e:
+            console.print(f"[red]❌ Failed to initialize Copilot: {e}[/red]")
+            console.print("[yellow]Note: Make sure the Copilot CLI is installed:[/yellow]")
+            console.print("[yellow]  gh extension install github/gh-copilot[/yellow]")
+            return
+        
+        # Build initial context
+        await self._build_context()
+        
+        # Welcome message
+        console.print()
+        console.print("[bold green]✓ Ready to review![/bold green]")
+        console.print()
+        console.print("[dim]Type your questions about the PR or commands:[/dim]")
+        console.print("[dim]  /help    - Show available commands[/dim]")
+        console.print("[dim]  /exit    - Exit the session[/dim]")
+        console.print()
+        
+        # Main loop
+        await self._run_loop()
+    
+    async def _build_context(self) -> None:
+        """Build initial context for the AI."""
+        metadata = self.pr_data.metadata
+        system_message = {
+            "role": "system",
+            "content": (
+                "You are an expert code reviewer helping to review a pull request. "
+                "You have access to the PR metadata and diff. "
+                "Provide helpful, constructive feedback. "
+                "Be specific and point to actual code when possible."
+            )
+        }
+        
+        context_message = {
+            "role": "system",
+            "content": (
+                f"PR #{metadata.number}: {metadata.title}\n"
+                f"By: @{metadata.author.login}\n"
+                f"Files changed: {metadata.changed_files}\n"
+                f"Additions: +{metadata.additions}, Deletions: -{metadata.deletions}\n\n"
+                f"Changed files:\n" + 
+                "\n".join([f"- {f.path}" for f in metadata.files[:20]])
+            )
+        }
+        
+        self.session.add_message(system_message["role"], system_message["content"])
+        self.session.add_message(context_message["role"], context_message["content"])
+    
+    async def _run_loop(self) -> None:
+        """Run the main REPL loop."""
+        while True:
+            try:
+                # Get user input
+                user_input = await asyncio.to_thread(
+                    self.prompt_session.prompt,
+                    f"pr-{self.session.pr_number}> "
+                )
+                
+                user_input = user_input.strip()
+                if not user_input:
+                    continue
+                
+                # Check for exit
+                if user_input.lower() in ["exit", "quit", "/exit", "/quit"]:
+                    console.print("\n[dim]Saving session...[/dim]")
+                    self.session.save()
+                    console.print("[green]✓ Session saved[/green]")
+                    break
+                
+                # Handle commands
+                if user_input.startswith("/"):
+                    await self._handle_command(user_input)
+                    continue
+                
+                # Handle regular question
+                await self._handle_question(user_input)
+                
+            except KeyboardInterrupt:
+                continue
+            except EOFError:
+                break
+        
+        # Cleanup
+        if self.copilot:
+            await self.copilot.stop()
+    
+    async def _handle_command(self, command: str) -> None:
+        """Handle slash commands.
+        
+        Args:
+            command: Command string starting with /
+        """
+        cmd = command.lower()
+        
+        if cmd == "/help":
+            console.print("\n[bold]Available Commands:[/bold]")
+            console.print("  /help     - Show this help message")
+            console.print("  /status   - Show session information")
+            console.print("  /files    - List changed files")
+            console.print("  /exit     - Exit and save session")
+            console.print()
+        
+        elif cmd == "/status":
+            metadata = self.pr_data.metadata
+            console.print(f"\n[bold]Session Status:[/bold]")
+            console.print(f"  PR: #{metadata.number} - {metadata.title}")
+            console.print(f"  Author: @{metadata.author.login}")
+            console.print(f"  Files: {metadata.changed_files}")
+            console.print(f"  Messages: {len(self.session.conversation)}")
+            console.print(f"  Session: {self.session.session_dir}")
+            console.print()
+        
+        elif cmd == "/files":
+            console.print(f"\n[bold]Changed Files ({len(self.pr_data.metadata.files)}):[/bold]")
+            for file in self.pr_data.metadata.files:
+                console.print(f"  [cyan]{file.path}[/cyan] (+{file.additions} -{file.deletions})")
+            console.print()
+        
+        else:
+            console.print(f"[yellow]Unknown command: {command}[/yellow]")
+            console.print("[dim]Type /help for available commands[/dim]")
+    
+    async def _handle_question(self, question: str) -> None:
+        """Handle user question.
+        
+        Args:
+            question: User's question
+        """
+        # Add user message to conversation
+        self.session.add_message("user", question)
+        
+        # Get response from Copilot
+        console.print()
+        console.print("[dim]Thinking...[/dim]")
+        
+        try:
+            response = await self.copilot.chat_async(self.session.conversation)
+            
+            # Add assistant response to conversation
+            self.session.add_message("assistant", response)
+            
+            # Display response
+            console.print()
+            console.print(Markdown(response))
+            console.print()
+            
+            # Save conversation
+            self.session.save()
+            
+        except CopilotError as e:
+            console.print(f"\n[red]Error: {e}[/red]\n")

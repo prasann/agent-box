@@ -2,7 +2,7 @@
 
 import asyncio
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Optional
 
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import FileHistory
@@ -10,8 +10,10 @@ from rich.console import Console
 from rich.markdown import Markdown
 
 from ..agent_client import CustomCopilotClient, CopilotError
-from ..models import PRData
 from ..state import Session
+from ..context.context_builder import PRContext
+from .commands import CommandParser, CommandType, CommandValidator
+from .handlers import CommandHandler
 
 console = Console()
 
@@ -30,6 +32,11 @@ class ChatREPL:
         self.repo_root = repo_root
         self.pr_data = session.pr_data
         self.copilot: Optional[CustomCopilotClient] = None
+        self.pr_context: Optional[PRContext] = None
+        
+        # Setup command handling
+        self.command_parser = CommandParser()
+        self.command_handler = CommandHandler(session, console)
         
         # Setup prompt session
         history_file = Path.home() / ".pr-agent-history"
@@ -149,35 +156,65 @@ class ChatREPL:
         Args:
             command: Command string starting with /
         """
-        cmd = command.lower()
+        # Parse command
+        parsed = self.command_parser.parse(command)
         
-        if cmd == "/help":
-            console.print("\n[bold]Available Commands:[/bold]")
-            console.print("  /help     - Show this help message")
-            console.print("  /status   - Show session information")
-            console.print("  /files    - List changed files")
-            console.print("  /exit     - Exit and save session")
-            console.print()
-        
-        elif cmd == "/status":
-            metadata = self.pr_data.metadata
-            console.print(f"\n[bold]Session Status:[/bold]")
-            console.print(f"  PR: #{metadata.number} - {metadata.title}")
-            console.print(f"  Author: @{metadata.author.login}")
-            console.print(f"  Files: {metadata.changed_files}")
-            console.print(f"  Messages: {len(self.session.conversation)}")
-            console.print(f"  Session: {self.session.session_dir}")
-            console.print()
-        
-        elif cmd == "/files":
-            console.print(f"\n[bold]Changed Files ({len(self.pr_data.metadata.files)}):[/bold]")
-            for file in self.pr_data.metadata.files:
-                console.print(f"  [cyan]{file.path}[/cyan] (+{file.additions} -{file.deletions})")
-            console.print()
-        
-        else:
+        if not parsed:
             console.print(f"[yellow]Unknown command: {command}[/yellow]")
             console.print("[dim]Type /help for available commands[/dim]")
+            return
+        
+        # Route to appropriate handler
+        if parsed.type == CommandType.HELP:
+            self.command_handler.handle_help()
+        
+        elif parsed.type == CommandType.STATUS:
+            self.command_handler.handle_status()
+        
+        elif parsed.type == CommandType.CONTEXT:
+            self.command_handler.handle_context(self.pr_context)
+        
+        elif parsed.type == CommandType.FEEDBACK_ADD:
+            # Parse feedback arguments
+            feedback_args = self.command_parser.parse_feedback(command)
+            if feedback_args:
+                self.command_handler.handle_feedback_add(feedback_args)
+            else:
+                console.print("[red]Invalid feedback format[/red]")
+                console.print("[dim]Usage: /feedback <file>:<lines> [severity] <comment>[/dim]")
+        
+        elif parsed.type == CommandType.FEEDBACK_LIST:
+            self.command_handler.handle_feedback_list()
+        
+        elif parsed.type == CommandType.FEEDBACK_DELETE:
+            # Validate and execute
+            is_valid, error = CommandValidator.validate_delete(parsed.args)
+            if is_valid:
+                item_id = int(parsed.args[0])
+                self.command_handler.handle_feedback_delete(item_id)
+            else:
+                console.print(f"[red]{error}[/red]")
+        
+        elif parsed.type == CommandType.PREVIEW:
+            self.command_handler.handle_preview()
+        
+        elif parsed.type == CommandType.GENERATE:
+            review_text = self.command_handler.handle_generate()
+            if review_text:
+                console.print("\n")
+                console.print(Markdown(review_text))
+        
+        elif parsed.type == CommandType.POST:
+            # Validate and execute
+            is_valid, error = CommandValidator.validate_post(parsed.args)
+            if is_valid:
+                action = parsed.get_arg(0, "comment")
+                self.command_handler.handle_post(action)
+            else:
+                console.print(f"[red]{error}[/red]")
+        
+        else:
+            console.print(f"[yellow]Command not yet implemented: {parsed.type.value}[/yellow]")
     
     async def _handle_question(self, question: str) -> None:
         """Handle user question.

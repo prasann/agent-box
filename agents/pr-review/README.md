@@ -1,83 +1,66 @@
 # PR Review Agent
 
-> **Simple AI-powered PR review in ~700 lines of code**
+> **AI-powered PR review with beautiful Chainlit UI**
 
-A standalone Python CLI agent that helps you understand, analyze, and review GitHub pull requests through natural conversation with AI.
+A standalone Python agent that helps you understand, analyze, and review GitHub pull requests through an interactive web-based chat interface.
 
 ## Status
-✅ **Simplified & Ready** - Version 1.0
+✅ **Chainlit UI Version** - Clean, modern interface
 
 ## Quick Start
 
 ```bash
-# Install
+# Install dependencies
 cd agents/pr-review
-pip install -e .
+uv sync
 
-# Review any PR
-pr-agent 123
+# Run the app
+uv run chainlit run app.py
+
+# Or use the CLI (launches browser automatically)
+uv run python -m src.cli 123
 ```
 
-That's it! The agent will:
-1. Auto-analyze the PR with AI
-2. Start a natural conversation
-3. Let you refine and post the review
+The agent will:
+1. Open a beautiful web UI in your browser
+2. Ask for the PR number
+3. Auto-analyze the PR with AI
+4. Enable natural conversation about the PR
 
 ## Key Features
 
-- ✅ **LLM-Driven**: Copilot handles all analysis
-- ✅ **Simple Commands**: Just `/post`, `/comment`, `/exit`
-- ✅ **Auto-Analysis**: Immediate PR analysis on start
-- ✅ **Natural Conversation**: Type questions naturally
-- ✅ **State Persistence**: Resume sessions anytime
+- ✅ **Beautiful Chainlit UI**: Modern chat interface
+- ✅ **LLM-Driven**: GitHub Copilot handles all analysis
+- ✅ **Natural Conversation**: Chat naturally about the PR
+- ✅ **Auto-Analysis**: Immediate PR analysis with metadata
+- ✅ **State Persistence**: Session state saved to `~/.pr-agent/`
 - ✅ **Zero Config**: No repo setup needed
 
-## Example Session
+## Example Usage
 
-```bash
-$ pr-agent 123
-🤖 PR Review Agent
+1. **Start the app:**
+   ```bash
+   uv run chainlit run app.py
+   ```
 
-Analyzing PR... 
+2. **Enter PR number** when prompted
 
-# Summary
-This PR adds authentication middleware...
-[detailed analysis]
-
-Commands:
-  Type naturally or use /post, /comment, /exit
-
-pr-123> Can you check the error handling in auth.py?
-
-Thinking...
-
-Looking at auth.py, the error handling could be improved...
-
-pr-123> /post
-
-✓ Review posted to GitHub!
-
-pr-123> /exit
-✓ Session saved
-```
+3. **Chat naturally:**
+   - "Can you check the error handling?"
+   - "What security concerns do you see?"
+   - "Explain the changes in auth.py"
 
 ## Architecture
 
-**6 Simple Files (~724 lines total):**
-- `cli.py` (32 lines) - Entry point
-- `gh_utils.py` (85 lines) - GitHub CLI wrapper  
-- `state.py` (125 lines) - JSON state management
-- `prompts.py` (147 lines) - AI prompts
-- `analyzer.py` (123 lines) - PR analysis
-- `repl.py` (195 lines) - Conversation loop
+**Simple Structure:**
+- `app.py` - Chainlit UI entry point
+- `src/cli.py` - CLI launcher (auto-opens browser)
+- `src/analyzer.py` - PR analysis with Copilot
+- `src/state.py` - JSON state management  
+- `src/gh_utils.py` - GitHub CLI wrapper
+- `src/prompts.py` - AI prompts
 
-## Documentation
-
-- [SIMPLE_QUICKSTART.md](SIMPLE_QUICKSTART.md) - Quick start guide
-- [SIMPLIFICATION_SUMMARY.md](SIMPLIFICATION_SUMMARY.md) - What changed
-- [docs/simplified_architecture.md](docs/simplified_architecture.md) - Architecture details
-- [docs/implementation_plan.md](docs/implementation_plan.md) - Original plan
-- [docs/agentic_architecture_proposal.md](docs/agentic_architecture_proposal.md) - Design rationale
+**State Storage:** `~/.pr-agent/pr-{number}.json`
 
 ## Requirements
 
@@ -87,12 +70,33 @@ pr-123> /exit
 - GitHub Copilot CLI: `gh extension install github/gh-copilot`
 - GitHub Copilot license
 
+## Installation
+
+```bash
+# Clone and install
+cd agents/pr-review
+uv sync
+
+# Optional: Install globally
+uv tool install .  # Requires Python 3.13
+
+# Or run directly
+uv run chainlit run app.py
+```
+
 ## Philosophy
 
-> "Make it work, make it simple, make it obvious"
+> "Beautiful UI, simple code, powerful AI"
 
+- Modern web UI with Chainlit
 - Let the LLM do the work
 - Minimal code, maximal clarity
 - Natural conversation over commands
 - Simple JSON state
 - `gh CLI` for all GitHub operations
+
+## Documentation
+
+- [docs/simplified_architecture.md](docs/simplified_architecture.md) - Architecture details
+- [docs/implementation_plan.md](docs/implementation_plan.md) - Original plan
+

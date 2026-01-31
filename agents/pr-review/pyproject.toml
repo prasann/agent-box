@@ -5,10 +5,10 @@ description = "AI-powered PR review agent using GitHub Copilot"
 requires-python = ">=3.13"
 dependencies = [
     "click>=8.1.0",
-    "prompt-toolkit>=3.0.0",
     "rich>=13.0.0",
     "pydantic>=2.0.0",
     "github-copilot-sdk==0.1.20",
+    "chainlit>=1.0.0",
 ]
 
 [project.scripts]

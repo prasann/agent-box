@@ -42,7 +42,7 @@ src/pr_agent/
 
 **After** (Simple):
 ```
-src/pr_agent/
+pr_agent/
 ├── cli.py              # 32 lines - Simple entry point
 ├── gh_utils.py         # 85 lines - GitHub CLI wrapper
 ├── state.py            # 125 lines - JSON state management

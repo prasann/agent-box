@@ -1,6 +1,6 @@
 # PR Review Agent
 
-> **Simple AI-powered PR review in < 900 lines of code**
+> **Simple AI-powered PR review in ~700 lines of code**
 
 A standalone Python CLI agent that helps you understand, analyze, and review GitHub pull requests through natural conversation with AI.
 

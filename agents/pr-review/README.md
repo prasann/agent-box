@@ -9,22 +9,31 @@ A standalone Python agent that helps you understand, analyze, and review GitHub 
 
 ## Quick Start
 
+**Simple way:**
 ```bash
-# Install dependencies
-cd agents/pr-review
-uv sync
+# 1. Navigate to a git repo you want to review
+cd ~/my-project
 
-# Run the app
-uv run chainlit run app.py
-
-# Or use the CLI (launches browser automatically)
-uv run python -m src.cli 123
+# 2. Run from the pr-agent directory
+cd /path/to/agent-box/agents/pr-review
+uv run python -m chainlit run app.py
 ```
 
-The agent will:
+**Even simpler - create an alias in `~/.zshrc`:**
+```bash
+alias pr-agent='cd ~/path/to/agent-box/agents/pr-review && uv run python -m chainlit run app.py'
+```
+
+Then from any repo:
+```bash
+cd ~/my-project
+pr-agent  # Opens UI at http://localhost:8000
+```
+
+The app will:
 1. Open a beautiful web UI in your browser
 2. Ask for the PR number
-3. Auto-analyze the PR with AI
+3. Auto-analyze the PR using the current directory's git remote
 4. Enable natural conversation about the PR
 
 ## Key Features
@@ -73,15 +82,13 @@ The agent will:
 ## Installation
 
 ```bash
-# Clone and install
+# Clone and install dependencies
 cd agents/pr-review
 uv sync
 
-# Optional: Install globally
-uv tool install .  # Requires Python 3.13
-
-# Or run directly
-uv run chainlit run app.py
+# Create an alias for easy access (optional)
+echo "alias pr-agent='cd ~/path/to/agent-box/agents/pr-review && uv run python -m chainlit run app.py'" >> ~/.zshrc
+source ~/.zshrc
 ```
 
 ## Philosophy

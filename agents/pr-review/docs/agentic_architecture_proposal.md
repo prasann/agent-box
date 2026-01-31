@@ -1,68 +1,77 @@
-# Agentic PR Review Agent - Architecture Proposal
+# Agentic PR Review Agent - Simple Architecture
 
-> **Goal**: Transform the current command-based CLI into an intelligent, autonomous agent that can proactively analyze PRs, gather context dynamically, and assist with reviews through natural conversation and autonomous actions.
-
----
-
-## 🎯 Vision: From Command Tool → Intelligent Agent
-
-### Current State (Command-Based)
-```
-User types: /feedback file.ts:45 critical "bug here"
-         ↓
-    Direct command execution
-         ↓
-    Feedback stored
-```
-
-### Proposed State (Agentic)
-```
-User says: "This looks like it could cause a race condition"
-         ↓
-    Agent understands intent
-         ↓
-    Agent identifies relevant code
-         ↓
-    Agent asks clarifying questions
-         ↓
-    Agent creates structured feedback
-         ↓
-    Agent suggests fixes proactively
-```
+> **Goal**: Use Copilot SDK to automatically analyze PRs and generate review comments, then refine them through natural conversation.
 
 ---
 
-## 🧠 Key Agentic Capabilities from Copilot SDK
+## 🎯 Simple Workflow
 
-### 1. **Tool Calling** (defineTool)
-The agent can define and invoke functions autonomously based on conversation context.
+```
+User: pr-agent review 123
 
-**What This Enables:**
-- Natural language → Actions
-- Dynamic context gathering
-- Autonomous code analysis
-- Proactive suggestions
+Agent automatically:
+  1. Fetches PR diff (via gh CLI)
+  2. Analyzes all changes (via Copilot SDK)
+  3. Generates review comments
+  4. Stores in state file
+  5. Ready for conversation
 
-### 2. **MCP Server Integration**
-Connect to Model Context Protocol servers for extended capabilities.
+User: "show me the comments"
+Agent: [Lists all comments with IDs]
 
-**Available MCP Servers:**
-- **GitHub MCP** - Direct PR operations, issue tracking
-- **Filesystem MCP** - Read codebase beyond changed files
-- **Git MCP** - Advanced git operations, history analysis
-- **Custom MCP** - Project-specific analyzers (tests, dependencies, etc.)
+User: "make comment 3 more concise"
+Agent: [Updates comment 3, shows new version]
 
-### 3. **Custom Agents**
-Define specialized AI personas for different review aspects.
+User: "skip comment 5"
+Agent: [Removes comment 5]
 
-**Examples:**
-- Security reviewer
-- Performance analyzer  
-- Test coverage checker
-- Documentation reviewer
+User: "post the review"
+Agent: [Posts to GitHub via gh CLI]
+```
 
-### 4. **Streaming & Events**
-Real-time agent thinking and progress updates.
+**No complex tools. No commands. Just natural conversation + LLM intelligence.**
+
+---
+
+## 🧠 Core Approach: LLM-Driven Everything
+
+### 1. **One Analysis Call**
+Send entire PR diff to Copilot SDK with a detailed prompt:
+- "Analyze this PR and generate structured review comments"
+- Prompt defines comment format, severity levels, what to look for
+- LLM returns JSON with all comments
+
+### 2. **Conversational Refinement**
+User asks to modify comments in natural language:
+- "make this more concise"
+- "skip the style comments"
+- "focus only on bugs"
+- LLM understands intent and updates the state
+
+### 3. **State Management**
+Simple JSON file stores:
+```json
+{
+  "pr_number": 123,
+  "comments": [
+    {
+      "id": 1,
+      "file": "src/auth.ts",
+      "line": 45,
+      "severity": "critical",
+      "comment": "SQL injection vulnerability",
+      "status": "active"
+    }
+  ]
+}
+```
+
+### 4. **Prompt Configuration**
+Review style configured via prompts in code:
+- Comment structure
+- Severity definitions
+- What to check for (security, performance, etc.)
+- Tone and format
 
 ---
 
@@ -98,178 +107,72 @@ Real-time agent thinking and progress updates.
          │  Specialized Agents    │
          ├────────────────────────┤
          │ • Security Agent       │
-         │ • Performance Agent    │
-         │ • Test Coverage Agent  │
-         │ • Style/Docs Agent     │
+    � Example Conversation Flow
+
+### Initial Review  │
          └────────────────────────┘
+```
+$ pr-agent review 123
+
+Agent: 🔍 Analyzing PR #123: "Add user authentication"
+
+[Automatically fetches diff, analyzes with Copilot SDK]
+
+✓ Analysis complete. Found 5 review comments:
+
+1. [CRITICAL] src/auth.ts:45 - SQL injection vulnerability
+2. [IMPORTANT] src/api.ts:120 - Missing error handling
+3. [SUGGESTION] src/controller.ts:89 - Can use optional chaining
+4. [SUGGESTION] src/utils.ts:23 - Consider extracting to constant
+5. [QUESTION] tests/auth.test.ts:67 - Should test edge case?
+
+How would you like to proceed?
+```
+
+### Refining Comments
+
+```
+You: show me comment 1
+
+Agent: Comment 1 - CRITICAL
+
+File: src/auth.ts, Line 45
+Issue: SQL injection vulnerability
+
+The query uses string interpolation which allows SQL injection:
+```
+const query = `SELECT * FROM users WHERE id = ${userId}`;
+```
+
+Suggested fix:
+```
+const query = 'SELECT * FROM users WHERE id = ?';
+const result = await db.query(query, [userId]);
 ```
 
 ---
 
-## 🛠️ Tool Definitions
+You: make this comment more concise
 
-### 1. Context Exploration Tools
+Agent: ✓ Updated comment 1:
 
-```typescript
-const analyzeFile = defineTool("analyze_file", {
-    description: "Deep analysis of a specific file in the PR",
-    parameters: {
-        type: "object",
-        properties: {
-            file_path: { type: "string" },
-            focus_areas: { 
-                type: "array",
-                items: { enum: ["security", "performance", "logic", "tests"] }
-            }
-        },
-        required: ["file_path"]
-    },
-    handler: async ({ file_path, focus_areas }) => {
-        // Read file content, git history, related files
-        // Run static analysis
-        // Return structured insights
-    }
-});
+File: src/auth.ts:45 - SQL injection risk from string interpolation.
+Use parameterized queries instead.
 
-const searchCodebase = defineTool("search_codebase", {
-    description: "Search for similar patterns or related code in the repository",
-    parameters: {
-        type: "object",
-        properties: {
-            query: { type: "string" },
-            file_type: { type: "string" },
-            include_tests: { type: "boolean" }
-        },
-        required: ["query"]
-    },
-    handler: async ({ query, file_type, include_tests }) => {
-        // Use grep/ripgrep for fast search
-        // Return relevant code snippets with context
-    }
-});
+---
 
-const getRelatedContext = defineTool("get_related_context", {
-    description: "Get context related to changed code (imports, usages, tests)",
-    parameters: {
-        type: "object",
-        properties: {
-            file_path: { type: "string" },
-            symbol: { type: "string" },
-            context_type: { 
-                enum: ["imports", "usages", "tests", "dependencies"] 
-            }
-        },
-        required: ["file_path", "symbol"]
-    },
-    handler: async ({ file_path, symbol, context_type }) => {
-        // Find all usages, imports, tests
-        // Use LSP or static analysis
-    }
-});
-```
+You: skip comment 3 and 4
 
-### 2. Review Action Tools
+Agent: ✓ Removed comments 3 and 4. 
+Now have 3 active comments.
 
-```typescript
-const addFeedback = defineTool("add_feedback", {
-    description: "Add structured review feedback for specific code",
-    parameters: {
-        type: "object",
-        properties: {
-            file: { type: "string" },
-            lines: { type: "string" },
-            severity: { enum: ["critical", "important", "suggestion", "question"] },
-            comment: { type: "string" },
-            suggested_fix: { type: "string" }
-        },
-        required: ["file", "comment", "severity"]
-    },
-    handler: async (args) => {
-        session.feedback.add_item(args);
-        return { success: true, id: item.id };
-    }
-});
+---
 
-const suggestCodeFix = defineTool("suggest_code_fix", {
-    description: "Generate a concrete code fix for an identified issue",
-    parameters: {
-        type: "object",
-        properties: {
-            file: { type: "string" },
-            issue_description: { type: "string" },
-            current_code: { type: "string" }
-        },
-        required: ["file", "issue_description"]
-    },
-    handler: async ({ file, issue_description, current_code }) => {
-        // Generate suggested diff
-        // Validate syntax
-        // Return formatted suggestion
-    }
-});
+You: post the review
 
-const checkTests = defineTool("check_tests", {
-    description: "Check if changed code has adequate test coverage",
-    parameters: {
-        type: "object",
-        properties: {
-            file: { type: "string" },
-            functions: { type: "array", items: { type: "string" } }
-        },
-        required: ["file"]
-    },
-    handler: async ({ file, functions }) => {
-        // Find related test files
-        // Check coverage
-        // Identify missing tests
-    }
-});
-```
-
-### 3. GitHub Integration Tools (using gh CLI)
-
-```typescript
-const postReviewComment = defineTool("post_review_comment", {
-    description: "Post a review comment to the GitHub PR",
-    parameters: {
-        type: "object",
-        properties: {
-            pr_number: { type: "number" },
-            action: { enum: ["comment", "approve", "request-changes"] },
-            body: { type: "string" }
-        },
-        required: ["pr_number", "action", "body"]
-    },
-    handler: async ({ pr_number, action, body }) => {
-        // Use gh CLI to post review
-        const result = await execCommand(
-            `gh pr review ${pr_number} --${action} --body "${body}"`
-        );
-        return { success: true, url: `PR #${pr_number}` };
-    }
-});
-
-const getPRDetails = defineTool("get_pr_details", {
-    description: "Get detailed information about a PR including files, commits, and status",
-    parameters: {
-        type: "object",
-        properties: {
-            pr_number: { type: "number" }
-        },
-        required: ["pr_number"]
-    },
-    handler: async ({ pr_number }) => {
-        const prJson = await execCommand(`gh pr view ${pr_number} --json title,body,files,commits`);
-        return JSON.parse(prJson);
-    }
-});
-
-const getFileDiff = defineTool("get_file_diff", {
-    description: "Get the diff for a specific file in the PR",
-    parameters: {
-        type: "object",
-        properties: {
-            file_path: { type: "string" }
+Agent: 📤 Posting review with REQUEST_CHANGES action...
+✓ Posted to PR #123
+View at: https://github.com/owner/repo/pull/123         file_path: { type: "string" }
         },
         required: ["file_path"]
     },

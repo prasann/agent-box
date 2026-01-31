@@ -8,8 +8,8 @@ Successfully simplified the PR Review Agent from a complex multi-module architec
 
 ### Code Size
 - **Before**: ~2000+ lines across multiple modules
-- **After**: **835 lines** across 6 core files
-- **Reduction**: ~60% smaller codebase
+- **After**: **724 lines** across 6 core files  
+- **Reduction**: ~64% smaller codebase
 
 ### Architecture Complexity
 
@@ -49,7 +49,6 @@ src/pr_agent/
 ├── prompts.py          # 147 lines - Review prompts
 ├── analyzer.py         # 123 lines - PR analysis
 ├── repl.py             # 195 lines - Conversation loop
-├── git_utils.py        # 111 lines - Git utilities
 └── __init__.py         # 17 lines - Module exports
 ```
 

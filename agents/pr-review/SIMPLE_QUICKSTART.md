@@ -79,14 +79,13 @@ pr-123> /exit
 
 ## Architecture
 
-6 simple files (< 900 lines total):
-- `cli.py` - Entry point (~30 lines)
-- `gh_utils.py` - GitHub CLI wrapper (~85 lines)
-- `state.py` - JSON state management (~125 lines)
-- `prompts.py` - Review prompts (~150 lines)
-- `analyzer.py` - PR analysis logic (~125 lines)
-- `repl.py` - Conversation loop (~195 lines)
-- `git_utils.py` - Git utilities (~110 lines)
+6 simple files (~724 lines total):
+- `cli.py` - Entry point (32 lines)
+- `gh_utils.py` - GitHub CLI wrapper (85 lines)
+- `state.py` - JSON state management (125 lines)
+- `prompts.py` - Review prompts (147 lines)
+- `analyzer.py` - PR analysis logic (123 lines)
+- `repl.py` - Conversation loop (195 lines)
 
 ## How It Works
 

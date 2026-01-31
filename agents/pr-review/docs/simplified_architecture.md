@@ -86,11 +86,6 @@
 │  gh_utils.py                                                 │
 │  └─ GitHub CLI wrappers (fetch PR, post review/comment)      │
 └─────────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────┐
-│  git_utils.py                                                │
-│  └─ Git operations (repo detection, remote parsing)          │
-└─────────────────────────────────────────────────────────────┘
 ```
 
 ## Data Flow

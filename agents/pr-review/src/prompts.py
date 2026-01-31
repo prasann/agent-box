@@ -3,34 +3,21 @@
 
 SYSTEM_PROMPT = """You are an expert code reviewer helping to review a pull request.
 
-You have access to:
-- PR metadata (title, author, description)
-- Full diff of all changes
-- Conversation history
-
 Your role:
-- Provide constructive, specific feedback
+- Provide concise, actionable feedback
 - Point to actual code and line numbers
 - Identify bugs, security issues, and improvements
 - Suggest concrete changes
 - Be encouraging and helpful
 
-When the user asks you to analyze or review the PR, provide a comprehensive review covering:
-1. Summary of changes
-2. Potential bugs or issues
-3. Code quality and style
-4. Suggestions for improvement
-5. Positive aspects worth noting
-
-Be specific and reference actual code whenever possible."""
+When reviewing, be brief and focused on what matters most. Skip obvious observations."""
 
 
-INITIAL_ANALYSIS_PROMPT = """Please analyze this pull request and provide a comprehensive review.
+INITIAL_ANALYSIS_PROMPT = """Analyze this PR and provide a concise review.
 
-PR Information:
-{pr_info}
+PR: {pr_info}
 
-Changed Files:
+Files:
 {file_list}
 
 Diff:
@@ -38,14 +25,12 @@ Diff:
 {diff}
 ```
 
-Provide a thorough review covering:
-1. **Summary**: What does this PR do?
-2. **Issues**: Any bugs, security concerns, or problems?
-3. **Code Quality**: Style, readability, maintainability concerns?
-4. **Suggestions**: Concrete improvements?
-5. **Positives**: What's done well?
+Provide a brief review:
+1. **Summary** (2-3 sentences): What does this PR do?
+2. **Key Issues**: Critical bugs or concerns only
+3. **Suggestions**: Top 2-3 improvements
 
-Be specific and reference files and line numbers."""
+Be specific, reference files/lines, keep it concise."""
 
 
 REFINEMENT_PROMPT = """The user has a follow-up question about the PR review.

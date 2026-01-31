@@ -56,9 +56,10 @@ class PRAnalyzer:
         except GhError as e:
             raise AnalyzerError(f"Failed to fetch PR data: {e}")
         
-        # Store metadata
-        self.state.set_metadata("pr_info", pr_info)
-        self.state.set_metadata("diff", diff)
+        # Don't store pr_info/diff - they're only needed once and make state files huge
+        # Keep them in memory only
+        pr_info_stored = pr_info
+        diff_stored = diff
         
         # Build prompt
         analysis_prompt = build_initial_prompt(pr_info, diff)
@@ -66,16 +67,17 @@ class PRAnalyzer:
         # Initialize Copilot
         await self._ensure_client()
         
-        # Add system message
-        self.state.add_message("system", SYSTEM_PROMPT)
+        # Add system message (don't persist - too large)
+        self.state.add_message("system", SYSTEM_PROMPT, persist=False)
         
-        # Add analysis request
-        self.state.add_message("user", analysis_prompt)
+        # Add analysis request (don't persist - contains huge diff)
+        self.state.add_message("user", analysis_prompt, persist=False)
         
         # Get response
         try:
             response = await self._chat(self.state.get_conversation())
-            self.state.add_message("assistant", response)
+            # Don't persist the initial analysis response either - it's huge
+            self.state.add_message("assistant", response, persist=False)
             return response
         except Exception as e:
             raise AnalyzerError(f"Analysis failed: {e}")

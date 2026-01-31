@@ -54,15 +54,17 @@ class ReviewState:
         except Exception as e:
             raise StateError(f"Failed to save state: {e}")
     
-    def add_message(self, role: str, content: str) -> None:
+    def add_message(self, role: str, content: str, persist: bool = True) -> None:
         """Add a message to conversation history.
         
         Args:
             role: Message role (user, assistant, system)
             content: Message content
+            persist: Whether to save this message to disk (default True)
         """
         self.data["conversation"].append({"role": role, "content": content})
-        self.save()
+        if persist:
+            self.save()
     
     def add_comment(self, file: str, line: int, comment: str, severity: str = "comment") -> None:
         """Add a review comment.

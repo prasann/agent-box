@@ -41,26 +41,15 @@ async def start():
         # Fetch PR info first to show metadata
         pr_info = get_pr_info(pr_number)
         
-        # Display PR metadata
-        metadata_text = f"""## PR #{pr_number}: {pr_info['title']}
-
-**Author:** @{pr_info['author']['login']}  
-**State:** {pr_info['state']}  
-**Files Changed:** {len(pr_info.get('files', []))}  
-**Changes:** +{pr_info.get('additions', 0)} -{pr_info.get('deletions', 0)}
-
----
-
-Analyzing the PR... This may take a moment.
-"""
-        msg.content = metadata_text
+        # Show simple loader
+        msg.content = f"🔍 Analyzing **PR #{pr_number}: {pr_info['title']}**..."
         await msg.update()
         
-        # Run analysis
+        # Run analysis (this will build conversation internally)
         analysis = await analyzer.analyze()
         
-        # Update with full analysis
-        msg.content = metadata_text + "\n\n" + analysis
+        # Update with analysis
+        msg.content = analysis
         await msg.update()
         
         await cl.Message(

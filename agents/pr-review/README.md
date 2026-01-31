@@ -1,70 +1,98 @@
 # PR Review Agent
 
-Autonomous PR review agent that helps understand, analyze, and review GitHub pull requests through an interactive chat interface.
+> **Simple AI-powered PR review in ~700 lines of code**
+
+A standalone Python CLI agent that helps you understand, analyze, and review GitHub pull requests through natural conversation with AI.
 
 ## Status
-🚧 **In Development** - Planning Phase
+✅ **Simplified & Ready** - Version 1.0
 
-## Overview
+## Quick Start
 
-A standalone Python CLI agent that:
-- Fetches PR data from GitHub
-- Reads repository context from disk + git
-- Uses GitHub Copilot SDK for AI reasoning
-- Provides interactive chat interface for PR review
-- Accumulates feedback and generates review comments
-- Posts reviews to GitHub
+```bash
+# Install
+cd agents/pr-review
+pip install -e .
+
+# Review any PR
+pr-agent 123
+```
+
+That's it! The agent will:
+1. Auto-analyze the PR with AI
+2. Start a natural conversation
+3. Let you refine and post the review
 
 ## Key Features
 
-- **Interactive Chat**: Natural conversation about the PR
-- **Context-Aware**: Reads files, git history, and PR diff
-- **Autonomous Analysis**: Initial PR summary and concern detection
-- **Feedback Management**: Accumulate and organize review comments
-- **Session Persistence**: Resume reviews later
-- **No Repo Pollution**: All state in `~/.config/pr-agent/`
+- ✅ **LLM-Driven**: Copilot handles all analysis
+- ✅ **Simple Commands**: Just `/post`, `/comment`, `/exit`
+- ✅ **Auto-Analysis**: Immediate PR analysis on start
+- ✅ **Natural Conversation**: Type questions naturally
+- ✅ **State Persistence**: Resume sessions anytime
+- ✅ **Zero Config**: No repo setup needed
 
-## Documentation
-
-- [MVP Specification](docs/mvp_spec.md) - Original requirements and goals
-- [Implementation Approach](docs/approach.md) - Detailed architecture and plan
-
-## Quick Start (Future)
+## Example Session
 
 ```bash
-# Start reviewing a PR
-pr-agent review 123
+$ pr-agent 123
+🤖 PR Review Agent
 
-# Chat with the agent about the PR
-pr-123> what are the main changes?
-pr-123> are there security concerns?
-pr-123> /feedback src/auth.ts:45-60 "Need null check"
-pr-123> /generate
-pr-123> /post --request-changes
+Analyzing PR... 
+
+# Summary
+This PR adds authentication middleware...
+[detailed analysis]
+
+Commands:
+  Type naturally or use /post, /comment, /exit
+
+pr-123> Can you check the error handling in auth.py?
+
+Thinking...
+
+Looking at auth.py, the error handling could be improved...
+
+pr-123> /post
+
+✓ Review posted to GitHub!
+
+pr-123> /exit
+✓ Session saved
 ```
 
 ## Architecture
 
-```
-PR Review Agent (Python CLI)
-    ↓
-Copilot SDK (AI Reasoning)
-    ↓
-GitHub API + Local Filesystem
-```
+**6 Simple Files (~724 lines total):**
+- `cli.py` (32 lines) - Entry point
+- `gh_utils.py` (85 lines) - GitHub CLI wrapper  
+- `state.py` (125 lines) - JSON state management
+- `prompts.py` (147 lines) - AI prompts
+- `analyzer.py` (123 lines) - PR analysis
+- `repl.py` (195 lines) - Conversation loop
 
-## Development Plan
+## Documentation
 
-- **Phase 1**: Foundation - Basic chat interface + PR fetching
-- **Phase 2**: Context Enhancement - Smart context gathering
-- **Phase 3**: Feedback & Commands - Review comment management
-- **Phase 4**: Review Generation & Posting
-- **Phase 5**: Polish & Extensibility
+- [SIMPLE_QUICKSTART.md](SIMPLE_QUICKSTART.md) - Quick start guide
+- [SIMPLIFICATION_SUMMARY.md](SIMPLIFICATION_SUMMARY.md) - What changed
+- [docs/simplified_architecture.md](docs/simplified_architecture.md) - Architecture details
+- [docs/implementation_plan.md](docs/implementation_plan.md) - Original plan
+- [docs/agentic_architecture_proposal.md](docs/agentic_architecture_proposal.md) - Design rationale
 
 ## Requirements
 
-- macOS
-- Python 3.10+
-- `gh` CLI (authenticated)
-- `git`
+- macOS (or Linux)
+- Python 3.13+
+- `gh` CLI (authenticated): `brew install gh && gh auth login`
+- GitHub Copilot CLI: `gh extension install github/gh-copilot`
 - GitHub Copilot license
+
+## Philosophy
+
+> "Make it work, make it simple, make it obvious"
+
+- Let the LLM do the work
+- Minimal code, maximal clarity
+- Natural conversation over commands
+- Simple JSON state
+- `gh CLI` for all GitHub operations

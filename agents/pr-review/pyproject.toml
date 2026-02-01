@@ -2,7 +2,7 @@
 name = "pr-agent"
 version = "0.1.0"
 description = "AI-powered PR review agent using GitHub Copilot"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
     "click>=8.1.0",
     "rich>=13.0.0",
@@ -14,6 +14,7 @@ dependencies = [
 
 [project.scripts]
 pr-agent = "src.cli:main"
+pr-review-ui = "src.streamlit_ui:main"
 
 [project.optional-dependencies]
 dev = [

@@ -31,11 +31,14 @@ def render_review_panel(summary: str | None, findings: list[str], comments: list
     # Key Findings Section
     if findings:
         st.markdown("### 🔍 Key Findings")
-        for finding in findings:
-            # Clean up finding text
-            clean_finding = finding.strip('- ').strip()
-            if clean_finding:
-                st.warning(f"• {clean_finding}")
+        # Combine all findings into a single warning box
+        findings_text = "\n\n".join([
+            f"• {finding.strip('- ').strip()}"
+            for finding in findings
+            if finding.strip('- ').strip()
+        ])
+        if findings_text:
+            st.warning(findings_text)
         st.divider()
     
     # Comments Section

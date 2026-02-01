@@ -46,7 +46,14 @@ def render_chat_panel(analyzer: PRAnalyzer | None):
             with st.spinner("Thinking..."):
                 try:
                     # Call analyzer's chat method
-                    response = asyncio.run(analyzer._chat(analyzer.state.get_conversation()))
+                    # Use get_event_loop to avoid "Event loop is closed" error
+                    try:
+                        loop = asyncio.get_event_loop()
+                    except RuntimeError:
+                        loop = asyncio.new_event_loop()
+                        asyncio.set_event_loop(loop)
+                    
+                    response = loop.run_until_complete(analyzer._chat(analyzer.state.get_conversation()))
                     
                     # Display response
                     st.markdown(response)

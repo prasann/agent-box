@@ -17,6 +17,7 @@ Autonomous PR review agent that helps understand, analyze, and review GitHub pul
 - **Copilot-powered**: Leverage GitHub Copilot SDK for AI reasoning
 - **Simple**: Start simple, iterate based on real usage
 - **Extensible**: Foundation for multiple specialized agents
+- **Personal**: My use-case, my design, my choice!
 
 ## Requirements
 

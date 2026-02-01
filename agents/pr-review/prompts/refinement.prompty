@@ -1,0 +1,20 @@
+---
+name: Refinement Prompt
+description: Follow-up questions about the PR
+model:
+  api: chat
+  configuration:
+    type: openai
+inputs:
+  question:
+    type: string
+    description: User's follow-up question
+---
+user:
+The user has a follow-up question about the PR review.
+
+Previous conversation context is available in the chat history.
+
+User's question: {{question}}
+
+Please provide a helpful, specific answer. Reference actual code and line numbers when relevant.

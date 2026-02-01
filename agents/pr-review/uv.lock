@@ -1904,6 +1904,7 @@ dependencies = [
     { name = "chainlit" },
     { name = "click" },
     { name = "github-copilot-sdk" },
+    { name = "prompty" },
     { name = "pydantic" },
     { name = "rich" },
 ]
@@ -1921,12 +1922,29 @@ requires-dist = [
     { name = "click", specifier = ">=8.1.0" },
     { name = "github-copilot-sdk", specifier = "==0.1.20" },
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.0.0" },
+    { name = "prompty", specifier = ">=0.1.0" },
     { name = "pydantic", specifier = ">=2.0.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=7.0.0" },
     { name = "rich", specifier = ">=13.0.0" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.1.0" },
 ]
 provides-extras = ["dev"]
+
+[[package]]
+name = "prompty"
+version = "0.1.50"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "aiofiles" },
+    { name = "click" },
+    { name = "jinja2" },
+    { name = "python-dotenv" },
+    { name = "pyyaml" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/85/bb/c2c9d17f23cba698c05cf9542f4d650ac3f3accd381c62c502263ed67ac4/prompty-0.1.50.tar.gz", hash = "sha256:6e0c9c030457f8b0e1a6268d80c53b1e745c47b4df26be2b9dcd0515e9be8630", size = 218307 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f0/38/feddc252b8de60ab326978403ff63c9ebb46ebd6d93750c0e66d77223702/prompty-0.1.50-py3-none-any.whl", hash = "sha256:068570235ae87d60f7a7b90cc901a90fef6c7e079c2a7259ad048dbb8ceee2b7", size = 37568 },
+]
 
 [[package]]
 name = "propcache"

@@ -5,7 +5,7 @@ from copilot import CopilotClient
 
 from .gh_utils import get_pr_info, get_pr_diff, GhError
 from .state import ReviewState
-from .prompts import SYSTEM_PROMPT, build_initial_prompt_with_context
+from .prompt_loader import render_prompt
 from .repo_utils import checkout_pr, restore_branch, RepoError
 
 
@@ -66,19 +66,22 @@ class PRAnalyzer:
         except RepoError as e:
             raise AnalyzerError(str(e))
         
-        # Don't store pr_info/diff - they're only needed once and make state files huge
-        # Keep them in memory only
-        pr_info_stored = pr_info
-        diff_stored = diff
-        
-        # Build prompt with codebase context
-        analysis_prompt = build_initial_prompt_with_context(pr_info, diff, self.repo_path)
+        # Build prompt with codebase context using Prompty
+        from .prompts import format_pr_info, format_file_list
+        analysis_prompt = render_prompt(
+            "pr_review_with_context",
+            pr_info=format_pr_info(pr_info),
+            file_list=format_file_list(pr_info),
+            diff=diff,
+            repo_path=self.repo_path
+        )
         
         # Initialize Copilot
         await self._ensure_client()
         
         # Add system message (don't persist - too large)
-        self.state.add_message("system", SYSTEM_PROMPT, persist=False)
+        system_prompt = render_prompt("system")
+        self.state.add_message("system", system_prompt, persist=False)
         
         # Add analysis request (don't persist - contains huge diff)
         self.state.add_message("user", analysis_prompt, persist=False)

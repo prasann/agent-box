@@ -32,16 +32,24 @@ pr-agent  # Opens UI at http://localhost:8000
 
 The app will:
 1. Open a beautiful web UI in your browser
-2. Ask for the PR number
-3. Auto-analyze the PR using the current directory's git remote
-4. Enable natural conversation about the PR
+2. Check for uncommitted changes (will halt if found)
+3. Ask for the PR number
+4. Checkout the PR branch
+5. Auto-analyze the PR with full codebase access
+6. Enable natural conversation about the PR
+7. Restore your original branch when done
+
+**Important:** Make sure you have no uncommitted changes before starting.
 
 ## Key Features
 
 - ✅ **Beautiful Chainlit UI**: Modern chat interface
 - ✅ **LLM-Driven**: GitHub Copilot handles all analysis
+- ✅ **Full Codebase Access**: Reviews PR changes in context of entire repository
+- ✅ **Automatic Exploration**: LLM reads related files and checks consistency
 - ✅ **Natural Conversation**: Chat naturally about the PR
 - ✅ **Auto-Analysis**: Immediate PR analysis with metadata
+- ✅ **Safe Branch Management**: Auto-checkout PR, restore original branch after
 - ✅ **State Persistence**: Session state saved to `~/.pr-agent/`
 - ✅ **Zero Config**: No repo setup needed
 
@@ -58,16 +66,27 @@ The app will:
    - "Can you check the error handling?"
    - "What security concerns do you see?"
    - "Explain the changes in auth.py"
+   - "Are there any other files that use this function?"
+   - "Show me similar patterns in the codebase"
 
 ## Architecture
 
 **Simple Structure:**
 - `app.py` - Chainlit UI entry point
 - `src/cli.py` - CLI launcher (auto-opens browser)
-- `src/analyzer.py` - PR analysis with Copilot
+- `src/analyzer.py` - PR analysis with Copilot + codebase access
 - `src/state.py` - JSON state management  
 - `src/gh_utils.py` - GitHub CLI wrapper
+- `src/repo_utils.py` - Repository operations (checkout, branch management)
 - `src/prompts.py` - AI prompts
+
+**How It Works:**
+1. Checks repo is clean (no uncommitted changes)
+2. Remembers your current branch
+3. Checks out the PR branch
+4. Creates Copilot session with `working_directory` set to repo root
+5. LLM can now read any file, search codebase, check patterns
+6. After review, restores your original branch
 
 **State Storage:** `~/.pr-agent/pr-{number}.json`
 

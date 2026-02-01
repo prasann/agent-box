@@ -5,7 +5,8 @@ from copilot import CopilotClient
 
 from .gh_utils import get_pr_info, get_pr_diff, GhError
 from .state import ReviewState
-from .prompts import SYSTEM_PROMPT, build_initial_prompt
+from .prompts import SYSTEM_PROMPT, build_initial_prompt_with_context
+from .repo_utils import checkout_pr, restore_branch, RepoError
 
 
 class AnalyzerError(Exception):
@@ -26,22 +27,25 @@ class PRAnalyzer:
         self.state = ReviewState(pr_number)
         self.client: CopilotClient | None = None
         self.session = None
+        self.repo_path: str | None = None
+        self.original_branch: str | None = None
     
     async def _ensure_client(self) -> None:
-        """Ensure Copilot client is initialized."""
+        """Ensure Copilot client is initialized with workspace access."""
         if self.client is None:
             try:
                 self.client = CopilotClient()
                 await self.client.start()
                 self.session = await self.client.create_session({
                     "model": "gpt-4",
-                    "streaming": True
+                    "streaming": True,
+                    "working_directory": self.repo_path  # Enable full codebase access
                 })
             except Exception as e:
                 raise AnalyzerError(f"Failed to initialize Copilot: {e}")
     
     async def analyze(self) -> str:
-        """Perform initial PR analysis.
+        """Perform initial PR analysis with full codebase access.
         
         Returns:
             Analysis result as string
@@ -56,13 +60,19 @@ class PRAnalyzer:
         except GhError as e:
             raise AnalyzerError(f"Failed to fetch PR data: {e}")
         
+        # Checkout PR branch to access codebase
+        try:
+            self.repo_path, self.original_branch = checkout_pr(self.pr_number)
+        except RepoError as e:
+            raise AnalyzerError(str(e))
+        
         # Don't store pr_info/diff - they're only needed once and make state files huge
         # Keep them in memory only
         pr_info_stored = pr_info
         diff_stored = diff
         
-        # Build prompt
-        analysis_prompt = build_initial_prompt(pr_info, diff)
+        # Build prompt with codebase context
+        analysis_prompt = build_initial_prompt_with_context(pr_info, diff, self.repo_path)
         
         # Initialize Copilot
         await self._ensure_client()
@@ -116,10 +126,18 @@ class PRAnalyzer:
         return "".join(response_parts)
     
     async def cleanup(self) -> None:
-        """Cleanup resources."""
+        """Cleanup resources and restore branch."""
         if self.session:
             await self.session.destroy()
             self.session = None
         if self.client:
             await self.client.stop()
             self.client = None
+        
+        # Restore original branch
+        if self.original_branch:
+            try:
+                restore_branch(self.original_branch)
+            except RepoError as e:
+                # Log warning but don't fail - user can manually fix
+                print(f"Warning: Failed to restore branch '{self.original_branch}': {e}")

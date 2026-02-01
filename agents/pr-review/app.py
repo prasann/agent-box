@@ -4,11 +4,29 @@ import chainlit as cl
 from src.analyzer import PRAnalyzer, AnalyzerError
 from src.state import ReviewState
 from src.gh_utils import get_pr_info, GhError
+from src.repo_utils import check_repo_clean, RepoError
 
 
 @cl.on_chat_start
 async def start():
     """Initialize chat session."""
+    # Check repo is clean before starting
+    try:
+        if not check_repo_clean():
+            await cl.Message(
+                content="⚠️ **Repository has uncommitted changes**\n\n"
+                        "Please commit or stash your changes before reviewing PRs.\n\n"
+                        "Run `git status` to see uncommitted changes."
+            ).send()
+            return
+    except Exception as e:
+        await cl.Message(
+            content=f"⚠️ **Not in a git repository**\n\n"
+                    f"Please run this agent from within a git repository.\n\n"
+                    f"Error: {e}"
+        ).send()
+        return
+    
     # Get PR number from user
     pr_number_input = await cl.AskUserMessage(
         content="Which PR number would you like to review?",
@@ -57,6 +75,10 @@ async def start():
             author="system"
         ).send()
         
+    except RepoError as e:
+        msg.content = f"❌ **Repository Error:** {e}\n\n" \
+                      "Make sure you're in a git repository with no uncommitted changes."
+        await msg.update()
     except (GhError, AnalyzerError) as e:
         msg.content = f"❌ **Error:** {e}\n\nYou can still ask questions, but I don't have the PR context."
         await msg.update()

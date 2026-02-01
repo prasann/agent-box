@@ -33,6 +33,48 @@ Provide a brief review:
 Be specific, reference files/lines, keep it concise."""
 
 
+INITIAL_ANALYSIS_WITH_CONTEXT_PROMPT = """You are reviewing a pull request with FULL ACCESS to the codebase.
+
+**PR Information:**
+{pr_info}
+
+**Files Changed:**
+{file_list}
+
+**Diff:**
+```
+{diff}
+```
+
+**Your Capabilities:**
+You have access to the complete codebase at: `{repo_path}`
+
+Use your built-in tools to:
+- Read any file in the repository
+- Search for function/class definitions
+- Check how changed code is used elsewhere
+- Look for similar patterns
+- Verify consistency with existing code
+
+**Review Instructions:**
+1. **Understand Context**: Read related files to understand the full picture
+2. **Check Consistency**: Verify changes align with existing patterns
+3. **Find Issues**: Look for bugs, inconsistencies, or breaking changes
+4. **Provide Specific Feedback**: Reference actual files and line numbers
+
+**Output Format:**
+## Summary
+[2-3 sentence overview of what this PR does]
+
+## Key Findings
+[Critical issues or concerns with specific file references]
+
+## Suggestions
+[Concrete improvements with examples from the codebase]
+
+Be thorough but concise. Focus on meaningful issues."""
+
+
 REFINEMENT_PROMPT = """The user has a follow-up question about the PR review.
 
 Previous conversation context is available in the chat history.
@@ -117,6 +159,25 @@ def build_initial_prompt(pr_info: dict, diff: str) -> str:
         pr_info=format_pr_info(pr_info),
         file_list=format_file_list(pr_info),
         diff=diff
+    )
+
+
+def build_initial_prompt_with_context(pr_info: dict, diff: str, repo_path: str) -> str:
+    """Build prompt that encourages codebase exploration.
+    
+    Args:
+        pr_info: PR metadata from gh CLI
+        diff: Full PR diff
+        repo_path: Path to repository root
+        
+    Returns:
+        Complete prompt string with codebase context
+    """
+    return INITIAL_ANALYSIS_WITH_CONTEXT_PROMPT.format(
+        pr_info=format_pr_info(pr_info),
+        file_list=format_file_list(pr_info),
+        diff=diff,
+        repo_path=repo_path
     )
 
 

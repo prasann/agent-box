@@ -43,3 +43,7 @@ htmlcov/
 
 # Session data (stored in ~/.config/pr-agent/)
 .pr-agent-history
+
+# Streamlit
+.streamlit/secrets.toml
+*.streamlit/

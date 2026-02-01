@@ -1,11 +1,8 @@
 # PR Review Agent
 
-> **AI-powered PR review with beautiful Chainlit UI**
+> **AI-powered PR review with modern Streamlit UI**
 
-A standalone Python agent that helps you understand, analyze, and review GitHub pull requests through an interactive web-based chat interface.
-
-## Status
-✅ **Chainlit UI Version** - Clean, modern interface
+A standalone Python agent that helps you understand, analyze, and review GitHub pull requests through an interactive web-based interface with 2-panel layout for efficient code review.
 
 ## Quick Start
 
@@ -16,79 +13,94 @@ cd ~/my-project
 
 # 2. Run from the pr-agent directory
 cd /path/to/agent-box/agents/pr-review
-uv run python -m chainlit run app.py
+uv run pr-agent
 ```
 
 **Even simpler - create an alias in `~/.zshrc`:**
 ```bash
-alias pr-agent='cd ~/path/to/agent-box/agents/pr-review && uv run python -m chainlit run app.py'
+alias pr-agent='cd ~/path/to/agent-box/agents/pr-review && uv run pr-agent'
 ```
 
 Then from any repo:
 ```bash
 cd ~/my-project
-pr-agent  # Opens UI at http://localhost:8000
+pr-agent  # Opens at http://localhost:8501
 ```
 
 The app will:
 1. Open a beautiful web UI in your browser
 2. Check for uncommitted changes (will halt if found)
-3. Ask for the PR number
+3. Ask for the PR number in the sidebar
 4. Checkout the PR branch
 5. Auto-analyze the PR with full codebase access
-6. Enable natural conversation about the PR
-7. Restore your original branch when done
+6. Display summary and findings in left panel
+7. Enable natural conversation in right panel
+8. Extract and track comments for posting
+9. Restore your original branch when done
 
 **Important:** Make sure you have no uncommitted changes before starting.
 
 ## Key Features
 
-- ✅ **Beautiful Chainlit UI**: Modern chat interface
-- ✅ **LLM-Driven**: GitHub Copilot handles all analysis
-- ✅ **Full Codebase Access**: Reviews PR changes in context of entire repository
-- ✅ **Automatic Exploration**: LLM reads related files and checks consistency
-- ✅ **Natural Conversation**: Chat naturally about the PR
-- ✅ **Auto-Analysis**: Immediate PR analysis with metadata
-- ✅ **Safe Branch Management**: Auto-checkout PR, restore original branch after
+### Streamlit UI (Default)
+- ✅ **2-Panel Layout**: Review summary (left) + Chat (right)
+- ✅ **Persistent Comments**: Accumulate and review all comments before posting
+- ✅ **Comment Management**: Edit, delete, export comments
+- ✅ **Structured Display**: File/line references with code snippets
+- ✅ **2-Panel Layout**: Review summary (left) + Chat (right)
+- ✅ **Persistent Comments**: Accumulate and review all comments before posting
+- ✅ **Comment Management**: Edit, delete, export comments
+- ✅ **Structured Display**: File/line references with code snippets
+- ✅ **GitHub Integration**: Post comments directly to PR
+- ✅ **Full Codebase Access**: Reviews PR changes in context of entire repository**: Auto-checkout PR, restore original branch after
 - ✅ **State Persistence**: Session state saved to `~/.pr-agent/`
 - ✅ **Zero Config**: No repo setup needed
 
 ## Example Usage
 
-1. **Start the app:**
-   ```bash
-   uv run chainlit run app.py
-   ```
-
-2. **Enter PR number** when prompted
-
-3. **Chat naturally:**
+### Streamlit UI
+1. **Start the app:** `uv run pr-agent`
+2. **Enter PR number** in sidebar and click "Analyze"
+3. **Review summary and findings** in left panel
+4. **Chat naturally** in right panel:
    - "Can you check the error handling?"
    - "What security concerns do you see?"
    - "Explain the changes in auth.py"
-   - "Are there any other files that use this function?"
-   - "Show me similar patterns in the codebase"
+1. **Start the app:** `uv run pr-agent`
+2. **Enter PR number** in sidebar and click "Analyze"
+3. **Review summary and findings** in left panel
+4. **Chat naturally** in right panel:
+   - "Can you check the error handling?"
+   - "What security concerns do you see?"
+   - "Explain the changes in auth.py"
+5. **Review comments** in left panel before posting
+6. **Post to GitHub** when readyit UI (alternative)
+├── src/
+│   ├── analyzer.py          # PR analysis with Copilot
+│   ├── comment_store.py     # Comment management
+│   ├── comment_extractor.py # Extract comments from LLM
+│   ├── state.py             # Session state
+│   ├── gh_utils.py          # GitHub CLI wrapper
+│   ├── repo_utils.py        # Git operations
+│   ├── cli.py               # CLI entry point
+│   └── ui/                  # Streamlit UI components
+│       ├── sidebar.py
+│       ├── review_panel.py
+│       └── chat_panel.py
+└── prompts/                 # AI prompts
+├── src/
+│   ├── analyzer.py          # PR analysis with Copilot
+│   ├── comment_store.py     # Comment management
+│   ├── comment_extractor.py # Extract comments from LLM
+│   ├── state.py             # Session state
+│   ├── gh_utils.py          # GitHub CLI wrapper
+│   ├── repo_utils.py        # Git operations
+│   ├── cli.py               # CLI entry point
+│   └── ui/                  #
+8. Posts to GitHub when ready
+9. Restores your original branch
 
-## Architecture
-
-**Simple Structure:**
-- `app.py` - Chainlit UI entry point
-- `src/cli.py` - CLI launcher (auto-opens browser)
-- `src/analyzer.py` - PR analysis with Copilot + codebase access
-- `src/state.py` - JSON state management  
-- `src/gh_utils.py` - GitHub CLI wrapper
-- `src/repo_utils.py` - Repository operations (checkout, branch management)
-- `src/prompts.py` - AI prompts
-
-**How It Works:**
-1. Checks repo is clean (no uncommitted changes)
-2. Remembers your current branch
-3. Checks out the PR branch
-4. Creates Copilot session with `working_directory` set to repo root
-5. LLM can now read any file, search codebase, check patterns
-6. After review, restores your original branch
-
-**State Storage:** `~/.pr-agent/pr-{number}.json`
+**State Storage:** `~/.pr-agent/pr-{number}-*.json`
 
 ## Requirements
 
@@ -106,15 +118,25 @@ cd agents/pr-review
 uv sync
 
 # Create an alias for easy access (optional)
-echo "alias pr-agent='cd ~/path/to/agent-box/agents/pr-review && uv run python -m chainlit run app.py'" >> ~/.zshrc
+echo "alias pr-agent='cd ~/path/to/agent-box/agents/pr-review && uv run pr-agent'" >> ~/.zshrc
 source ~/.zshrc
 ```
 
-## Philosophy
+## CLI Options
 
-> "Beautiful UI, simple code, powerful AI"
+```bash
+# Streamlit UI (default)
+pr-agent
+pr-agent --port 8501
 
-- Modern web UI with Chainlit
+# Chainlit UI
+pr-agent --ui chainlit --port 8000
+
+# Custom port
+pr-agent --port 9000
+```
+Default (port 8501)
+pr-agent Chainlit)
 - Let the LLM do the work
 - Minimal code, maximal clarity
 - Natural conversation over commands
@@ -123,6 +145,7 @@ source ~/.zshrc
 
 ## Documentation
 
+- [MIGRATION_PLAN.md](MIGRATION_PLAN.md) - Streamlit migration details
 - [docs/simplified_architecture.md](docs/simplified_architecture.md) - Architecture details
-- [docs/implementation_plan.md](docs/implementation_plan.md) - Original plan
+- [IMPLEMENTATION_NOTES.md](IMOTES.md) - Implementation notes
 

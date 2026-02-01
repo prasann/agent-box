@@ -128,6 +128,52 @@ class PRAnalyzer:
         
         return "".join(response_parts)
     
+    def parse_analysis(self, analysis_text: str) -> dict:
+        """Parse analysis into structured data for UI.
+        
+        Args:
+            analysis_text: Raw analysis text from LLM
+            
+        Returns:
+            Dictionary with:
+                - summary: str - Brief summary
+                - findings: List[str] - Key findings
+                - suggestions: List[str] - Suggestions for improvement
+        """
+        sections = {
+            'summary': [],
+            'findings': [],
+            'suggestions': []
+        }
+        
+        current_section = None
+        lines = analysis_text.split('\n')
+        
+        for line in lines:
+            line_lower = line.lower().strip()
+            
+            # Detect section headers
+            if 'summary' in line_lower and line.startswith('#'):
+                current_section = 'summary'
+                continue
+            elif 'finding' in line_lower and line.startswith('#'):
+                current_section = 'findings'
+                continue
+            elif 'suggestion' in line_lower or 'recommendation' in line_lower:
+                if line.startswith('#'):
+                    current_section = 'suggestions'
+                    continue
+            
+            # Add content to current section
+            if current_section and line.strip() and not line.startswith('#'):
+                sections[current_section].append(line.strip())
+        
+        return {
+            'summary': '\n'.join(sections['summary']) if sections['summary'] else '',
+            'findings': sections['findings'],
+            'suggestions': sections['suggestions']
+        }
+    
     async def cleanup(self) -> None:
         """Cleanup resources and restore branch."""
         if self.session:

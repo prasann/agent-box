@@ -59,7 +59,7 @@ def get_pr_info(pr_number: int) -> dict[str, Any]:
     """
     output = run_gh_command([
         "pr", "view", str(pr_number),
-        "--json", "number,title,body,author,state,files,additions,deletions"
+        "--json", "number,title,body,author,state,files,additions,deletions,baseRefName,headRefName"
     ])
     return json.loads(output)
 

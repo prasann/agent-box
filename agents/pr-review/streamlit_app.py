@@ -288,7 +288,10 @@ def main():
         if st.session_state.pr_info:
             pr = st.session_state.pr_info
             st.markdown(f"# PR #{st.session_state.pr_number}: {pr['title']}")
-            st.caption(f"👤 {pr['author']} • {pr['base_branch']} ← {pr['head_branch']}")
+            author = pr['author']['login'] if isinstance(pr['author'], dict) else pr['author']
+            base_ref = pr.get('baseRefName', 'main')
+            head_ref = pr.get('headRefName', 'branch')
+            st.caption(f"👤 {author} • {base_ref} ← {head_ref}")
             st.divider()
         
         # Create 2-column layout

@@ -1,38 +1,27 @@
 # Agent Box
 
-A collection of standalone AI agents for macOS that run locally and leverage GitHub Copilot for reasoning.
+A collection of custom AI agents and VS Code prompts to enhance development workflows.
 
-## Current Agents
+## Structure
 
-### [PR Review Agent](agents/pr-review/) (In Development)
-Autonomous PR review agent that helps understand, analyze, and review GitHub pull requests through an interactive chat interface.
+### 📁 [agents/](agents/)
+Custom agents will live here. Each agent will have its own directory with documentation and implementation.
 
-**Status**: Planning Phase  
-**Docs**: [MVP Spec](agents/pr-review/docs/mvp_spec.md) | [Approach](agents/pr-review/docs/approach.md)
+**Status**: Currently empty - agents will be added as they're developed.
 
-## Philosophy
+### 📁 [vscode-prompts/](vscode-prompts/)
+VS Code prompts and GitHub Copilot configurations for various development tasks.
 
-- **Standalone**: Agents run independently without repo pollution
-- **Local-first**: All state managed in `~/.config/`, not in repositories
-- **Copilot-powered**: Leverage GitHub Copilot SDK for AI reasoning
-- **Simple**: Start simple, iterate based on real usage
-- **Extensible**: Foundation for multiple specialized agents
+See [vscode-prompts/README.md](vscode-prompts/README.md) for details on available prompts.
 
-## Requirements
+## Purpose
 
-- macOS
-- Python 3.10+
-- `gh` CLI (authenticated)
-- `git`
-- GitHub Copilot license
+This is my personal collection of AI tools and prompts, built for my own workflows and use cases. 
 
-## Future Agents
+**Note**: This repository is not intended to support other use cases or accept external contributions. Feel free to browse and fork if something here is useful to you, but I'm keeping this focused on my specific needs.
 
-- Code quality analyzer
-- Security scanner
-- Test generator
-- Documentation updater
+## What's Here
 
----
-
-**Status**: Planning & Design Phase
+- **Custom AI agents** tailored to my development workflows (coming soon in [agents/](agents/))
+- **VS Code prompts** that I use regularly (see [vscode-prompts/](vscode-prompts/))
+- **Experimental configurations** for AI-assisted development

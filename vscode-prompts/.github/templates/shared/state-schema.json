@@ -1,0 +1,186 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/prasann/agent-box/pr-review-state.schema.json",
+  "title": "PR Review Session State",
+  "description": "State file schema for PR review sessions",
+  "type": "object",
+  "required": [
+    "branch",
+    "reviewStarted",
+    "reviewStatus",
+    "filesReviewed",
+    "pendingComments",
+    "approvedComments"
+  ],
+  "properties": {
+    "branch": {
+      "type": "string",
+      "description": "Current git branch being reviewed",
+      "examples": ["feature/1234-add-feature"]
+    },
+    "prNumber": {
+      "type": ["number", "null"],
+      "description": "PR number extracted from branch name if available",
+      "examples": [1234]
+    },
+    "reviewStarted": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when review session started"
+    },
+    "lastUpdated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of last state update"
+    },
+    "reviewStatus": {
+      "type": "string",
+      "enum": ["in-progress", "pending-approval", "approved", "posted"],
+      "description": "Current status of review workflow"
+    },
+    "focusAreas": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "examples": ["testing", "security", "performance", "documentation", "types"]
+      },
+      "description": "User-specified focus areas for this review"
+    },
+    "projectContext": {
+      "type": "object",
+      "properties": {
+        "conventionsLoaded": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "List of instruction files loaded",
+          "examples": [[".github/instructions/testing.instructions.md"]]
+        },
+        "criticalRules": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Zero-tolerance rules extracted from conventions",
+          "examples": [["No unused imports", "TDD required for new features"]]
+        }
+      }
+    },
+    "filesReviewed": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "List of files analyzed in this review",
+      "examples": [["src/example.py", "tests/test_example.py"]]
+    },
+    "pendingComments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reviewComment"
+      },
+      "description": "Comments awaiting user approval"
+    },
+    "approvedComments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reviewComment"
+      },
+      "description": "Comments approved by user for posting"
+    },
+    "skippedComments": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {"$ref": "#/$defs/reviewComment"},
+          {
+            "properties": {
+              "skipReason": {
+                "type": "string",
+                "description": "Reason why comment was skipped"
+              }
+            }
+          }
+        ]
+      },
+      "description": "Comments user chose to skip"
+    },
+    "revisedComments": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {"$ref": "#/$defs/reviewComment"},
+          {
+            "properties": {
+              "originalComment": {
+                "type": "string",
+                "description": "Original comment text before revision"
+              },
+              "revisionReason": {
+                "type": "string",
+                "description": "User feedback that prompted revision"
+              }
+            }
+          }
+        ]
+      },
+      "description": "Comments revised based on user feedback"
+    },
+    "overallAssessment": {
+      "type": "string",
+      "enum": ["APPROVE", "REQUEST_CHANGES", "COMMENT"],
+      "description": "Overall review recommendation"
+    },
+    "summaryComment": {
+      "type": "string",
+      "description": "High-level summary comment for the review",
+      "examples": ["Overall solid implementation. Primary concerns: missing type annotations and test coverage."]
+    }
+  },
+  "$defs": {
+    "reviewComment": {
+      "type": "object",
+      "required": ["id", "file", "line", "severity", "category", "comment"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for this comment",
+          "examples": ["comment-1"]
+        },
+        "file": {
+          "type": "string",
+          "description": "File path relative to repository root",
+          "examples": ["src/example.py"]
+        },
+        "line": {
+          "type": "number",
+          "description": "Line number in the file",
+          "minimum": 1
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"],
+          "description": "Severity classification of the issue"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of the issue",
+          "examples": ["type-safety", "testing", "security", "imports", "documentation", "architecture", "performance", "comments"]
+        },
+        "comment": {
+          "type": "string",
+          "description": "The review comment text"
+        },
+        "suggestion": {
+          "type": "string",
+          "description": "Optional code suggestion or fix"
+        },
+        "reference": {
+          "type": "string",
+          "description": "Reference to project guideline or convention",
+          "examples": ["code-structure.instructions.md"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "approved", "skipped", "revised"],
+          "description": "Current status of this comment"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+[project]
+name = "ab"
+version = "0.1.0"
+description = "Personal AI agents for productivity"
+requires-python = ">=3.10"
+
+dependencies = [
+    # Gmail agent deps (future)
+    "google-auth>=2.0.0",
+    "google-auth-oauthlib>=1.0.0",
+    "google-auth-httplib2>=0.1.0",
+    "google-api-python-client>=2.0.0",
+    
+    # Text agent deps
+    "requests>=2.31.0",
+    
+    # Shared deps
+    "pydantic>=2.0",
+    "pydantic-settings>=2.0",
+    "python-dotenv>=1.0.0",
+    "rich>=13.0.0",
+    "click>=8.1.0",
+    "tenacity>=8.0.0",
+]
+
+[project.scripts]
+agb = "ab.__main__:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ab"]

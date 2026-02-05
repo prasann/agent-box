@@ -1,13 +1,18 @@
 """Grammar checker core logic."""
-from .ollama_client import OllamaClient
+from ab.core import OllamaClient, Settings
 from .clipboard import get_clipboard, set_clipboard
+from rich.console import Console
+from rich.panel import Panel
+
+console = Console()
 
 
 class GrammarChecker:
     """Simple grammar and typo checker."""
     
-    def __init__(self, ollama_client: OllamaClient):
+    def __init__(self, ollama_client: OllamaClient, settings: Settings):
         self.ollama = ollama_client
+        self.settings = settings
     
     def fix_grammar(self, text: str) -> str:
         """Fix only typos and grammar, preserve style."""
@@ -33,22 +38,30 @@ Rewritten text:"""
         response = self.ollama.generate(prompt=prompt, temperature=0.7)
         return response.strip()
     
-    def process_clipboard(self, mode: str) -> None:
+    def process_clipboard(self, mode: str, show_preview: bool = True) -> None:
         """Main workflow: clipboard → process → clipboard."""
         # Get clipboard
         text = get_clipboard()
         if not text.strip():
-            print("❌ Clipboard is empty")
+            console.print("❌ Clipboard is empty", style="bold red")
             return
+        
+        # Show original if preview enabled
+        if show_preview and self.settings.text_show_preview:
+            console.print(Panel(text, title="[bold cyan]Original", border_style="cyan"))
         
         # Process
         if mode == "fix":
-            print("🔍 Fixing grammar and typos...")
+            console.print("🔍 Fixing grammar and typos...", style="yellow")
             result = self.fix_grammar(text)
         else:  # rewrite
-            print("✍️  Rewriting text...")
+            console.print("✍️  Rewriting text...", style="yellow")
             result = self.rewrite(text)
+        
+        # Show result if preview enabled
+        if show_preview and self.settings.text_show_preview:
+            console.print(Panel(result, title="[bold green]Result", border_style="green"))
         
         # Set clipboard
         set_clipboard(result)
-        print("✅ Done! Paste with Cmd+V")
+        console.print("✅ Done! Paste with Cmd+V", style="bold green")

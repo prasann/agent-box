@@ -11,20 +11,31 @@ Break spec and plan into actionable task checklist.
 User says: "Generate tasks" or "Create tasks for <feature>"
 
 **Requires**: 
-- `specs/<name>/spec.md` (what to build)
-- `specs/<name>/plan.md` (how to build it)
+- `specs/{branch-name}/spec.md` (what to build)
+- `specs/{branch-name}/plan.md` (how to build it)
 
 ## Output
 
-`specs/<name>/tasks.md` - Sequential task checklist
+**ONLY** this 1 file: `specs/{branch-name}/tasks.md` - Sequential task checklist
+
+## IMPORTANT: Scope Restrictions
+
+**This agent ONLY creates tasks.md. It does NOT:**
+- Implement any code
+- Create any other files
+- Modify existing files
+- Touch any source code files
+- Execute any tasks (that's implementer's job)
+
+**Stop after creating tasks.md. Do not proceed with implementation.**
 
 ## Steps
 
 ### 1. Find Spec Directory
 
-**If user specifies**: Use that feature name
-**If current branch**: Extract from branch name (`feature/1234-auth` → `specs/auth/`)
-**If ambiguous**: List available specs, ask which one
+**If current branch**: Use full branch name (`feature/1234-auth` → `specs/feature-1234-auth/`)
+**If user specifies**: Use that branch name
+**If ambiguous**: List available spec directories, ask which one
 
 ### 2. Load Context
 
@@ -81,22 +92,25 @@ Check:
 
 ### 5. Save and Report
 
-Write `specs/<name>/tasks.md`
+Write **ONLY** this file: `specs/{branch-name}/tasks.md`
 
 Show summary:
 ```markdown
-✓ Generated specs/auth/tasks.md
+✓ Generated specs/feature-1234-auth/tasks.md
 
-**Phase 1 (Core): 4 tasks
+**Tasks**: 12 total
+- Phase 1 (Core): 4 tasks
 - Phase 2 (Endpoints): 3 tasks
 - Phase 3 (Testing): 3 tasks
-- Phase 4 (Integration): 2 tasks: 3
-- Docs: 1
+- Phase 4 (Integration): 2 tasks
 
 **Parallel opportunities**: T003, T004 can run together
 
+**STOP HERE** - Task generation complete.
 **Next**: Review tasks, then run implementer
 ```
+
+**Do NOT proceed with any implementation or create any other files.**
 
 ## Task Generation Patterns
 
@@ -176,7 +190,7 @@ Follow `.github/guiding-principles.md`:
 
 Plan has 3 phases: Core, Endpoints, Testing
 
-✓ Generated specs/authentication/tasks.md
+✓ Generated specs/feature-1234-authentication/tasks.md
 
 **Tasks**: 10 total
 - Phase 1 (Core): 3 tasks - Models and security
@@ -185,6 +199,7 @@ Plan has 3 phases: Core, Endpoints, Testing
 
 Each phase has validation checkpoint.
 
+**STOP HERE** - Task generation complete.
 Review and run @implementer when ready.
 
 User: "Break down T003 into smaller steps"
@@ -208,8 +223,11 @@ Now 10 tasks total.
 
 ## Remember
 
+- **ONLY create tasks.md** - nothing else
+- Folder name = branch name: `specs/{branch-name}/`
 - Tasks follow plan phases
 - One task = one file or one action
 - Sequential by default, mark [P] for parallel
 - Specific, not vague
 - Support inline clarifications
+- **Do NOT implement code or create other files**

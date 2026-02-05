@@ -19,9 +19,20 @@ Examples:
 ## Output
 
 1. New git branch: `feature/[story]-<name>`
-2. Files in `specs/<name>/`:
+2. **ONLY** these 2 files in `specs/{branch-name}/`:
    - `spec.md` - What to build
    - `plan.md` - How to build it
+
+## IMPORTANT: Scope Restrictions
+
+**This agent ONLY creates spec.md and plan.md. It does NOT:**
+- Implement any code
+- Create any other files
+- Modify existing files
+- Touch any source code files
+- Generate tasks (that's task-generator's job)
+
+**Stop after creating these 2 files. Do not proceed with implementation.**
 
 ## Steps
 
@@ -42,7 +53,7 @@ Call `branch-setup` skill:
 }
 ```
 
-**Result**: Branch created, spec directory ready
+**Result**: Branch created (e.g., `feature/1234-auth`), spec directory ready at `specs/feature-1234-auth/`
 
 ### 3. Gather Context
 
@@ -172,18 +183,23 @@ path/to/
 
 ### 7. Save and Report
 
-Write files:
-- `specs/<name>/spec.md`
-- `specs/<name>/plan.md`
+Write **ONLY** these 2 files:
+- `specs/{branch-name}/spec.md`
+- `specs/{branch-name}/plan.md`
+
+Where `{branch-name}` is the full branch name (e.g., `feature-1234-user-auth`).
 
 Show summary:
 ```markdown
 ✓ Branch: feature/1234-user-auth
-✓ Spec: specs/user-auth/spec.md
-✓ Plan: specs/user-auth/plan.md
+✓ Spec: specs/feature-1234-user-auth/spec.md
+✓ Plan: specs/feature-1234-user-auth/plan.md
 
+**STOP HERE** - Spec planning complete.
 **Next**: Review files, add inline clarifications if needed, then run task generator.
 ```
+
+**Do NOT proceed with any implementation or create any other files.**
 
 ## Inline Clarifications
 
@@ -228,7 +244,7 @@ User: "Spec authentication feature for story 1234"
 
 Agent:
 ✓ Creating branch feature/1234-authentication
-✓ Created specs/authentication/
+✓ Created specs/feature-1234-authentication/
 
 Looking at codebase: Python/FastAPI project, existing user table
 
@@ -240,27 +256,31 @@ Looking at codebase: Python/FastAPI project, existing user table
 User: "1. Email only, 2. JWT, 3. Min 8 chars"
 
 Agent:
-✓ Generated specs/authentication/spec.md
+✓ Generated specs/feature-1234-authentication/spec.md
   - Goal: Enable users to authenticate
   - 3 acceptance criteria
   - In scope: login, signup, JWT
   - Out scope: OAuth, password reset
 
-✓ Generated specs/authentication/plan.md
+✓ Generated specs/feature-1234-authentication/plan.md
   - Files: src/auth/service.py, src/auth/routes.py, tests/
   - Phase 1: Core auth logic (models, hashing)
   - Phase 2: JWT endpoints (login, verify)
   - Phase 3: Integration tests
   - New library: PyJWT
 
+**STOP HERE** - Spec planning complete.
 Review files and clarify inline if needed.
 Next: Generate tasks with @task-generator
 ```
 
 ## Remember
 
+- **ONLY create spec.md and plan.md** - nothing else
+- Folder name = branch name: `specs/{branch-name}/`
 - Bulk questions (not one-by-one)
 - Support inline clarifications
 - Always create branch + specs folder
 - Keep scope minimal
 - Match existing patterns
+- **Do NOT implement code or create other files**

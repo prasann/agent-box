@@ -1,99 +1,38 @@
 ````chatskill
-# Review Session Initialization Skill
+# Review Session Skill
 
-Initialize PR review session by detecting local git context and loading project conventions.
+Initialize PR review session: detect git context, load conventions, create state.
 
-## Purpose
+## Input/Output
 
-This skill handles the setup phase of a PR review:
-1. Detect current branch and git status
-2. Get list of changed files with diffs
-3. Load project conventions and guidelines
-4. Create or resume review session state file
-5. Present initial review summary
-
-## Invocation
-
-**When**: User starts a new review or resumes an existing one
-
-**Input**:
 ```json
-{
-  "focus_areas": ["testing", "security"],  // Optional: specific areas to focus on
-  "resume": false                          // Optional: resume existing session if true
+Input: {
+  "focus_areas": ["testing", "security"],  // optional
+  "resume": false                          // optional
 }
-```
 
-**Output**:
-```json
-{
-  "success": true,
+Output: {
   "branch": "feature/1234-description",
   "pr_number": 1234,
-  "files_changed": ["src/example.py", "tests/test_example.py"],
-  "commit_count": 5,
-  "additions": 120,
-  "deletions": 45,
-  "conventions": {
-    "loaded_files": [".github/instructions/testing.instructions.md"],
-    "critical_rules": ["No unused imports", "TDD required"]
-  },
-  "state_file": ".copilot-tracking/pr-reviews/feature-1234-description.state.json",
-  "session_status": "initialized"
+  "files_changed": [...],
+  "conventions": { "loaded_files": [...], "critical_rules": [...] },
+  "state_file": ".copilot-tracking/pr-reviews/<branch>.state.json"
 }
 ```
 
-## Implementation
+## Steps
 
-### 1. Detect Git Context
-
-```bash
-git status --porcelain  # Warn if uncommitted changes
-git branch --show-current  # Extract PR number from branch name
-git log --oneline origin/main..HEAD  # Count commits
-```
-
-Use `changes` tool for file list and diff stats.
-
-### 2. Load Project Conventions
-
-Read in priority order:
-1. `.github/copilot-instructions.md`
-2. `.github/instructions/code-and-documentation-hygiene.instructions.md`
-3. `.github/instructions/testing.instructions.md`
-4. `.github/instructions/code-structure.instructions.md`
-5. `README.md`, constitution, other conventions
-
-Extract MUST/SHOULD requirements and zero-tolerance rules. Filter to focus areas if specified.
-
-### 3. Create/Resume State File
-
-**Path**: `.copilot-tracking/pr-reviews/<branch-name>.state.json`
-
-**Resume**: If state exists, ask "Resume or start fresh?"
-**New**: Create directory, initialize state from `templates/shared/state-schema.json`
-
-**Validate**: Warn if large PR (>20 files/500 lines), missing conventions, or can't extract PR number.
-
-### 4. Present Summary
-
-Use template from `templates/pr-review/output-formats.md` → "Initial Review Summary"
+1. **Detect Git Context**: Current branch, PR number, commits, diff stats. Use `changes` tool.
+2. **Load Conventions**: Read `.github/copilot-instructions.md`, `code-and-documentation-hygiene.instructions.md`, `testing.instructions.md`, `code-structure.instructions.md`, README. Extract MUST/SHOULD rules.
+3. **State File**: Create/resume `.copilot-tracking/pr-reviews/<branch>.state.json`. Ask to resume if exists.
+4. **Present Summary**: Show branch, file count, diff stats, loaded conventions. Warn if large PR (>20 files/500 lines).
 
 ## Error Handling
 
-- **Not PR branch**: Ask user to checkout PR branch
-- **Uncommitted changes**: Warn, ask to commit/stash/proceed
-- **Missing origin/main**: Try alternative bases, ask user if needed
-- **State corruption**: Archive, start fresh
-- **Permission errors**: Suggest fix or proceed in-memory
+- Not PR branch / uncommitted changes / missing origin: Warn and guide user
+- State corruption: Archive, start fresh
+- Permission denied: Proceed in-memory
 
-## Tools
-
-`runCommands`, `changes`, `read_file`, `create_file`, `list_dir`
-
-## References
-
-- `templates/shared/state-schema.json`
-- `templates/pr-review/output-formats.md`
-
+**Tools**: `runCommands`, `changes`, `read_file`, `create_file`, `list_dir`
+**Refs**: `templates/shared/state-schema.json`, `templates/pr-review/output-formats.md`
 ````

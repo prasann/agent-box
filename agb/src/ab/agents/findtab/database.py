@@ -1,6 +1,7 @@
 """Database management for Find That Tab index."""
 import sqlite3
 import json
+import pickle
 from pathlib import Path
 from typing import Optional
 from datetime import datetime
@@ -61,6 +62,15 @@ class IndexDatabase:
                 summary,
                 content='history_entries',
                 content_rowid='rowid'
+            )
+        """)
+        
+        # Embeddings table for semantic search
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS embeddings (
+                entry_id TEXT PRIMARY KEY,
+                embedding BLOB NOT NULL,
+                FOREIGN KEY(entry_id) REFERENCES history_entries(id)
             )
         """)
         
@@ -155,6 +165,81 @@ class IndexDatabase:
         
         return stored_count
     
+    def store_embedding(self, entry_id: str, embedding: list[float]) -> bool:
+        """Store embedding for an entry.
+        
+        Args:
+            entry_id: Entry ID
+            embedding: Embedding vector
+            
+        Returns:
+            True if stored successfully
+        """
+        if not embedding:
+            return False
+            
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        
+        try:
+            cursor.execute("""
+                INSERT OR REPLACE INTO embeddings (entry_id, embedding)
+                VALUES (?, ?)
+            """, (entry_id, pickle.dumps(embedding)))
+            
+            conn.commit()
+            return True
+        except Exception as e:
+            print(f"Warning: Failed to store embedding: {e}")
+            return False
+        finally:
+            conn.close()
+    
+    def get_entries_without_embeddings(self, limit: int = 100) -> list[tuple]:
+        """Get entries that don't have embeddings yet.
+        
+        Args:
+            limit: Maximum number of entries to return
+            
+        Returns:
+            List of (id, title, summary) tuples
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        
+        cursor.execute("""
+            SELECT e.id, e.title, e.summary
+            FROM history_entries e
+            LEFT JOIN embeddings emb ON e.id = emb.entry_id
+            WHERE emb.entry_id IS NULL
+            LIMIT ?
+        """, (limit,))
+        
+        results = cursor.fetchall()
+        conn.close()
+        
+        return results
+    
+    def get_all_embeddings(self) -> list[tuple]:
+        """Get all entries with their embeddings.
+        
+        Returns:
+            List of (id, url, title, visit_time, summary, embedding) tuples
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        
+        cursor.execute("""
+            SELECT e.id, e.url, e.title, e.visit_time, e.summary, e.visit_count, emb.embedding
+            FROM history_entries e
+            JOIN embeddings emb ON e.id = emb.entry_id
+        """)
+        
+        results = cursor.fetchall()
+        conn.close()
+        
+        return results
+    
     def get_stats(self) -> dict:
         """Get index statistics."""
         conn = sqlite3.connect(self.db_path)
@@ -172,6 +257,14 @@ class IndexDatabase:
         cursor.execute("SELECT DISTINCT browser FROM history_entries")
         browsers = [row[0] for row in cursor.fetchall()]
         
+        # Embeddings count
+        try:
+            cursor.execute("SELECT COUNT(*) FROM embeddings")
+            embeddings_count = cursor.fetchone()[0]
+        except sqlite3.OperationalError:
+            # Table doesn't exist yet, needs migration
+            embeddings_count = 0
+        
         conn.close()
         
         return {
@@ -179,4 +272,5 @@ class IndexDatabase:
             "oldest": oldest,
             "newest": newest,
             "browsers": browsers,
+            "embeddings": embeddings_count,
         }

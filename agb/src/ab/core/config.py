@@ -22,6 +22,18 @@ class Settings(BaseSettings):
     # Text agent
     text_show_preview: bool = True
     
+    # Find That Tab agent
+    findtab_index_path: str = "~/.findtab/index.db"
+    findtab_skip_domains: list[str] = [
+        "google.com/search",
+        "mail.google.com",
+        "bing.com",
+        "localhost",
+        "127.0.0.1",
+        "chrome://",
+        "about:",
+    ]
+    
     # Logging
     log_level: str = "INFO"
     log_file: Path = Path("data/logs/ab.log")

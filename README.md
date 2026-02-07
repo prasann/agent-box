@@ -9,7 +9,7 @@ A single command-line tool that provides multiple AI agents for personal product
 ```bash
 agb text fix          # Fix grammar and typos in clipboard
 agb text rewrite      # Rewrite text for clarity
-# More agents coming...
+findtab search "..."  # Search browser history by meaning
 ```
 
 **Key Features:**
@@ -27,6 +27,10 @@ The main implementation - a Python package providing the `agb` CLI with multiple
 - **Text Agent**: Grammar/typo checker and text rewriter
   - `agb text fix` - Minimal corrections preserving style
   - `agb text rewrite` - Full rewrite for clarity and professionalism
+- **Find That Tab**: Semantic browser history search
+  - `findtab index` - Index browser history
+  - `findtab search` - Search by intent and meaning
+  - `findtab status` - View index statistics
 
 **🚧 Coming Soon:**
 - Gmail spam classifier
@@ -75,12 +79,14 @@ agb text fix
 # Rewrite text for clarity
 agb text rewrite
 
-# Skip preview for speed
-agb text fix --no-preview
+# Search browser history by meaning
+findtab index --hours=24           # Index last 24 hours
+findtab search "github copilot"    # Find pages by intent
+findtab search "blog" --open       # Search and open result
 
 # Get help
 agb --help
-agb text --help
+findtab --help
 ```
 
 ## 💡 Philosophy
@@ -107,6 +113,10 @@ agb (CLI command)
 ├── text agent       ✅ Working
 │   ├── fix         - Grammar/typo corrections
 │   └── rewrite     - Full text rewrite
+├── findtab          ✅ Working
+│   ├── index       - Index browser history
+│   ├── search      - Search by meaning
+│   └── status      - View statistics
 ├── gmail agent      🚧 Planned
 └── [more agents]    💡 Ideas
 ```
@@ -129,14 +139,17 @@ Built on shared infrastructure:
 
 - ✅ Core infrastructure implemented
 - ✅ Text agent fully working
+- ✅ Find That Tab browser history search (keyword-based)
 - ✅ Configuration system in place
 - ✅ CLI with help system
 - 🚧 Gmail agent in planning
+- 💡 True semantic embeddings (Phase 2)
 - 💡 More agents being explored
 
 ## 🔮 Future Ideas
 
 See [ideas/](ideas/) for agent concepts in various stages:
+- **Find That Tab enhancements**: True semantic embeddings, LLM summaries, more browsers
 - Gmail spam classifier with AI-powered categorization
 - Additional text processing agents
 - Development workflow enhancements

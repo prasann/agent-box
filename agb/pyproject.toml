@@ -25,6 +25,7 @@ dependencies = [
 
 [project.scripts]
 agb = "ab.__main__:main"
+findtab = "ab.agents.findtab.__main__:cli"
 
 [project.optional-dependencies]
 dev = [

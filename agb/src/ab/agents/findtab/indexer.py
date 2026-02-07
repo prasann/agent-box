@@ -1,6 +1,7 @@
 """History indexing engine."""
 from pathlib import Path
-from .models import HistoryEntry, Settings
+from .models import HistoryEntry
+from ...core.config import Settings
 from .database import IndexDatabase
 from .enricher import ContentEnricher
 from .extractors.chromium import create_chrome_extractor, create_edge_extractor

@@ -2,7 +2,6 @@
 from datetime import datetime, timedelta
 from typing import Optional
 from pydantic import BaseModel, Field
-from pydantic_settings import BaseSettings
 import uuid
 
 
@@ -67,29 +66,3 @@ class SearchResult(BaseModel):
         else:
             months = delta.days // 30
             return f"{months}mo ago"
-
-
-class Settings(BaseSettings):
-    """Configuration for Find That Tab."""
-    
-    ollama_url: str = "http://localhost:11434"
-    ollama_model: str = "llama3.2:3b"
-    index_path: str = "~/.findtab/index.db"
-    skip_domains: list[str] = Field(default_factory=lambda: [
-        "google.com/search",
-        "localhost",
-        "127.0.0.1",
-        "chrome://",
-        "about:",
-    ])
-    content_sites: list[str] = Field(default_factory=lambda: [
-        "github.com",
-        "stackoverflow.com",
-        "medium.com",
-        "dev.to",
-        "docs.",
-    ])
-    
-    class Config:
-        env_prefix = "FINDTAB_"
-        env_file = ".env"

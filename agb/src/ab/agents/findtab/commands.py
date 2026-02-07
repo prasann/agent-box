@@ -5,7 +5,7 @@ from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from pathlib import Path
 from ...core.ollama_client import OllamaClient
-from .models import Settings
+from ...core.config import get_settings
 from .database import IndexDatabase
 from .indexer import HistoryIndexer
 from .search import HistorySearcher
@@ -14,8 +14,8 @@ from .search import HistorySearcher
 console = Console()
 
 
-@click.group()
-def cli():
+@click.group(name="findtab")
+def findtab_group():
     """Find That Tab - Semantic browser history search.
     
     Search your browser history by meaning, not just exact URLs.
@@ -23,7 +23,7 @@ def cli():
     pass
 
 
-@cli.command()
+@findtab_group.command()
 @click.option('--hours', default=1, help='Hours of history to index')
 def index(hours):
     """Index recent browser history.
@@ -31,8 +31,8 @@ def index(hours):
     Example:
         findtab index --hours=24
     """
-    settings = Settings()
-    index_path = Path(settings.index_path).expanduser()
+    settings = get_settings()
+    index_path = Path(settings.findtab_index_path).expanduser()
     
     # Setup database
     db = IndexDatabase(index_path)
@@ -51,7 +51,7 @@ def index(hours):
         raise
 
 
-@cli.command()
+@findtab_group.command()
 @click.argument('query')
 @click.option('--limit', default=10, help='Maximum number of results')
 @click.option('--open', 'open_url', is_flag=True, help='Open first result in browser')
@@ -63,8 +63,8 @@ def search(query, limit, open_url):
         findtab search "python documentation" --limit=20
         findtab search "github repo I visited yesterday" --open
     """
-    settings = Settings()
-    index_path = Path(settings.index_path).expanduser()
+    settings = get_settings()
+    index_path = Path(settings.findtab_index_path).expanduser()
     
     if not index_path.exists():
         console.print("❌ No index found. Run 'findtab index' first.", style="bold red")
@@ -93,7 +93,7 @@ def search(query, limit, open_url):
     
     if not results:
         console.print("\nNo results found.", style="yellow")
-        console.print("💡 Try: [cyan]findtab embed --batch=100[/cyan] to index more entries")
+        console.print("💡 Try: [cyan]agb findtab embed --batch=100[/cyan] to index more entries")
         return
     
     # Display results
@@ -129,11 +129,11 @@ def search(query, limit, open_url):
         console.print(f"\n🌐 Opened: {results[0].url}", style="bold green")
 
 
-@cli.command()
+@findtab_group.command()
 def status():
     """Show index statistics and information."""
-    settings = Settings()
-    index_path = Path(settings.index_path).expanduser()
+    settings = get_settings()
+    index_path = Path(settings.findtab_index_path).expanduser()
     
     if not index_path.exists():
         console.print("❌ No index found. Run 'findtab index' first.", style="bold red")
@@ -167,7 +167,7 @@ def status():
     console.print(f"  Index location: [dim]{index_path}[/dim]\n")
 
 
-@cli.command()
+@findtab_group.command()
 @click.option('--batch', default=100, help='Number of entries to process')
 @click.option('--all', 'process_all', is_flag=True, help='Process all entries')
 def embed(batch, process_all):
@@ -178,8 +178,8 @@ def embed(batch, process_all):
         findtab embed --batch=500  # Process 500 entries
         findtab embed --all        # Process everything
     """
-    settings = Settings()
-    index_path = Path(settings.index_path).expanduser()
+    settings = get_settings()
+    index_path = Path(settings.findtab_index_path).expanduser()
     
     if not index_path.exists():
         console.print("❌ No index found. Run 'findtab index' first.", style="bold red")
@@ -220,7 +220,7 @@ def embed(batch, process_all):
         progress.update(task, completed=True)
     
     console.print(f"\n✅ Generated {count} embeddings", style="bold green")
-    console.print(f"💡 Search with: [cyan]findtab search \"your query\"[/cyan]\n")
+    console.print(f"💡 Search with: [cyan]agb findtab search \"your query\"[/cyan]\n")
 
 
 if __name__ == '__main__':

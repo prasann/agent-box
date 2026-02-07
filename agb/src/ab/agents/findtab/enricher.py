@@ -1,7 +1,8 @@
 """Content enrichment for history entries."""
 from urllib.parse import urlparse
 import re
-from .models import HistoryEntry, EnrichedEntry, Settings
+from .models import HistoryEntry, EnrichedEntry
+from ...core.config import Settings
 
 
 class ContentEnricher:
@@ -18,7 +19,7 @@ class ContentEnricher:
         """Determine if entry should be skipped from indexing."""
         url_lower = entry.url.lower()
         
-        for skip_domain in self.settings.skip_domains:
+        for skip_domain in self.settings.findtab_skip_domains:
             if skip_domain in url_lower:
                 return True
         

@@ -4,12 +4,11 @@ from rich.console import Console
 from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from pathlib import Path
+from ...core.ollama_client import OllamaClient
 from .models import Settings
 from .database import IndexDatabase
 from .indexer import HistoryIndexer
-from .searcher import HistorySearcher
-from .semantic import SemanticSearcher
-from .ollama_client import OllamaClient
+from .search import HistorySearcher
 
 
 console = Console()
@@ -56,15 +55,13 @@ def index(hours):
 @click.argument('query')
 @click.option('--limit', default=10, help='Maximum number of results')
 @click.option('--open', 'open_url', is_flag=True, help='Open first result in browser')
-@click.option('--semantic', is_flag=True, help='Use semantic search (requires embeddings)')
-def search(query, limit, open_url, semantic):
-    """Search browser history by intent.
+def search(query, limit, open_url):
+    """Search browser history semantically.
     
     Examples:
         findtab search "article about MCP"
         findtab search "python documentation" --limit=20
         findtab search "github repo I visited yesterday" --open
-        findtab search "blog explaining AI agents" --semantic
     """
     settings = Settings()
     index_path = Path(settings.index_path).expanduser()
@@ -74,49 +71,50 @@ def search(query, limit, open_url, semantic):
         return
     
     db = IndexDatabase(index_path)
+    ollama = OllamaClient(model=settings.ollama_model, base_url=settings.ollama_url)
     
-    # Use semantic search if requested
-    if semantic:
-        ollama = OllamaClient(settings)
-        
-        # Check Ollama availability
-        if not ollama.check_availability():
-            console.print("\n❌ Semantic search requires Ollama with models installed.", style="bold red")
-            return
-        
-        searcher = SemanticSearcher(db, ollama)
-        console.print(f"🧠 Semantic search for: [cyan]{query}[/cyan]")
-        results = searcher.search(query, limit=limit)
-    else:
-        # Use keyword search
-        searcher = HistorySearcher(index_path)
-        console.print(f"🔍 Searching for: [cyan]{query}[/cyan]")
-        results = searcher.search(query, limit=limit)
-    
-    if not results:
-        console.print("No results found. Try a different query or index more history.", style="yellow")
+    # Check Ollama availability
+    if not ollama.is_available():
+        console.print("\n❌ Ollama is not running. Start with: ollama serve", style="bold red")
         return
     
-    # Display results in a table
+    if not ollama.has_model(settings.ollama_model):
+        console.print(f"\n❌ Model '{settings.ollama_model}' not found.", style="bold red")
+        console.print(f"   Run: ollama pull {settings.ollama_model}")
+        return
+    
+    searcher = HistorySearcher(db, ollama)
+    console.print(f"🧠 Searching: [cyan]{query}[/cyan]")
+    
+    results, intent = searcher.search(query, limit=limit)
+    
+    if intent != query:
+        console.print(f"💡 Intent: [dim]{intent}[/dim]")
+    
+    if not results:
+        console.print("\nNo results found.", style="yellow")
+        console.print("💡 Try: [cyan]findtab embed --batch=100[/cyan] to index more entries")
+        return
+    
+    # Display results
     table = Table(title=f"Found {len(results)} results", show_lines=False)
     table.add_column("#", style="cyan", width=3, justify="right")
     table.add_column("Title", style="green", no_wrap=False, max_width=50)
     table.add_column("URL", style="blue", no_wrap=False, max_width=50)
     table.add_column("When", style="yellow", width=10)
-    
-    if semantic:
-        table.add_column("Score", style="magenta", width=6)
+    table.add_column("Score", style="magenta", width=6)
     
     for i, result in enumerate(results, 1):
-        time_ago = result.time_ago()
         title = result.title[:80] + "..." if len(result.title) > 80 else result.title
         url = result.url[:80] + "..." if len(result.url) > 80 else result.url
         
-        row = [str(i), title, url, time_ago]
-        if semantic:
-            row.append(f"{result.relevance_score:.2f}")
-        
-        table.add_row(*row)
+        table.add_row(
+            str(i),
+            title,
+            url,
+            result.time_ago(),
+            f"{result.relevance_score:.2f}"
+        )
     
     console.print(table)
     
@@ -175,9 +173,6 @@ def status():
 def embed(batch, process_all):
     """Generate embeddings for semantic search.
     
-    This enables true semantic search that understands meaning.
-    Requires Ollama with nomic-embed-text model.
-    
     Examples:
         findtab embed              # Process 100 entries
         findtab embed --batch=500  # Process 500 entries
@@ -190,50 +185,42 @@ def embed(batch, process_all):
         console.print("❌ No index found. Run 'findtab index' first.", style="bold red")
         return
     
+    # Setup
+    db = IndexDatabase(index_path)
+    ollama = OllamaClient(model=settings.ollama_model, base_url=settings.ollama_url)
+    
     # Check Ollama
-    ollama = OllamaClient(settings)
-    if not ollama.check_availability():
-        console.print("\n❌ Embeddings require Ollama with models installed.", style="bold red")
-        console.print("\nSetup instructions:")
-        console.print("  1. Install Ollama: brew install ollama")
-        console.print("  2. Start Ollama: ollama serve")
-        console.print("  3. Pull embedding model: ollama pull nomic-embed-text")
-        console.print(f"  4. Pull LLM model: ollama pull {settings.ollama_model}")
+    if not ollama.is_available():
+        console.print("\n❌ Ollama is not running.", style="bold red")
+        console.print("   Start with: ollama serve")
         return
     
-    db = IndexDatabase(index_path)
-    searcher = SemanticSearcher(db, ollama)
+    if not ollama.has_model("nomic-embed-text"):
+        console.print("\n❌ Embedding model not found.", style="bold red")
+        console.print("   Run: ollama pull nomic-embed-text")
+        return
     
+    searcher = HistorySearcher(db, ollama)
     stats = db.get_stats()
-    total = stats['total']
-    existing = stats.get('embeddings', 0)
-    remaining = total - existing
     
+    remaining = stats['total'] - stats.get('embeddings', 0)
     if remaining == 0:
         console.print("✅ All entries already have embeddings!", style="bold green")
         return
     
     console.print(f"\n🧠 Generating embeddings...")
-    console.print(f"   Total entries: {total:,}")
-    console.print(f"   Already embedded: {existing:,}")
-    console.print(f"   Remaining: {remaining:,}\n")
+    console.print(f"   Remaining: {remaining:,} entries\n")
     
     if process_all:
         batch = remaining
     
-    with Progress(
-        SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
-        console=console,
-    ) as progress:
+    with Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), console=console) as progress:
         task = progress.add_task(f"Processing {min(batch, remaining)} entries...", total=None)
-        
         count = searcher.generate_embeddings(batch_size=batch)
-        
         progress.update(task, completed=True)
     
     console.print(f"\n✅ Generated {count} embeddings", style="bold green")
-    console.print(f"💡 Now you can use: [cyan]findtab search \"query\" --semantic[/cyan]\n")
+    console.print(f"💡 Search with: [cyan]findtab search \"your query\"[/cyan]\n")
 
 
 if __name__ == '__main__':

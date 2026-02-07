@@ -24,7 +24,15 @@ class Settings(BaseSettings):
     
     # Find That Tab agent
     findtab_index_path: str = "~/.findtab/index.db"
-    findtab_skip_domains: list[str] = ["google.com/search", "localhost", "127.0.0.1", "chrome://", "about:"]
+    findtab_skip_domains: list[str] = [
+        "google.com/search",
+        "mail.google.com",
+        "bing.com",
+        "localhost",
+        "127.0.0.1",
+        "chrome://",
+        "about:",
+    ]
     
     # Logging
     log_level: str = "INFO"

@@ -2,7 +2,7 @@
 import click
 import sys
 from ab.core import setup_logging, get_settings
-from ab.agents import text_group, findtab_group
+from ab.agents import text_group, findtab_group, shell_group
 
 
 @click.group()
@@ -21,6 +21,7 @@ def main(verbose):
 # Register agent command groups
 main.add_command(text_group)
 main.add_command(findtab_group)
+main.add_command(shell_group)
 
 # Future agents can be added here:
 # main.add_command(gmail_group)

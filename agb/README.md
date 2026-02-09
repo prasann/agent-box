@@ -44,9 +44,13 @@ agb text fix
 # Text agent - full rewrite
 agb text rewrite
 
+# Shell agent - clean up history
+agb shell purge              # Preview mode (safe)
+agb shell purge --no-preview # Actually modify
+
 # Get help
 agb --help
-agb text --help
+agb shell --help
 ```
 
 ## Available Agents
@@ -81,6 +85,77 @@ After fix: `I have an idea for one more agent`
 
 Original: `gonna send this later probs`  
 After rewrite: `I will send this later, probably`
+
+### Shell Agent
+
+Intelligent shell history curator that removes noise and duplicates while keeping everything important.
+
+**Commands:**
+
+```bash
+# Preview what would be removed (safe, no changes)
+agb shell purge
+
+# Actually purge history
+agb shell purge --no-preview
+
+# Restore from latest backup
+agb shell restore
+
+# List available backups
+agb shell backups
+
+# Use custom history file
+agb shell purge --history-file ~/.bash_history
+```
+
+**What gets removed:**
+- Exact duplicates (keeps first occurrence)
+- Simple noise commands: `ls`, `cd`, `pwd`, `clear`, `exit`
+- Commands older than 7 days that match removal rules
+
+**What always stays:**
+- Recent commands (last 7 days are untouched)
+- Complex commands (pipes, redirects, command chains)
+- Unique commands (first occurrence)
+- Commands with multiple flags
+- Long commands (>50 characters)
+
+**Safety features:**
+- Automatic timestamped backup before every purge
+- Preview mode by default (use `--no-preview` to actually modify)
+- Atomic writes (all-or-nothing)
+- Easy restore from backup
+- Purge log tracks what was removed and why
+
+**Example workflow:**
+
+```bash
+# 1. Preview what would be removed
+$ agb shell purge
+🔍 Preview mode - no changes will be made
+
+      Purge Preview       
+┌────────────────┬───────┐
+│ Metric         │ Count │
+├────────────────┼───────┤
+│ Total commands │ 10000 │
+│ Will keep      │ 2500  │
+│ Will remove    │ 7500  │
+│ % removed      │ 75.0% │
+└────────────────┴───────┘
+
+# 2. Looks good? Actually purge
+$ agb shell purge --no-preview
+✅ Purge complete!
+   Kept: 2,500 commands
+   Removed: 7,500 commands
+   Backup: ~/.zsh_history.backup.2026-02-09_14-23-45
+
+# 3. If needed, restore from backup
+$ agb shell restore
+✅ Restored from: ~/.zsh_history.backup.2026-02-09_14-23-45
+```
 
 ### Gmail Agent (Coming Soon)
 
@@ -243,25 +318,34 @@ Options:
   --help             Show this message
 
 Commands:
-  text  Text grammar and typo checker
+  findtab  Find That Tab - Semantic browser history search
+  shell    Shell history management commands
+  text     Text grammar and typo checker
 
-$ agb text --help
-Usage: agb text [OPTIONS] COMMAND [ARGS]...
+$ agb shell --help
+Usage: agb shell [OPTIONS] COMMAND [ARGS]...
 
-  Text grammar and typo checker.
+  Shell history management commands.
 
 Commands:
-  fix      Fix typos and grammar in clipboard text
-  rewrite  Rewrite text in clipboard for clarity and professionalism
+  backups  List available backups
+  purge    Purge noise and duplicates from shell history
+  restore  Restore history from backup
 
-$ agb text fix --help
-Usage: agb text fix [OPTIONS]
+$ agb shell purge --help
+Usage: agb shell purge [OPTIONS]
 
-  Fix typos and grammar in clipboard text.
+  Purge noise and duplicates from shell history.
+
+  By default, shows a preview without making changes.
+  Use --no-preview to actually modify history.
 
 Options:
-  --no-preview  Don't show before/after preview
-  --help        Show this message
+  --preview / --no-preview  Preview changes without modifying history
+                            (default: preview)
+  --history-file PATH       Path to zsh history file
+                            (default: ~/.zsh_history)
+  --help                    Show this message
 ```
 
 ## Performance
@@ -274,6 +358,8 @@ Options:
 ## Roadmap
 
 - [x] Text agent (grammar/typo checker)
+- [x] Shell agent (history curator)
+- [x] FindTab agent (semantic browser history search)
 - [ ] Gmail agent (spam classifier)
 - [ ] Calendar agent (meeting summarizer)
 - [ ] File organizer agent

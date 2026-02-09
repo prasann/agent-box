@@ -146,15 +146,15 @@ class SafePurger:
             raise Exception(f"Failed to write history: {e}")
     
     def _validate_history_file(self) -> bool:
-        """Validate that the history file is readable and non-empty."""
+        """Validate that the history file is readable."""
         try:
             if not self.history_file.exists():
                 return False
             
-            # Try to read it
+            # Try to read it - even empty file is valid
             with open(self.history_file, 'r') as f:
-                content = f.read()
-                return len(content) > 0
+                f.read()
+                return True
         except Exception:
             return False
     

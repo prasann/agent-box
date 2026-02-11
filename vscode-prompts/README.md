@@ -1,48 +1,44 @@
 # VS Code Prompts
 
-My personal collection of VS Code prompt configurations and GitHub Copilot agent definitions.
+GitHub Copilot agent definitions and skills for development workflows.
 
-> **Note**: These prompts are tailored to my specific workflows and not designed for general use.
+## Setup
 
-## Current Prompts
+**Multi-root workspace approach:**  
+Mount this folder in any project to access these prompts.
 
-### PR Review Prompts
-Located in `.github/` directory:
+```json
+// .code-workspace file
+{
+  "folders": [
+    { "path": "/path/to/your/project" },
+    { "path": "/path/to/agent-box/vscode-prompts" }
+  ]
+}
+```
 
-#### Agents
-- **[pr-reviewer.agent.md](.github/agents/pr-reviewer.agent.md)** - PR review agent configuration
+Or add to existing workspace: File → Add Folder to Workspace → Select `vscode-prompts/`
 
-#### Skills
-- **[comment-manager.skill.md](.github/skills/comment-manager.skill.md)** - Managing PR review comments
-- **[review-session.skill.md](.github/skills/review-session.skill.md)** - Review session management
-- **[code-reviewer.skill.md](.github/skills/code-reviewer.skill.md)** - Code review assistance
+## Available Prompts
 
-#### Templates
-Located in `.github/templates/`:
-- **pr-review/** - PR review specific templates
-  - `output-formats.md` - Standard output formats for reviews
-  - `severity-guidelines.md` - Issue severity classification
-  - `comment-examples.md` - Example review comments
-- **shared/** - Shared configurations
-  - `state-schema.json` - State management schema
+**Agents:**
+- `ab.implementer.agent.md` - Code implementation
+- `ab.pr-reviewer.agent.md` - PR review 
+- `ab.spec-planner.agent.md` - Spec planning
+- `ab.task-generator.agent.md` - Task generation
+
+**Skills:**
+- `branch-setup.skill.md` - Git branch management
+- `code-reviewer.skill.md` - Code review assistance
+- `comment-manager.skill.md` - PR comment handling
+- `review-session.skill.md` - Review sessions  
+
+**Templates:**
+- `pr-review/` - PR review formats and guidelines
+- `shared/` - Shared schemas
 
 ## Usage
 
-These prompts can be used with VS Code and GitHub Copilot to enhance your development workflow. Each prompt/agent is designed for specific tasks and follows consistent patterns.
+Once mounted, these prompts are available in VS Code's GitHub Copilot with `#file:` references.
 
-## Structure
-
-```
-.github/
-├── agents/         # Agent definitions
-├── skills/         # Skill modules
-└── templates/      # Reusable templates
-```
-
-## Adding New Prompts
-
-When adding new prompts:
-1. Choose appropriate directory (agents, skills, or templates)
-2. Follow existing naming conventions
-3. Update this README with a brief description
-4. Include inline documentation in the prompt file
+Example: `#file:.github/ag ents/ab.pr-reviewer.agent.md`

@@ -38,6 +38,17 @@ The main implementation - a Python package providing the `agb` CLI with multiple
 
 See [agb/README.md](agb/README.md) for full documentation.
 
+### [xbar/](xbar/) - macOS Menu Bar Plugin
+Quick access to all agents via menu bar icon. Installs in isolated venv, doesn't interfere with development.
+
+**Features:**
+- 🤖 One-click access from menu bar
+- ⚠️ Visual Ollama status
+- 🔔 macOS notifications
+- 🔄 Auto-discovery of new agents
+
+See [xbar/README.md](xbar/README.md) for installation and usage.
+
 ### [vscode-prompts/](vscode-prompts/)
 VS Code prompts and GitHub Copilot configurations for development tasks.
 
@@ -88,6 +99,30 @@ findtab search "blog" --open       # Search and open result
 agb --help
 findtab --help
 ```
+
+## �️ macOS Menu Bar Integration (xbar Plugin)
+
+For even faster access, install the **xbar menu bar plugin** for one-click access:
+
+```bash
+# One-time installation
+./install-xbar.sh
+```
+
+**What you get:**
+- 🤖 Icon in your menu bar
+- One-click access to all agents (no terminal needed)
+- Visual Ollama status indicator
+- macOS notifications when processing completes
+- Isolated environment (doesn't interfere with development)
+
+**Daily workflow:**
+1. Copy text (Cmd+C)
+2. Click 🤖 → "Fix Grammar"
+3. Wait for notification "Done!"
+4. Paste result (Cmd+V)
+
+**Saves ~30 seconds per use** vs opening terminal. See [xbar/README.md](xbar/README.md) for details.
 
 ## 💡 Philosophy
 

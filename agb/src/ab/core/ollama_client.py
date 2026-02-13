@@ -8,7 +8,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 class OllamaClient:
     """Client for Ollama API - shared across all agents."""
     
-    def __init__(self, model: str = "llama3.2:3b", 
+    def __init__(self, model: str = "qwen3:1.7b", 
                  base_url: str = "http://localhost:11434",
                  embed_model: str = "nomic-embed-text"):
         self.model = model
@@ -31,10 +31,18 @@ class OllamaClient:
         if max_tokens:
             payload["options"]["num_predict"] = max_tokens
         
-        response = requests.post(url, json=payload, timeout=60)
-        response.raise_for_status()
-        
-        return response.json()["response"]
+        try:
+            response = requests.post(url, json=payload, timeout=60)
+            response.raise_for_status()
+            return response.json()["response"]
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 404:
+                available_models = self.list_models()
+                error_msg = f"Model '{self.model}' not found. Available models: {', '.join(available_models)}"
+                if not available_models:
+                    error_msg += "\nNo models installed. Run 'ollama pull <model>' to install a model."
+                raise RuntimeError(error_msg) from e
+            raise
     
     def generate_embedding(self, text: str) -> list[float]:
         """Generate embedding vector for text."""

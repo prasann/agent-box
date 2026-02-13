@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     """Global settings for all agents."""
     
     # Ollama (shared)
-    ollama_model: str = "llama3.2:3b"
+    ollama_model: str = "qwen3:1.7b"
     ollama_url: str = "http://localhost:11434"
     
     # Gmail agent (future)

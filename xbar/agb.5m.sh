@@ -12,11 +12,35 @@
 VENV_PATH="$HOME/.local/share/agent-box/venv"
 AGB_PATH="$VENV_PATH/bin/agb"
 OLLAMA_URL="http://localhost:11434"
+FULL_AGB_PATH="/Users/$USER/.local/share/agent-box/venv/bin/agb"
 
 # Check if Ollama is running
 check_ollama() {
     curl -sf "${OLLAMA_URL}/api/tags" >/dev/null 2>&1
     return $?
+}
+
+# Run command in iTerm2 (new tab if open, new window if not)
+run_in_iterm() {
+    local cmd="$1"
+    osascript <<EOF
+tell application "iTerm"
+    activate
+    if (count of windows) > 0 then
+        tell current window
+            create tab with default profile
+            tell current session
+                write text "$cmd"
+            end tell
+        end tell
+    else
+        set newWindow to (create window with default profile)
+        tell current session of newWindow
+            write text "$cmd"
+        end tell
+    end if
+end tell
+EOF
 }
 
 # Run agb command with notification
@@ -77,14 +101,14 @@ main() {
     # Shell Agent commands (if available)
     if "$AGB_PATH" shell --help >/dev/null 2>&1; then
         echo "🐚 Shell Agent"
-        echo "--Clean History | shell='$AGB_PATH' param1='shell' param2='purge' param3='--preview' terminal=true refresh=false"
+        echo "--Clean History | shell='$0' param1='iterm' param2='shell purge --preview' terminal=false refresh=false"
         echo "---"
     fi
     
     # FindTab Agent commands (if available)
     if "$AGB_PATH" findtab --help >/dev/null 2>&1; then
         echo "🔍 FindTab Agent"
-        echo "--Search Tabs | shell='$AGB_PATH' param1='findtab' param2='search' terminal=true refresh=false"
+        echo "--Search Tabs | shell='$0' param1='findtab-search' terminal=false refresh=false"
         echo "--Index Tabs | shell='$AGB_PATH' param1='findtab' param2='index' terminal=false refresh=true"
         echo "---"
     fi
@@ -93,20 +117,29 @@ main() {
     echo "⚙️ System"
     echo "--🔄 Refresh | refresh=true"
     echo "--📂 Open Project | bash='open' param1='$HOME/projects/personal/agent-box' terminal=false"
-    echo "--📊 View Logs | bash='tail' param1='-f' param2='$HOME/.local/state/ab/logs/agent-box.log' terminal=true"
-    echo "--🔧 Reinstall | bash='$HOME/projects/personal/agent-box/install-xbar.sh' terminal=true"
-    echo "---"
-    
-    # About
-    echo "ℹ️ About"
-    echo "--Version: 1.0"
-    echo "--Ollama: $(check_ollama && echo '✅ Online' || echo '❌ Offline')"
-    echo "--GitHub | href=https://github.com/prasann/agent-box"
+    echo "--📊 View Logs | shell='$0' param1='iterm' param2='tail -f $HOME/.local/state/ab/logs/agent-box.log' terminal=false refresh=false"
+    echo "--🔧 Reinstall | shell='$0' param1='iterm' param2='$HOME/projects/personal/agent-box/install-xbar.sh' terminal=false refresh=false"
 }
 
 # Handle command execution
 if [ "$1" = "run" ]; then
     run_agb_command "$2" "$3"
+elif [ "$1" = "iterm" ]; then
+    # Run any command in iTerm
+    cmd="$2"
+    # Replace $AGB_PATH placeholder with full path if present
+    cmd="${cmd//\$AGB_PATH/$FULL_AGB_PATH}"
+    # If it's an agb command, use full path
+    if [[ "$cmd" == shell* ]] || [[ "$cmd" == findtab* ]] || [[ "$cmd" == text* ]]; then
+        cmd="$FULL_AGB_PATH $cmd"
+    fi
+    run_in_iterm "$cmd"
+elif [ "$1" = "findtab-search" ]; then
+    # Prompt for search text using AppleScript
+    search_text=$(osascript -e 'display dialog "Enter search text:" default answer "" with title "FindTab Search"' -e 'text returned of result' 2>/dev/null)
+    if [ -n "$search_text" ]; then
+        run_in_iterm "$FULL_AGB_PATH findtab search '$search_text'"
+    fi
 else
     main
 fi

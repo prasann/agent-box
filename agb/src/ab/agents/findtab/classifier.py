@@ -1,53 +1,59 @@
-"""LLM-based URL classifier for FindTab v2.
+"""LLM-based URL classifier for FindTab.
 
-Uses Ollama to classify which URLs are worth saving as bookmarks.
+Uses GitHub Models API to classify which URLs are worth saving as bookmarks.
+Classifies based on URL patterns only - does not fetch webpage content.
 """
 import json
 from typing import Optional
-from ...core.ollama_client import OllamaClient
+from ...core.github_models import GitHubModelsClient
 from .models import HistoryEntry, ClassifiedEntry
 
 
-CLASSIFICATION_PROMPT = """You are a bookmark curator. For each URL below, decide if it's worth saving for future reference.
+# Focused prompt for URL-pattern-only classification
+CLASSIFICATION_PROMPT = """You are building a personal bookmark index for a developer. Your job is to classify URLs based ONLY on the URL pattern and page title - do NOT try to fetch or access the URLs.
 
-SAVE if it's:
-- An article, blog post, or tutorial someone might want to revisit
-- Documentation or reference material (API docs, guides, manuals)
-- A GitHub repo, issue, PR, or discussion with useful content
-- A Reddit or X.com thread with substantive technical discussion
-- Stack Overflow question with good answers
-- A Medium, Dev.to, Substack, or similar blog post
+CONTEXT: The user browses many websites daily. We want to save only content worth revisiting later - articles, documentation, code references, and discussions. We must SKIP anything that requires authentication or is ephemeral.
 
-SKIP if it's:
-- Behind authentication (email, banking, shopping carts, dashboards, account pages)
-- Ephemeral content (search results, feeds, notifications, login/signup pages)
-- Video content (YouTube, Vimeo, TikTok, etc.)
-- Navigation/landing pages without substance (homepages, category listings)
-- Social media profiles, timelines, or feeds
-- E-commerce product pages or shopping sites
-- News site homepages (but individual articles are OK)
-- URL shorteners or redirect pages
+CLASSIFY each URL as SAVE or SKIP based on these rules:
+
+SAVE (content worth bookmarking):
+- Technical articles/blogs: medium.com/@*/, dev.to/*, *.substack.com/p/*, hashnode.dev/*
+- Documentation: docs.*, *.readthedocs.io, developer.*, learn.microsoft.com/*
+- Code: github.com/*/blob/*, github.com/*/tree/*, github.com/*/*/issues/*, github.com/*/*/discussions/*
+- Q&A: stackoverflow.com/questions/*, stackexchange.com/*
+- Discussions: reddit.com/r/*/comments/*, news.ycombinator.com/item*
+- Reference: wikipedia.org/wiki/*, *.wiki/*
+
+SKIP (not worth bookmarking):
+- Auth-required: mail.*, outlook.*, gmail.*, */login, */signin, */account, */settings, */dashboard
+- E-commerce: amazon.*, flipkart.*, */cart, */checkout, */orders
+- Video: youtube.com/*, vimeo.com/*, tiktok.com/*
+- Search/feeds: */search*, */feed, */notifications, */trending
+- Homepages: Just a domain with no path (e.g., github.com, google.com)
+- Local: localhost*, 127.0.0.1*, file://*
+
+When uncertain, SKIP (be conservative).
 
 URLs to classify:
 {entries}
 
-Respond ONLY with a valid JSON array. Each object must have "index" (number) and "save" (boolean).
-Example: [{{"index": 1, "save": true}}, {{"index": 2, "save": false}}]
+Respond with ONLY a JSON array. No explanation. Format:
+[{{"i": 1, "s": true}}, {{"i": 2, "s": false}}]
 
-JSON response:"""
+JSON:"""
 
 
 class BookmarkClassifier:
-    """Classifies URLs using Ollama LLM."""
+    """Classifies URLs using GitHub Models API."""
     
-    def __init__(self, ollama: OllamaClient, batch_size: int = 30):
+    def __init__(self, client: Optional[GitHubModelsClient] = None, batch_size: int = 30):
         """Initialize classifier.
         
         Args:
-            ollama: Ollama client instance
+            client: GitHub Models client
             batch_size: Number of URLs to process per LLM call
         """
-        self.ollama = ollama
+        self.client = client or GitHubModelsClient()
         self.batch_size = batch_size
     
     def classify_batch(self, entries: list[HistoryEntry]) -> list[ClassifiedEntry]:
@@ -83,7 +89,7 @@ class BookmarkClassifier:
         prompt = CLASSIFICATION_PROMPT.format(entries=formatted)
         
         try:
-            response = self.ollama.generate(prompt, temperature=0.1, max_tokens=500)
+            response = self.client.generate(prompt, temperature=0.1, max_tokens=500)
             classifications = self._parse_response(response, len(entries))
         except Exception as e:
             # On error, default to skipping all (conservative)
@@ -119,9 +125,15 @@ class BookmarkClassifier:
         response = response.strip()
         
         # Handle case where LLM wraps in markdown code block
-        if response.startswith("```"):
-            lines = response.split("\n")
-            response = "\n".join(lines[1:-1])
+        if "```" in response:
+            # Extract content between code fences
+            parts = response.split("```")
+            for part in parts:
+                if "[" in part and "]" in part:
+                    response = part.strip()
+                    if response.startswith("json"):
+                        response = response[4:].strip()
+                    break
         
         # Find JSON array in response
         start = response.find("[")
@@ -133,7 +145,14 @@ class BookmarkClassifier:
         
         try:
             data = json.loads(json_str)
-            return {item["index"]: item.get("save", False) for item in data}
+            # Support both compact {"i": 1, "s": true} and full {"index": 1, "save": true}
+            result = {}
+            for item in data:
+                idx = item.get("i") or item.get("index")
+                save = item.get("s") if "s" in item else item.get("save", False)
+                if idx:
+                    result[idx] = bool(save)
+            return result
         except (json.JSONDecodeError, KeyError, TypeError):
             # Fallback: try line-by-line parsing for simpler formats
             return self._parse_simple_format(response, expected_count)

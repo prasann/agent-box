@@ -5,7 +5,7 @@
 # <xbar.author>Prasann Nagarajan</xbar.author>
 # <xbar.author.github>prasann</xbar.author.github>
 # <xbar.desc>Quick access to local AI productivity agents</xbar.desc>
-# <xbar.dependencies>python3,ollama</xbar.dependencies>
+# <xbar.dependencies>python3,gh</xbar.dependencies>
 # <xbar.abouturl>https://github.com/prasann/agent-box</xbar.abouturl>
 
 # Configuration - these get set by install script
@@ -14,9 +14,15 @@ AGB_PATH="$VENV_PATH/bin/agb"
 OLLAMA_URL="http://localhost:11434"
 FULL_AGB_PATH="/Users/$USER/.local/share/agent-box/venv/bin/agb"
 
-# Check if Ollama is running
+# Check if Ollama is running (needed for text/shell agents)
 check_ollama() {
     curl -sf "${OLLAMA_URL}/api/tags" >/dev/null 2>&1
+    return $?
+}
+
+# Check if GitHub CLI is authenticated (needed for FindTab)
+check_gh_auth() {
+    gh auth status >/dev/null 2>&1
     return $?
 }
 
@@ -73,7 +79,7 @@ main() {
     fi
     
     # Menu bar icon
-    if check_ollama; then
+    if check_ollama || check_gh_auth; then
         echo "🤖"
     else
         echo "⚠️"
@@ -85,10 +91,17 @@ main() {
     echo "Agent Box | size=14 font=Menlo-Bold"
     echo "---"
     
-    # Ollama status warning
+    # Ollama status warning (for text/shell agents)
     if ! check_ollama; then
-        echo "⚠️ Ollama Offline | color=red"
+        echo "⚠️ Ollama Offline (text/shell agents) | color=orange"
         echo "--Start Ollama | bash='$HOME/.local/share/agent-box/venv/bin/python3' param1='-c' param2='import subprocess; subprocess.Popen([\"ollama\", \"serve\"])' terminal=false"
+        echo "---"
+    fi
+    
+    # GitHub auth status warning (for FindTab)
+    if ! check_gh_auth; then
+        echo "⚠️ GitHub CLI not authenticated | color=orange"
+        echo "--Run: gh auth login | shell='$0' param1='iterm' param2='gh auth login' terminal=false refresh=false"
         echo "---"
     fi
     
@@ -107,9 +120,14 @@ main() {
     
     # FindTab Agent commands (if available)
     if "$AGB_PATH" findtab --help >/dev/null 2>&1; then
-        echo "🔍 FindTab Agent"
-        echo "--Search Tabs | shell='$0' param1='findtab-search' terminal=false refresh=false"
-        echo "--Index Tabs | shell='$AGB_PATH' param1='findtab' param2='index' terminal=false refresh=true"
+        if check_gh_auth; then
+            echo "🔍 FindTab Agent"
+            echo "--Search Tabs | shell='$0' param1='findtab-search' terminal=false refresh=false"
+            echo "--Index Tabs | shell='$AGB_PATH' param1='findtab' param2='index' terminal=false refresh=true"
+            echo "--Status | shell='$0' param1='iterm' param2='findtab status' terminal=false refresh=false"
+        else
+            echo "🔍 FindTab Agent (needs gh auth) | color=gray"
+        fi
         echo "---"
     fi
     

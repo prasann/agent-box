@@ -17,7 +17,7 @@ class OllamaClient:
     
     @retry(stop=stop_after_attempt(3), 
            wait=wait_exponential(multiplier=1, min=2, max=10))
-    def generate(self, prompt: str, temperature: float = 0.7, max_tokens: Optional[int] = None) -> str:
+    def generate(self, prompt: str, temperature: float = 0.7, max_tokens: Optional[int] = None, timeout: int = 120) -> str:
         """Generate text with retry logic."""
         url = f"{self.base_url}/api/generate"
         
@@ -32,7 +32,7 @@ class OllamaClient:
             payload["options"]["num_predict"] = max_tokens
         
         try:
-            response = requests.post(url, json=payload, timeout=60)
+            response = requests.post(url, json=payload, timeout=timeout)
             response.raise_for_status()
             return response.json()["response"]
         except requests.exceptions.HTTPError as e:

@@ -1,276 +1,498 @@
-"""Database management for Find That Tab index."""
+"""Database management for FindTab - LLM-enriched bookmarks."""
 import sqlite3
 import json
-import pickle
 from pathlib import Path
+from datetime import datetime, timedelta
 from typing import Optional
-from datetime import datetime
-from .models import EnrichedEntry
+from .models import EnrichedBookmark
 
 
-class IndexDatabase:
-    """Manages the local search index database."""
+class BookmarkDatabase:
+    """Manages the bookmark database with watermark tracking."""
     
-    def __init__(self, db_path: Path):
+    SCHEMA_VERSION = "2.0"
+    
+    def __init__(self, db_path: str):
         """Initialize database connection.
         
         Args:
-            db_path: Path to SQLite database file
+            db_path: Path to SQLite database file (supports ~)
         """
         self.db_path = Path(db_path).expanduser()
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        # Auto-initialize schema
+        self.initialize()
     
-    def initialize(self):
+    def initialize(self) -> None:
         """Create database schema if it doesn't exist."""
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         
-        # Main entries table
+        # Metadata table for tracking state
         cursor.execute("""
-            CREATE TABLE IF NOT EXISTS history_entries (
-                id TEXT PRIMARY KEY,
-                url TEXT NOT NULL,
-                title TEXT NOT NULL,
-                visit_time TIMESTAMP NOT NULL,
-                visit_count INTEGER DEFAULT 1,
-                keywords TEXT,
-                summary TEXT,
-                browser TEXT,
-                indexed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                search_text TEXT,
-                UNIQUE(url, visit_time)
+            CREATE TABLE IF NOT EXISTS metadata (
+                key TEXT PRIMARY KEY,
+                value TEXT
             )
         """)
         
-        # Indexes for performance
+        # Main bookmarks table
         cursor.execute("""
-            CREATE INDEX IF NOT EXISTS idx_visit_time 
-            ON history_entries(visit_time DESC)
+            CREATE TABLE IF NOT EXISTS bookmarks (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                url TEXT UNIQUE NOT NULL,
+                title TEXT NOT NULL,
+                
+                -- LLM-enriched fields
+                category TEXT,
+                summary TEXT,
+                topics TEXT,
+                why_useful TEXT,
+                
+                -- Visit metadata
+                first_visit_at TIMESTAMP,
+                last_visit_at TIMESTAMP,
+                visit_count INTEGER DEFAULT 1,
+                browser TEXT,
+                
+                -- Index metadata
+                indexed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                enriched_at TIMESTAMP,
+                enrichment_status TEXT DEFAULT 'pending'
+            )
         """)
         
+        # Indexes for common queries
         cursor.execute("""
-            CREATE INDEX IF NOT EXISTS idx_browser 
-            ON history_entries(browser)
+            CREATE INDEX IF NOT EXISTS idx_bookmarks_category 
+            ON bookmarks(category)
+        """)
+        cursor.execute("""
+            CREATE INDEX IF NOT EXISTS idx_bookmarks_indexed_at 
+            ON bookmarks(indexed_at DESC)
+        """)
+        cursor.execute("""
+            CREATE INDEX IF NOT EXISTS idx_bookmarks_enrichment_status 
+            ON bookmarks(enrichment_status)
         """)
         
-        # Full-text search (SQLite FTS5)
+        # Full-text search index (standalone, not content-linked)
         cursor.execute("""
-            CREATE VIRTUAL TABLE IF NOT EXISTS history_fts USING fts5(
+            CREATE VIRTUAL TABLE IF NOT EXISTS bookmarks_fts USING fts5(
                 url,
                 title,
-                keywords,
                 summary,
-                content='history_entries',
-                content_rowid='rowid'
-            )
-        """)
-        
-        # Embeddings table for semantic search
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS embeddings (
-                entry_id TEXT PRIMARY KEY,
-                embedding BLOB NOT NULL,
-                FOREIGN KEY(entry_id) REFERENCES history_entries(id)
+                topics,
+                why_useful
             )
         """)
         
         # Triggers to keep FTS in sync
         cursor.execute("""
-            CREATE TRIGGER IF NOT EXISTS history_fts_insert 
-            AFTER INSERT ON history_entries BEGIN
-                INSERT INTO history_fts(rowid, url, title, keywords, summary)
-                VALUES (new.rowid, new.url, new.title, new.keywords, new.summary);
+            CREATE TRIGGER IF NOT EXISTS bookmarks_fts_insert 
+            AFTER INSERT ON bookmarks BEGIN
+                INSERT INTO bookmarks_fts(url, title, summary, topics, why_useful)
+                VALUES (new.url, new.title, new.summary, new.topics, new.why_useful);
             END
         """)
         
         cursor.execute("""
-            CREATE TRIGGER IF NOT EXISTS history_fts_delete 
-            AFTER DELETE ON history_entries BEGIN
-                DELETE FROM history_fts WHERE rowid = old.rowid;
+            CREATE TRIGGER IF NOT EXISTS bookmarks_fts_update 
+            AFTER UPDATE ON bookmarks BEGIN
+                DELETE FROM bookmarks_fts WHERE url = old.url;
+                INSERT INTO bookmarks_fts(url, title, summary, topics, why_useful)
+                VALUES (new.url, new.title, new.summary, new.topics, new.why_useful);
             END
         """)
         
         cursor.execute("""
-            CREATE TRIGGER IF NOT EXISTS history_fts_update 
-            AFTER UPDATE ON history_entries BEGIN
-                UPDATE history_fts 
-                SET url = new.url, 
-                    title = new.title, 
-                    keywords = new.keywords, 
-                    summary = new.summary
-                WHERE rowid = new.rowid;
+            CREATE TRIGGER IF NOT EXISTS bookmarks_fts_delete 
+            AFTER DELETE ON bookmarks BEGIN
+                DELETE FROM bookmarks_fts WHERE url = old.url;
             END
         """)
+        
+        # Set schema version
+        cursor.execute("""
+            INSERT OR REPLACE INTO metadata (key, value) VALUES ('schema_version', ?)
+        """, (self.SCHEMA_VERSION,))
         
         conn.commit()
         conn.close()
     
-    def already_indexed(self, url: str, visit_time: datetime) -> bool:
-        """Check if an entry is already in the index."""
+    # ─────────────────────────────────────────────────────────────
+    # Watermark management
+    # ─────────────────────────────────────────────────────────────
+    
+    def get_last_processed_at(self) -> Optional[datetime]:
+        """Get timestamp of last successful processing run.
+        
+        Returns:
+            datetime if previously processed, None for first run
+        """
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         
         cursor.execute(
-            "SELECT 1 FROM history_entries WHERE url = ? AND visit_time = ?",
-            (url, visit_time.isoformat())
+            "SELECT value FROM metadata WHERE key = 'last_processed_at'"
         )
+        row = cursor.fetchone()
+        conn.close()
         
+        if row and row[0]:
+            return datetime.fromisoformat(row[0])
+        return None
+    
+    def set_last_processed_at(self, timestamp: datetime) -> None:
+        """Update the last processed timestamp.
+        
+        Args:
+            timestamp: Time to record as last processed
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        
+        cursor.execute("""
+            INSERT OR REPLACE INTO metadata (key, value) VALUES ('last_processed_at', ?)
+        """, (timestamp.isoformat(),))
+        
+        conn.commit()
+        conn.close()
+    
+    def get_processing_window(self, bootstrap_days: int = 7) -> datetime:
+        """Get the start timestamp for processing.
+        
+        Returns last_processed_at if available, otherwise (now - bootstrap_days).
+        
+        Args:
+            bootstrap_days: Days to look back on first run
+            
+        Returns:
+            Start timestamp for processing window
+        """
+        last_processed = self.get_last_processed_at()
+        if last_processed:
+            return last_processed
+        return datetime.now() - timedelta(days=bootstrap_days)
+    
+    # ─────────────────────────────────────────────────────────────
+    # Bookmark operations
+    # ─────────────────────────────────────────────────────────────
+    
+    def url_exists(self, url: str) -> bool:
+        """Check if URL is already in the database."""
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        
+        cursor.execute("SELECT 1 FROM bookmarks WHERE url = ?", (url,))
         exists = cursor.fetchone() is not None
+        
         conn.close()
         return exists
     
-    def store_entries(self, entries: list[EnrichedEntry]) -> int:
-        """Store enriched entries in the index.
+    def get_existing_urls(self, urls: list[str]) -> set[str]:
+        """Get set of URLs that already exist in database.
         
         Args:
-            entries: List of enriched entries to store
+            urls: List of URLs to check
             
+        Returns:
+            Set of URLs that already exist
+        """
+        if not urls:
+            return set()
+        
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        
+        placeholders = ','.join('?' * len(urls))
+        cursor.execute(f"SELECT url FROM bookmarks WHERE url IN ({placeholders})", urls)
+        existing = {row[0] for row in cursor.fetchall()}
+        
+        conn.close()
+        return existing
+    
+    def store_pending_bookmarks(self, entries: list[dict]) -> int:
+        """Store entries pending enrichment.
+        
+        Args:
+            entries: List of dicts with url, title, first_visit_at, 
+                     last_visit_at, visit_count, browser
+        
         Returns:
             Number of entries stored
         """
         if not entries:
             return 0
-            
+        
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         
-        stored_count = 0
+        stored = 0
         for entry in entries:
             try:
                 cursor.execute("""
-                    INSERT OR IGNORE INTO history_entries 
-                    (id, url, title, visit_time, visit_count, keywords, summary, browser, search_text)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    INSERT OR IGNORE INTO bookmarks 
+                    (url, title, first_visit_at, last_visit_at, visit_count, browser, enrichment_status)
+                    VALUES (?, ?, ?, ?, ?, ?, 'pending')
                 """, (
-                    entry.id,
-                    entry.url,
-                    entry.title,
-                    entry.visit_time.isoformat(),
-                    entry.visit_count,
-                    json.dumps(entry.keywords),
-                    entry.summary,
-                    entry.browser,
-                    entry.search_text,
+                    entry['url'],
+                    entry['title'],
+                    entry.get('first_visit_at', datetime.now()).isoformat(),
+                    entry.get('last_visit_at', datetime.now()).isoformat(),
+                    entry.get('visit_count', 1),
+                    entry.get('browser', 'unknown'),
                 ))
-                
                 if cursor.rowcount > 0:
-                    stored_count += 1
-                    
+                    stored += 1
             except sqlite3.IntegrityError:
-                # Duplicate entry, skip
                 continue
         
         conn.commit()
         conn.close()
-        
-        return stored_count
+        return stored
     
-    def store_embedding(self, entry_id: str, embedding: list[float]) -> bool:
-        """Store embedding for an entry.
+    def update_bookmark_enrichment(self, url: str, category: str, summary: str, 
+                                    topics: list[str], why_useful: str) -> bool:
+        """Update bookmark with LLM-enriched data.
         
         Args:
-            entry_id: Entry ID
-            embedding: Embedding vector
+            url: URL to update
+            category: Content category
+            summary: Brief description
+            topics: List of key topics
+            why_useful: Reason to revisit
             
         Returns:
-            True if stored successfully
+            True if updated successfully
         """
-        if not embedding:
-            return False
-            
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         
         try:
             cursor.execute("""
-                INSERT OR REPLACE INTO embeddings (entry_id, embedding)
-                VALUES (?, ?)
-            """, (entry_id, pickle.dumps(embedding)))
-            
+                UPDATE bookmarks 
+                SET category = ?, 
+                    summary = ?, 
+                    topics = ?, 
+                    why_useful = ?,
+                    enriched_at = ?,
+                    enrichment_status = 'enriched'
+                WHERE url = ?
+            """, (
+                category,
+                summary,
+                json.dumps(topics),
+                why_useful,
+                datetime.now().isoformat(),
+                url,
+            ))
             conn.commit()
-            return True
-        except Exception as e:
-            print(f"Warning: Failed to store embedding: {e}")
-            return False
+            return cursor.rowcount > 0
         finally:
             conn.close()
     
-    def get_entries_without_embeddings(self, limit: int = 100) -> list[tuple]:
-        """Get entries that don't have embeddings yet.
+    def mark_enrichment_failed(self, url: str) -> None:
+        """Mark bookmark enrichment as failed."""
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
         
-        Args:
-            limit: Maximum number of entries to return
-            
+        cursor.execute("""
+            UPDATE bookmarks SET enrichment_status = 'failed' WHERE url = ?
+        """, (url,))
+        
+        conn.commit()
+        conn.close()
+    
+    def get_pending_enrichment(self, limit: int = 50) -> list[dict]:
+        """Get bookmarks pending enrichment.
+        
         Returns:
-            List of (id, title, summary) tuples
+            List of {id, url, title} dicts
         """
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         
         cursor.execute("""
-            SELECT e.id, e.title, e.summary
-            FROM history_entries e
-            LEFT JOIN embeddings emb ON e.id = emb.entry_id
-            WHERE emb.entry_id IS NULL
+            SELECT id, url, title FROM bookmarks 
+            WHERE enrichment_status = 'pending'
             LIMIT ?
         """, (limit,))
         
-        results = cursor.fetchall()
+        results = [
+            {'id': row[0], 'url': row[1], 'title': row[2]}
+            for row in cursor.fetchall()
+        ]
         conn.close()
-        
         return results
     
-    def get_all_embeddings(self) -> list[tuple]:
-        """Get all entries with their embeddings.
+    def update_visit_count(self, url: str, last_visit_at: datetime, 
+                           additional_visits: int = 1) -> None:
+        """Update visit count for existing bookmark."""
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        
+        cursor.execute("""
+            UPDATE bookmarks 
+            SET visit_count = visit_count + ?,
+                last_visit_at = ?
+            WHERE url = ?
+        """, (additional_visits, last_visit_at.isoformat(), url))
+        
+        conn.commit()
+        conn.close()
+    
+    # ─────────────────────────────────────────────────────────────
+    # Search operations
+    # ─────────────────────────────────────────────────────────────
+    
+    def search(self, query: str, limit: int = 10) -> list[dict]:
+        """Search bookmarks using FTS5.
+        
+        Args:
+            query: Search query
+            limit: Maximum results
+            
+        Returns:
+            List of matching bookmarks
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        
+        # FTS5 search with BM25 ranking
+        cursor.execute("""
+            SELECT 
+                b.id, b.url, b.title, b.category, b.summary, 
+                b.topics, b.why_useful, b.last_visit_at, b.visit_count,
+                bm25(bookmarks_fts) as rank
+            FROM bookmarks_fts fts
+            JOIN bookmarks b ON fts.url = b.url
+            WHERE bookmarks_fts MATCH ?
+            ORDER BY rank
+            LIMIT ?
+        """, (query, limit))
+        
+        results = []
+        for row in cursor.fetchall():
+            results.append({
+                'id': row[0],
+                'url': row[1],
+                'title': row[2],
+                'category': row[3],
+                'summary': row[4],
+                'topics': json.loads(row[5]) if row[5] else [],
+                'why_useful': row[6],
+                'last_visit_at': datetime.fromisoformat(row[7]) if row[7] else None,
+                'visit_count': row[8],
+                'rank': row[9],
+            })
+        
+        conn.close()
+        return results
+    
+    def list_recent(self, limit: int = 20) -> list[dict]:
+        """List recently indexed bookmarks.
         
         Returns:
-            List of (id, url, title, visit_time, summary, embedding) tuples
+            List of recent bookmarks
         """
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         
         cursor.execute("""
-            SELECT e.id, e.url, e.title, e.visit_time, e.summary, e.visit_count, emb.embedding
-            FROM history_entries e
-            JOIN embeddings emb ON e.id = emb.entry_id
-        """)
+            SELECT id, url, title, category, summary, topics, 
+                   why_useful, last_visit_at, visit_count, indexed_at
+            FROM bookmarks 
+            WHERE enrichment_status = 'enriched'
+            ORDER BY indexed_at DESC
+            LIMIT ?
+        """, (limit,))
         
-        results = cursor.fetchall()
+        results = []
+        for row in cursor.fetchall():
+            results.append({
+                'id': row[0],
+                'url': row[1],
+                'title': row[2],
+                'category': row[3],
+                'summary': row[4],
+                'topics': json.loads(row[5]) if row[5] else [],
+                'why_useful': row[6],
+                'last_visit_at': datetime.fromisoformat(row[7]) if row[7] else None,
+                'visit_count': row[8],
+                'indexed_at': datetime.fromisoformat(row[9]) if row[9] else None,
+            })
+        
         conn.close()
-        
         return results
+    
+    # ─────────────────────────────────────────────────────────────
+    # Statistics
+    # ─────────────────────────────────────────────────────────────
     
     def get_stats(self) -> dict:
         """Get index statistics."""
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         
-        # Total entries
-        cursor.execute("SELECT COUNT(*) FROM history_entries")
+        # Total counts
+        cursor.execute("SELECT COUNT(*) FROM bookmarks")
         total = cursor.fetchone()[0]
         
+        cursor.execute("SELECT COUNT(*) FROM bookmarks WHERE enrichment_status = 'enriched'")
+        enriched = cursor.fetchone()[0]
+        
+        cursor.execute("SELECT COUNT(*) FROM bookmarks WHERE enrichment_status = 'pending'")
+        pending = cursor.fetchone()[0]
+        
+        cursor.execute("SELECT COUNT(*) FROM bookmarks WHERE enrichment_status = 'failed'")
+        failed = cursor.fetchone()[0]
+        
+        # Category breakdown
+        cursor.execute("""
+            SELECT category, COUNT(*) FROM bookmarks 
+            WHERE category IS NOT NULL 
+            GROUP BY category
+        """)
+        categories = {row[0]: row[1] for row in cursor.fetchall()}
+        
         # Date range
-        cursor.execute("SELECT MIN(visit_time), MAX(visit_time) FROM history_entries")
+        cursor.execute("SELECT MIN(first_visit_at), MAX(last_visit_at) FROM bookmarks")
         oldest, newest = cursor.fetchone()
         
         # Browsers
-        cursor.execute("SELECT DISTINCT browser FROM history_entries")
+        cursor.execute("SELECT DISTINCT browser FROM bookmarks WHERE browser IS NOT NULL")
         browsers = [row[0] for row in cursor.fetchall()]
         
-        # Embeddings count
-        try:
-            cursor.execute("SELECT COUNT(*) FROM embeddings")
-            embeddings_count = cursor.fetchone()[0]
-        except sqlite3.OperationalError:
-            # Table doesn't exist yet, needs migration
-            embeddings_count = 0
+        # Last processed
+        cursor.execute("SELECT value FROM metadata WHERE key = 'last_processed_at'")
+        row = cursor.fetchone()
+        last_processed = row[0] if row else None
         
         conn.close()
         
         return {
-            "total": total,
-            "oldest": oldest,
-            "newest": newest,
-            "browsers": browsers,
-            "embeddings": embeddings_count,
+            'total': total,
+            'enriched': enriched,
+            'pending': pending,
+            'failed': failed,
+            'categories': categories,
+            'oldest': oldest,
+            'newest': newest,
+            'browsers': browsers,
+            'last_processed_at': last_processed,
+            'db_path': str(self.db_path),
         }
+    
+    def delete_bookmark(self, url: str) -> bool:
+        """Delete a bookmark by URL."""
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        
+        cursor.execute("DELETE FROM bookmarks WHERE url = ?", (url,))
+        deleted = cursor.rowcount > 0
+        
+        conn.commit()
+        conn.close()
+        return deleted

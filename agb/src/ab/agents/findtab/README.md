@@ -111,9 +111,10 @@ findtab status
 ## How It Works
 
 1. **Extraction**: Reads browser history from local SQLite databases
-2. **Enrichment**: Extracts keywords from URLs and titles
-3. **Indexing**: Stores in local index with full-text search
-4. **Search**: Uses SQLite FTS5 for fast, relevant results
+2. **Classification**: LLM classifies URLs as worth saving or skipping
+3. **Enrichment**: LLM generates category, summary, and topics for saved URLs
+4. **Indexing**: Stores in local SQLite with FTS5 full-text search
+5. **Search**: Fast keyword search with BM25 ranking
 
 ## Supported Browsers
 
@@ -124,16 +125,20 @@ findtab status
 
 ## Configuration
 
-Create a `.env` file in the `agb` directory:
+Create a `.env` file or set environment variables:
 
 ```env
-# Ollama settings (for future semantic features)
-FINDTAB_OLLAMA_URL=http://localhost:11434
-FINDTAB_OLLAMA_MODEL=llama3.2:3b
+# GitHub Models API model selection (default: gpt-4o)
+GITHUB_MODEL=gpt-4o
 
-# Index location
-FINDTAB_INDEX_PATH=~/.findtab/index.db
+# Database location (default: ~/.agb/findtab/bookmarks.db)
+# FINDTAB_DB_PATH=~/.agb/findtab/bookmarks.db
 ```
+
+## Requirements
+
+- **GitHub CLI**: Must be authenticated via `gh auth login`
+- **Python 3.12+**
 
 ## Privacy & Security
 
@@ -205,9 +210,11 @@ Browser History DB (SQLite)
          ↓
     Extractor (copies DB)
          ↓
-    Enricher (keywords)
-         ↓
-   Local Index (~/.findtab/)
+    Classifier (GitHub Models gpt-4o)
+         ↓ (filters to save-worthy content)
+    Enricher (GitHub Models gpt-4o)
+         ↓ (adds category, summary, topics)
+   Local Index (~/.agb/findtab/)
          ↓
     FTS5 Search Engine
          ↓

@@ -1,15 +1,15 @@
-"""Find That Tab CLI v2 - LLM-enriched bookmark search."""
+"""Find That Tab CLI - LLM-enriched bookmark search."""
 import click
 import subprocess
 from rich.console import Console
 from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from datetime import datetime
-from ...core.ollama_client import OllamaClient
+from ...core.github_models import GitHubModelsClient
 from ...core.config import get_settings
-from .database_v2 import BookmarkDatabase
-from .indexer_v2 import BookmarkIndexer
-from .search_v2 import BookmarkSearcher
+from .database import BookmarkDatabase
+from .indexer import BookmarkIndexer
+from .search import BookmarkSearcher
 
 
 console = Console()
@@ -38,42 +38,51 @@ def findtab_group():
 
 
 @findtab_group.command()
-@click.option('--force', is_flag=True, help='Force full reindex (last 7 days)')
+@click.option('--force', is_flag=True, help='Force full reindex (ignores watermark)')
+@click.option('--hours', type=int, default=None, help='Hours of history to process (overrides watermark)')
 @click.option('--dry-run', is_flag=True, help='Show what would be indexed without saving')
-def index(force, dry_run):
+def index(force, hours, dry_run):
     """Index browser history incrementally.
     
     Processes new history since last run. On first run, 
     indexes last 7 days.
     
     Examples:
-        findtab index           # Incremental index
-        findtab index --force   # Reindex last 7 days
-        findtab index --dry-run # Preview without saving
+        findtab index             # Incremental index
+        findtab index --hours=5   # Process last 5 hours
+        findtab index --force     # Reindex (ignore watermark)
+        findtab index --dry-run   # Preview without saving
     """
     settings = get_settings()
     db, _ = _get_db()
-    db.initialize()
     
-    # Check Ollama availability
-    ollama = OllamaClient(model=settings.ollama_model, base_url=settings.ollama_url)
-    if not ollama.is_available():
-        console.print("❌ Ollama is not running. Start with: ollama serve", style="bold red")
+    # Use GitHub Models API
+    llm_client = GitHubModelsClient()
+    if not llm_client.is_available():
+        console.print("❌ GitHub CLI not authenticated.", style="bold red")
+        console.print("   Run: gh auth login")
         return
     
-    if not ollama.has_model(settings.ollama_model):
-        console.print(f"❌ Model '{settings.ollama_model}' not found.", style="bold red")
-        console.print(f"   Run: ollama pull {settings.ollama_model}")
-        return
-    
-    # Get processing window info
-    window_start = db.get_processing_window(bootstrap_days=settings.findtab_bootstrap_days)
+    # Determine processing window
+    from datetime import timedelta
     window_end = datetime.now()
     
+    if hours:
+        # Explicit hours override
+        window_start = window_end - timedelta(hours=hours)
+        force = True  # Treat as force when hours specified
+    elif force:
+        window_start = window_end - timedelta(days=settings.findtab_bootstrap_days)
+    else:
+        window_start = db.get_processing_window(bootstrap_days=settings.findtab_bootstrap_days)
+    
     console.print("📚 [bold blue]FindTab Indexer[/bold blue]\n")
+    console.print(f"  LLM:    [green]GitHub Models ({llm_client.model})[/green]")
     console.print(f"  Window: [dim]{window_start.strftime('%Y-%m-%d %H:%M')} → {window_end.strftime('%Y-%m-%d %H:%M')}[/dim]")
     
-    if force:
+    if hours:
+        console.print(f"  Mode:   [yellow]Last {hours} hours[/yellow]")
+    elif force:
         console.print("  Mode:   [yellow]Force full reindex[/yellow]")
     if dry_run:
         console.print("  Mode:   [yellow]Dry run (no changes)[/yellow]")
@@ -86,13 +95,13 @@ def index(force, dry_run):
         return
     
     # Run indexer
-    indexer = BookmarkIndexer(db, settings, ollama)
+    indexer = BookmarkIndexer(db, settings, llm_client)
     
     with Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), console=console) as progress:
         task = progress.add_task("Extracting browser history...", total=None)
         
         try:
-            stats = indexer.run_incremental_index(force_full=force)
+            stats = indexer.run_incremental_index(force_full=force, hours_back=hours)
         except Exception as e:
             progress.stop()
             console.print(f"❌ Error: {e}", style="bold red")
@@ -309,8 +318,12 @@ def enrich(batch):
     
     console.print(f"🔄 Enriching {min(batch, pending)} pending bookmarks...\n")
     
-    ollama = OllamaClient(model=settings.ollama_model, base_url=settings.ollama_url)
-    indexer = BookmarkIndexer(db, settings, ollama)
+    llm_client = GitHubModelsClient()
+    if not llm_client.is_available():
+        console.print("❌ GitHub CLI not authenticated.", style="bold red")
+        return
+    
+    indexer = BookmarkIndexer(db, settings, llm_client)
     
     with Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), console=console) as progress:
         task = progress.add_task("Enriching...", total=None)

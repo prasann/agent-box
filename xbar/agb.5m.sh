@@ -8,11 +8,32 @@
 # <xbar.dependencies>python3,gh</xbar.dependencies>
 # <xbar.abouturl>https://github.com/prasann/agent-box</xbar.abouturl>
 
+# Load user environment for PATH and tokens
+# xbar runs with minimal env, so we need to source the profile
+if [ -f "$HOME/.zshrc" ]; then
+    # Source non-interactively for env vars only
+    export ZDOTDIR="$HOME"
+    source "$HOME/.zshrc" 2>/dev/null || true
+fi
+
+# Ensure common paths are available
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+
 # Configuration - these get set by install script
 VENV_PATH="$HOME/.local/share/agent-box/venv"
 AGB_PATH="$VENV_PATH/bin/agb"
 OLLAMA_URL="http://localhost:11434"
 FULL_AGB_PATH="/Users/$USER/.local/share/agent-box/venv/bin/agb"
+AGB_CONFIG="$HOME/.config/agent-box/env.sh"
+
+# Load GitHub token from config file
+if [ -f "$AGB_CONFIG" ]; then
+    source "$AGB_CONFIG"
+elif [ -z "$GITHUB_TOKEN" ]; then
+    # Fallback: get from gh CLI and cache it
+    GITHUB_TOKEN=$(gh auth token 2>/dev/null)
+    export GITHUB_TOKEN
+fi
 
 # Check if Ollama is running (needed for text/shell agents)
 check_ollama() {
@@ -29,6 +50,11 @@ check_gh_auth() {
 # Run command in iTerm2 (new tab if open, new window if not)
 run_in_iterm() {
     local cmd="$1"
+    # Source the config file for GITHUB_TOKEN (if it exists)
+    local source_cmd=""
+    if [ -f "$AGB_CONFIG" ]; then
+        source_cmd="source $AGB_CONFIG; "
+    fi
     osascript <<EOF
 tell application "iTerm"
     activate
@@ -36,13 +62,13 @@ tell application "iTerm"
         tell current window
             create tab with default profile
             tell current session
-                write text "$cmd"
+                write text "${source_cmd}$cmd"
             end tell
         end tell
     else
         set newWindow to (create window with default profile)
         tell current session of newWindow
-            write text "$cmd"
+            write text "${source_cmd}$cmd"
         end tell
     end if
 end tell
@@ -54,12 +80,20 @@ run_agb_command() {
     local cmd="$1"
     local title="Agent Box - $2"
     
-    # Run in background with notifications
+    # Add --no-preview only for text commands that support it
+    local extra_args=""
+    local done_msg="Done!"
+    if [[ "$cmd" == text* ]]; then
+        extra_args="--no-preview"
+        done_msg="Done! Paste with Cmd+V"
+    fi
+    
+    # Run in background with notifications (GITHUB_TOKEN inherited from env)
     (
         osascript -e "display notification \"Processing...\" with title \"$title\"" 2>/dev/null
         
-        if "$AGB_PATH" $cmd --no-preview 2>&1; then
-            osascript -e "display notification \"Done! Paste with Cmd+V\" with title \"$title\" sound name \"Glass\"" 2>/dev/null
+        if "$AGB_PATH" $cmd $extra_args 2>&1; then
+            osascript -e "display notification \"$done_msg\" with title \"$title\" sound name \"Glass\"" 2>/dev/null
         else
             osascript -e "display notification \"Error occurred\" with title \"$title\"" 2>/dev/null
         fi
@@ -123,7 +157,7 @@ main() {
         if check_gh_auth; then
             echo "🔍 FindTab Agent"
             echo "--Search Tabs | shell='$0' param1='findtab-search' terminal=false refresh=false"
-            echo "--Index Tabs | shell='$AGB_PATH' param1='findtab' param2='index' terminal=false refresh=true"
+            echo "--Index Tabs | shell='$0' param1='run' param2='findtab index' param3='FindTab Index' terminal=false refresh=true"
             echo "--Status | shell='$0' param1='iterm' param2='findtab status' terminal=false refresh=false"
         else
             echo "🔍 FindTab Agent (needs gh auth) | color=gray"

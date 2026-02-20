@@ -7,8 +7,16 @@ from typing import Optional
 class GitHubModelsClient:
     """Client for GitHub Models API (Azure-hosted).
     
-    Uses your GitHub token (via gh auth) for authentication.
+    Authentication (in order of preference):
+    1. GITHUB_TOKEN env var - recommended for GitHub Models
+    2. gh auth token - falls back to CLI auth
+    
     Set GITHUB_MODEL env var to change model (default: gpt-4o).
+    
+    To get a token for GitHub Models:
+    1. Go to https://github.com/marketplace/models and enable access
+    2. Create a PAT at https://github.com/settings/tokens with read:user scope
+    3. Set GITHUB_TOKEN=<your-token>
     """
     
     API_URL = "https://models.inference.ai.azure.com/chat/completions"
@@ -25,17 +33,26 @@ class GitHubModelsClient:
     
     @property
     def token(self) -> str:
-        """Get GitHub token from gh CLI."""
+        """Get GitHub token from env var or gh CLI."""
         if self._token is None:
-            result = subprocess.run(
-                ["gh", "auth", "token"],
-                capture_output=True,
-                text=True,
-                timeout=5
-            )
-            if result.returncode != 0:
-                raise RuntimeError("Failed to get GitHub token. Run 'gh auth login' first.")
-            self._token = result.stdout.strip()
+            # Prefer explicit GITHUB_TOKEN env var (works with GitHub Models)
+            env_token = os.getenv("GITHUB_TOKEN")
+            if env_token:
+                self._token = env_token
+            else:
+                # Fall back to gh CLI token
+                result = subprocess.run(
+                    ["gh", "auth", "token"],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+                if result.returncode != 0:
+                    raise RuntimeError(
+                        "No GITHUB_TOKEN env var and gh auth failed. "
+                        "Set GITHUB_TOKEN or run 'gh auth login'."
+                    )
+                self._token = result.stdout.strip()
         return self._token
     
     def chat(self, messages: list[dict], temperature: float = 0.1, 

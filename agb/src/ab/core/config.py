@@ -6,6 +6,9 @@ from pathlib import Path
 class Settings(BaseSettings):
     """Global settings for all agents."""
     
+    # Base data directory for all agents
+    agb_data_dir: str = "~/.agb"
+    
     # Ollama (shared)
     ollama_model: str = "qwen3:1.7b"
     ollama_url: str = "http://localhost:11434"
@@ -23,16 +26,10 @@ class Settings(BaseSettings):
     text_show_preview: bool = True
     
     # Find That Tab agent
-    findtab_index_path: str = "~/.findtab/index.db"
-    findtab_skip_domains: list[str] = [
-        "google.com/search",
-        "mail.google.com",
-        "bing.com",
-        "localhost",
-        "127.0.0.1",
-        "chrome://",
-        "about:",
-    ]
+    findtab_db_path: str = "~/.agb/findtab/bookmarks.db"
+    findtab_classifier_batch_size: int = 30
+    findtab_enricher_batch_size: int = 15
+    findtab_bootstrap_days: int = 7  # Days to look back on first run
     
     # Logging
     log_level: str = "INFO"

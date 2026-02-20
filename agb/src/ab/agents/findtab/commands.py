@@ -1,227 +1,323 @@
-"""Find That Tab CLI - Semantic browser history search."""
+"""Find That Tab CLI v2 - LLM-enriched bookmark search."""
 import click
+import subprocess
 from rich.console import Console
 from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, TextColumn
-from pathlib import Path
+from datetime import datetime
 from ...core.ollama_client import OllamaClient
 from ...core.config import get_settings
-from .database import IndexDatabase
-from .indexer import HistoryIndexer
-from .search import HistorySearcher
+from .database_v2 import BookmarkDatabase
+from .indexer_v2 import BookmarkIndexer
+from .search_v2 import BookmarkSearcher
 
 
 console = Console()
 
 
+def _get_db() -> tuple[BookmarkDatabase, bool]:
+    """Get database instance and check if it exists.
+    
+    Returns:
+        Tuple of (database, exists)
+    """
+    settings = get_settings()
+    db = BookmarkDatabase(settings.findtab_db_path)
+    exists = db.db_path.exists()
+    return db, exists
+
+
 @click.group(name="findtab")
 def findtab_group():
-    """Find That Tab - Semantic browser history search.
+    """Find That Tab - LLM-curated bookmark search.
     
-    Search your browser history by meaning, not just exact URLs.
+    Intelligently saves and searches content worth revisiting.
+    Uses LLM to classify and enrich bookmarks.
     """
     pass
 
 
 @findtab_group.command()
-@click.option('--hours', default=1, help='Hours of history to index')
-def index(hours):
-    """Index recent browser history.
+@click.option('--force', is_flag=True, help='Force full reindex (last 7 days)')
+@click.option('--dry-run', is_flag=True, help='Show what would be indexed without saving')
+def index(force, dry_run):
+    """Index browser history incrementally.
     
-    Example:
-        findtab index --hours=24
+    Processes new history since last run. On first run, 
+    indexes last 7 days.
+    
+    Examples:
+        findtab index           # Incremental index
+        findtab index --force   # Reindex last 7 days
+        findtab index --dry-run # Preview without saving
     """
     settings = get_settings()
-    index_path = Path(settings.findtab_index_path).expanduser()
-    
-    # Setup database
-    db = IndexDatabase(index_path)
+    db, _ = _get_db()
     db.initialize()
     
+    # Check Ollama availability
+    ollama = OllamaClient(model=settings.ollama_model, base_url=settings.ollama_url)
+    if not ollama.is_available():
+        console.print("❌ Ollama is not running. Start with: ollama serve", style="bold red")
+        return
+    
+    if not ollama.has_model(settings.ollama_model):
+        console.print(f"❌ Model '{settings.ollama_model}' not found.", style="bold red")
+        console.print(f"   Run: ollama pull {settings.ollama_model}")
+        return
+    
+    # Get processing window info
+    window_start = db.get_processing_window(bootstrap_days=settings.findtab_bootstrap_days)
+    window_end = datetime.now()
+    
+    console.print("📚 [bold blue]FindTab Indexer[/bold blue]\n")
+    console.print(f"  Window: [dim]{window_start.strftime('%Y-%m-%d %H:%M')} → {window_end.strftime('%Y-%m-%d %H:%M')}[/dim]")
+    
+    if force:
+        console.print("  Mode:   [yellow]Force full reindex[/yellow]")
+    if dry_run:
+        console.print("  Mode:   [yellow]Dry run (no changes)[/yellow]")
+    
+    console.print()
+    
+    if dry_run:
+        console.print("🔍 Dry run - would process history in this window")
+        console.print("   Run without --dry-run to actually index")
+        return
+    
     # Run indexer
-    indexer = HistoryIndexer(db, settings)
+    indexer = BookmarkIndexer(db, settings, ollama)
     
-    console.print(f"📚 Indexing last {hours} hour(s) of browser history...", style="bold blue")
+    with Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), console=console) as progress:
+        task = progress.add_task("Extracting browser history...", total=None)
+        
+        try:
+            stats = indexer.run_incremental_index(force_full=force)
+        except Exception as e:
+            progress.stop()
+            console.print(f"❌ Error: {e}", style="bold red")
+            raise
     
-    try:
-        count = indexer.run_incremental_index(hours_back=hours)
-        console.print(f"✅ Indexed {count} new entries", style="bold green")
-    except Exception as e:
-        console.print(f"❌ Error: {e}", style="bold red")
-        raise
+    console.print()
+    console.print(f"  📥 Extracted:  [cyan]{stats.extracted}[/cyan] URLs")
+    console.print(f"  🔄 Already in index: [dim]{stats.already_indexed}[/dim]")
+    console.print(f"  ✅ Worth saving: [green]{stats.classified_save}[/green]")
+    console.print(f"  ⏭️  Skipped:    [dim]{stats.classified_skip}[/dim]")
+    console.print(f"  ✨ Enriched:   [magenta]{stats.enriched}[/magenta]")
+    
+    if stats.failed > 0:
+        console.print(f"  ⚠️  Failed:     [yellow]{stats.failed}[/yellow]")
+    
+    console.print()
+    console.print(f"✅ Indexed [bold green]{stats.enriched}[/bold green] new bookmarks", style="bold")
 
 
 @findtab_group.command()
 @click.argument('query')
-@click.option('--limit', default=10, help='Maximum number of results')
+@click.option('--limit', '-n', default=10, help='Maximum number of results')
 @click.option('--open', 'open_url', is_flag=True, help='Open first result in browser')
-def search(query, limit, open_url):
-    """Search browser history semantically.
+@click.option('--json', 'as_json', is_flag=True, help='Output as JSON')
+def search(query, limit, open_url, as_json):
+    """Search bookmarks using natural language.
     
     Examples:
-        findtab search "article about MCP"
-        findtab search "python documentation" --limit=20
-        findtab search "github repo I visited yesterday" --open
+        findtab search "rust error handling"
+        findtab search "python docs" --limit=20
+        findtab search "that github repo" --open
     """
-    settings = get_settings()
-    index_path = Path(settings.findtab_index_path).expanduser()
+    db, exists = _get_db()
     
-    if not index_path.exists():
-        console.print("❌ No index found. Run 'findtab index' first.", style="bold red")
+    if not exists:
+        console.print("❌ No bookmarks found. Run 'findtab index' first.", style="bold red")
         return
     
-    db = IndexDatabase(index_path)
-    ollama = OllamaClient(model=settings.ollama_model, base_url=settings.ollama_url)
+    searcher = BookmarkSearcher(db)
+    results = searcher.search(query, limit=limit)
     
-    # Check Ollama availability
-    if not ollama.is_available():
-        console.print("\n❌ Ollama is not running. Start with: ollama serve", style="bold red")
+    if as_json:
+        import json
+        output = [
+            {
+                'url': r.url,
+                'title': r.title,
+                'category': r.category,
+                'summary': r.summary,
+                'topics': r.topics,
+                'why_useful': r.why_useful,
+            }
+            for r in results
+        ]
+        console.print(json.dumps(output, indent=2))
         return
     
-    if not ollama.has_model(settings.ollama_model):
-        console.print(f"\n❌ Model '{settings.ollama_model}' not found.", style="bold red")
-        console.print(f"   Run: ollama pull {settings.ollama_model}")
-        return
-    
-    searcher = HistorySearcher(db, ollama)
-    console.print(f"🧠 Searching: [cyan]{query}[/cyan]")
-    
-    results, intent = searcher.search(query, limit=limit)
-    
-    if intent != query:
-        console.print(f"💡 Intent: [dim]{intent}[/dim]")
+    console.print(f"🔍 Searching: [cyan]{query}[/cyan]\n")
     
     if not results:
-        console.print("\nNo results found.", style="yellow")
-        console.print("💡 Try: [cyan]agb findtab embed --batch=100[/cyan] to index more entries")
+        console.print("No results found.", style="yellow")
+        console.print("💡 Try different keywords or run 'findtab index' to add more bookmarks")
         return
     
     # Display results
-    table = Table(title=f"Found {len(results)} results", show_lines=False)
-    table.add_column("#", style="cyan", width=3, justify="right")
-    table.add_column("Title", style="green", no_wrap=False, max_width=50)
-    table.add_column("URL", style="blue", no_wrap=False, max_width=50)
-    table.add_column("When", style="yellow", width=10)
-    table.add_column("Score", style="magenta", width=6)
+    console.print(f"Found [bold]{len(results)}[/bold] bookmarks:\n")
     
     for i, result in enumerate(results, 1):
-        title = result.title[:80] + "..." if len(result.title) > 80 else result.title
-        url = result.url[:80] + "..." if len(result.url) > 80 else result.url
+        # Title and category
+        emoji = result.category_emoji
+        title = result.title[:70] + "..." if len(result.title) > 70 else result.title
+        console.print(f"[bold cyan]{i}.[/bold cyan] {emoji} [bold]{title}[/bold]")
         
-        table.add_row(
-            str(i),
-            title,
-            url,
-            result.time_ago(),
-            f"{result.relevance_score:.2f}"
-        )
+        # Summary if available
+        if result.summary:
+            console.print(f"   [dim]{result.summary}[/dim]")
+        
+        # Topics
+        if result.topics:
+            topics_str = ", ".join(result.topics[:4])
+            console.print(f"   [magenta]Topics:[/magenta] {topics_str}")
+        
+        # URL and time
+        url = result.url[:60] + "..." if len(result.url) > 60 else result.url
+        console.print(f"   [blue]{url}[/blue] • [yellow]{result.time_ago()}[/yellow]")
+        console.print()
     
-    console.print(table)
-    
-    # Show summary if available
-    if results[0].summary:
-        console.print(f"\n📝 {results[0].summary}", style="italic dim")
-    
-    # Open first result if requested
+    # Interactive selection
     if open_url and results:
-        import subprocess
         subprocess.run(['open', results[0].url])
-        console.print(f"\n🌐 Opened: {results[0].url}", style="bold green")
+        console.print(f"🌐 Opened: {results[0].url}", style="bold green")
 
 
 @findtab_group.command()
 def status():
     """Show index statistics and information."""
-    settings = get_settings()
-    index_path = Path(settings.findtab_index_path).expanduser()
+    db, exists = _get_db()
     
-    if not index_path.exists():
+    if not exists:
         console.print("❌ No index found. Run 'findtab index' first.", style="bold red")
         return
     
-    db = IndexDatabase(index_path)
     stats = db.get_stats()
     
-    console.print("\n📊 [bold blue]Index Statistics[/bold blue]\n")
-    console.print(f"  Total entries: [cyan]{stats['total']:,}[/cyan]")
+    console.print("\n📊 [bold blue]FindTab Status[/bold blue]\n")
     
-    if stats['oldest']:
-        console.print(f"  Oldest entry:  [dim]{stats['oldest']}[/dim]")
-    if stats['newest']:
-        console.print(f"  Newest entry:  [dim]{stats['newest']}[/dim]")
+    # Last processed
+    if stats['last_processed_at']:
+        last = datetime.fromisoformat(stats['last_processed_at'])
+        delta = datetime.now() - last
+        hours_ago = int(delta.total_seconds() / 3600)
+        console.print(f"  Last indexed:  [cyan]{last.strftime('%Y-%m-%d %H:%M')}[/cyan] ({hours_ago}h ago)")
+    else:
+        console.print("  Last indexed:  [yellow]Never[/yellow]")
     
+    console.print()
+    
+    # Bookmark counts
+    console.print(f"  📚 Total:      [bold]{stats['total']:,}[/bold] bookmarks")
+    console.print(f"     Enriched:   [green]{stats['enriched']:,}[/green]")
+    console.print(f"     Pending:    [yellow]{stats['pending']:,}[/yellow]")
+    if stats['failed'] > 0:
+        console.print(f"     Failed:     [red]{stats['failed']}[/red]")
+    
+    # Categories
+    if stats['categories']:
+        console.print()
+        console.print("  📁 Categories:")
+        emojis = {'docs': '📚', 'article': '📝', 'discussion': '💬', 'code': '💻', 'reference': '📖'}
+        for cat, count in sorted(stats['categories'].items(), key=lambda x: -x[1]):
+            emoji = emojis.get(cat, '📄')
+            pct = (count / stats['enriched'] * 100) if stats['enriched'] > 0 else 0
+            console.print(f"     {emoji} {cat}: [cyan]{count}[/cyan] ({pct:.0f}%)")
+    
+    # Date range
+    if stats['oldest'] and stats['newest']:
+        console.print()
+        console.print(f"  📅 Date range: {stats['oldest'][:10]} → {stats['newest'][:10]}")
+    
+    # Browsers
     if stats['browsers']:
         browsers_str = ", ".join(stats['browsers'])
-        console.print(f"  Browsers:      [green]{browsers_str}[/green]")
+        console.print(f"  🌐 Browsers:   {browsers_str}")
     
-    # Show embeddings stats
-    embeddings = stats.get('embeddings', 0)
-    if embeddings > 0:
-        pct = (embeddings / stats['total'] * 100) if stats['total'] > 0 else 0
-        console.print(f"  Embeddings:    [magenta]{embeddings:,} ({pct:.1f}%)[/magenta]")
-        console.print(f"  Semantic:      [green]✓ Available[/green]")
+    console.print(f"\n  📍 Database:   [dim]{stats['db_path']}[/dim]\n")
+
+
+@findtab_group.command(name="list")
+@click.option('--recent', '-r', default=10, help='Number of recent bookmarks to show')
+@click.option('--category', '-c', help='Filter by category (docs, article, discussion, code, reference)')
+def list_bookmarks(recent, category):
+    """List bookmarks.
+    
+    Examples:
+        findtab list              # Recent 10 bookmarks
+        findtab list -r 20        # Recent 20 bookmarks
+        findtab list -c article   # Only articles
+    """
+    db, exists = _get_db()
+    
+    if not exists:
+        console.print("❌ No bookmarks found. Run 'findtab index' first.", style="bold red")
+        return
+    
+    searcher = BookmarkSearcher(db)
+    
+    if category:
+        results = searcher.list_by_category(category, limit=recent)
+        console.print(f"📁 [bold blue]{category.title()} Bookmarks[/bold blue]\n")
     else:
-        console.print(f"  Embeddings:    [yellow]None - run 'findtab embed'[/yellow]")
-        console.print(f"  Semantic:      [dim]Not available[/dim]")
+        results = searcher.list_recent(limit=recent)
+        console.print("📚 [bold blue]Recent Bookmarks[/bold blue]\n")
     
-    console.print(f"  Index location: [dim]{index_path}[/dim]\n")
+    if not results:
+        console.print("No bookmarks found.", style="yellow")
+        return
+    
+    for i, result in enumerate(results, 1):
+        emoji = result.category_emoji
+        title = result.title[:60] + "..." if len(result.title) > 60 else result.title
+        console.print(f"[dim]{i:2}.[/dim] {emoji} [bold]{title}[/bold] [dim]({result.time_ago()})[/dim]")
+        if result.summary:
+            summary = result.summary[:80] + "..." if len(result.summary) > 80 else result.summary
+            console.print(f"    [dim]{summary}[/dim]")
+    
+    console.print()
 
 
 @findtab_group.command()
-@click.option('--batch', default=100, help='Number of entries to process')
-@click.option('--all', 'process_all', is_flag=True, help='Process all entries')
-def embed(batch, process_all):
-    """Generate embeddings for semantic search.
+@click.option('--batch', default=50, help='Number of entries to process')
+def enrich(batch):
+    """Enrich pending bookmarks that failed initial processing.
+    
+    Use this to retry enrichment for bookmarks that were 
+    classified as worth saving but failed LLM enrichment.
     
     Examples:
-        findtab embed              # Process 100 entries
-        findtab embed --batch=500  # Process 500 entries
-        findtab embed --all        # Process everything
+        findtab enrich            # Process 50 pending
+        findtab enrich --batch=100
     """
     settings = get_settings()
-    index_path = Path(settings.findtab_index_path).expanduser()
+    db, exists = _get_db()
     
-    if not index_path.exists():
+    if not exists:
         console.print("❌ No index found. Run 'findtab index' first.", style="bold red")
         return
     
-    # Setup
-    db = IndexDatabase(index_path)
-    ollama = OllamaClient(model=settings.ollama_model, base_url=settings.ollama_url)
-    
-    # Check Ollama
-    if not ollama.is_available():
-        console.print("\n❌ Ollama is not running.", style="bold red")
-        console.print("   Start with: ollama serve")
-        return
-    
-    if not ollama.has_model("nomic-embed-text"):
-        console.print("\n❌ Embedding model not found.", style="bold red")
-        console.print("   Run: ollama pull nomic-embed-text")
-        return
-    
-    searcher = HistorySearcher(db, ollama)
     stats = db.get_stats()
+    pending = stats.get('pending', 0)
     
-    remaining = stats['total'] - stats.get('embeddings', 0)
-    if remaining == 0:
-        console.print("✅ All entries already have embeddings!", style="bold green")
+    if pending == 0:
+        console.print("✅ No pending bookmarks to enrich!", style="bold green")
         return
     
-    console.print(f"\n🧠 Generating embeddings...")
-    console.print(f"   Remaining: {remaining:,} entries\n")
+    console.print(f"🔄 Enriching {min(batch, pending)} pending bookmarks...\n")
     
-    if process_all:
-        batch = remaining
+    ollama = OllamaClient(model=settings.ollama_model, base_url=settings.ollama_url)
+    indexer = BookmarkIndexer(db, settings, ollama)
     
     with Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), console=console) as progress:
-        task = progress.add_task(f"Processing {min(batch, remaining)} entries...", total=None)
-        count = searcher.generate_embeddings(batch_size=batch)
-        progress.update(task, completed=True)
+        task = progress.add_task("Enriching...", total=None)
+        count = indexer.enrich_pending(limit=batch)
     
-    console.print(f"\n✅ Generated {count} embeddings", style="bold green")
-    console.print(f"💡 Search with: [cyan]agb findtab search \"your query\"[/cyan]\n")
+    console.print(f"\n✅ Enriched [bold green]{count}[/bold green] bookmarks")
 
 
 if __name__ == '__main__':
-    cli()
+    findtab_group()

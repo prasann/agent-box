@@ -1,6 +1,7 @@
 """Text agent CLI commands."""
 import click
-from ab.core import OllamaClient, get_settings
+from ab.core import get_settings
+from ab.core.github_models import GitHubModelsClient
 from .checker import GrammarChecker
 
 
@@ -16,11 +17,8 @@ def text_group():
 def fix(no_preview):
     """Fix typos and grammar in clipboard text."""
     settings = get_settings()
-    ollama = OllamaClient(
-        model=settings.ollama_model,
-        base_url=settings.ollama_url
-    )
-    checker = GrammarChecker(ollama, settings)
+    llm = GitHubModelsClient()
+    checker = GrammarChecker(llm, settings)
     checker.process_clipboard(mode="fix", show_preview=not no_preview)
 
 
@@ -30,9 +28,6 @@ def fix(no_preview):
 def rewrite(no_preview):
     """Rewrite text in clipboard for clarity and professionalism."""
     settings = get_settings()
-    ollama = OllamaClient(
-        model=settings.ollama_model,
-        base_url=settings.ollama_url
-    )
-    checker = GrammarChecker(ollama, settings)
+    llm = GitHubModelsClient()
+    checker = GrammarChecker(llm, settings)
     checker.process_clipboard(mode="rewrite", show_preview=not no_preview)

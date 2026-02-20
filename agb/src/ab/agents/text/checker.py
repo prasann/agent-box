@@ -1,5 +1,6 @@
 """Grammar checker core logic."""
-from ab.core import OllamaClient, Settings
+from ab.core import Settings
+from ab.core.github_models import GitHubModelsClient
 from .clipboard import get_clipboard, set_clipboard
 from rich.console import Console
 from rich.panel import Panel
@@ -10,8 +11,8 @@ console = Console()
 class GrammarChecker:
     """Simple grammar and typo checker."""
     
-    def __init__(self, ollama_client: OllamaClient, settings: Settings):
-        self.ollama = ollama_client
+    def __init__(self, llm_client: GitHubModelsClient, settings: Settings):
+        self.llm = llm_client
         self.settings = settings
     
     def fix_grammar(self, text: str) -> str:
@@ -23,7 +24,7 @@ Text:
 
 Fixed text:"""
         
-        response = self.ollama.generate(prompt=prompt, temperature=0.3)
+        response = self.llm.generate(prompt=prompt, temperature=0.3)
         return response.strip()
     
     def rewrite(self, text: str) -> str:
@@ -35,7 +36,7 @@ Text:
 
 Rewritten text:"""
         
-        response = self.ollama.generate(prompt=prompt, temperature=0.7)
+        response = self.llm.generate(prompt=prompt, temperature=0.7)
         return response.strip()
     
     def process_clipboard(self, mode: str, show_preview: bool = True) -> None:

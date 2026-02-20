@@ -4,7 +4,7 @@
 # <xbar.version>v1.0</xbar.version>
 # <xbar.author>Prasann Nagarajan</xbar.author>
 # <xbar.author.github>prasann</xbar.author.github>
-# <xbar.desc>Quick access to local AI productivity agents</xbar.desc>
+# <xbar.desc>Quick access to AI productivity agents via GitHub Models</xbar.desc>
 # <xbar.dependencies>python3,gh</xbar.dependencies>
 # <xbar.abouturl>https://github.com/prasann/agent-box</xbar.abouturl>
 
@@ -22,7 +22,6 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 # Configuration - these get set by install script
 VENV_PATH="$HOME/.local/share/agent-box/venv"
 AGB_PATH="$VENV_PATH/bin/agb"
-OLLAMA_URL="http://localhost:11434"
 FULL_AGB_PATH="/Users/$USER/.local/share/agent-box/venv/bin/agb"
 AGB_CONFIG="$HOME/.config/agent-box/env.sh"
 
@@ -35,13 +34,7 @@ elif [ -z "$GITHUB_TOKEN" ]; then
     export GITHUB_TOKEN
 fi
 
-# Check if Ollama is running (needed for text/shell agents)
-check_ollama() {
-    curl -sf "${OLLAMA_URL}/api/tags" >/dev/null 2>&1
-    return $?
-}
-
-# Check if GitHub CLI is authenticated (needed for FindTab)
+# Check if GitHub CLI is authenticated (needed for all agents)
 check_gh_auth() {
     gh auth status >/dev/null 2>&1
     return $?
@@ -113,7 +106,7 @@ main() {
     fi
     
     # Menu bar icon
-    if check_ollama || check_gh_auth; then
+    if check_gh_auth; then
         echo "🤖"
     else
         echo "⚠️"
@@ -125,14 +118,7 @@ main() {
     echo "Agent Box | size=14 font=Menlo-Bold"
     echo "---"
     
-    # Ollama status warning (for text/shell agents)
-    if ! check_ollama; then
-        echo "⚠️ Ollama Offline (text/shell agents) | color=orange"
-        echo "--Start Ollama | bash='$HOME/.local/share/agent-box/venv/bin/python3' param1='-c' param2='import subprocess; subprocess.Popen([\"ollama\", \"serve\"])' terminal=false"
-        echo "---"
-    fi
-    
-    # GitHub auth status warning (for FindTab)
+    # GitHub auth status warning (needed for all agents)
     if ! check_gh_auth; then
         echo "⚠️ GitHub CLI not authenticated | color=orange"
         echo "--Run: gh auth login | shell='$0' param1='iterm' param2='gh auth login' terminal=false refresh=false"

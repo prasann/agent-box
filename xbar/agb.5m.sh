@@ -107,7 +107,7 @@ main() {
     
     # Menu bar icon
     if check_gh_auth; then
-        echo "🤖"
+        echo "⚡"
     else
         echo "⚠️"
     fi
@@ -131,13 +131,6 @@ main() {
     echo "--Rewrite Text | shell='$0' param1='run' param2='text rewrite' param3='Rewrite' terminal=false refresh=false"
     echo "---"
     
-    # Shell Agent commands (if available)
-    if "$AGB_PATH" shell --help >/dev/null 2>&1; then
-        echo "🐚 Shell Agent"
-        echo "--Clean History | shell='$0' param1='iterm' param2='shell purge --preview' terminal=false refresh=false"
-        echo "---"
-    fi
-    
     # FindTab Agent commands (if available)
     if "$AGB_PATH" findtab --help >/dev/null 2>&1; then
         if check_gh_auth; then
@@ -148,6 +141,13 @@ main() {
         else
             echo "🔍 FindTab Agent (needs gh auth) | color=gray"
         fi
+        echo "---"
+    fi
+    
+    # Shell Agent commands (if available)
+    if "$AGB_PATH" shell --help >/dev/null 2>&1; then
+        echo "🐚 Shell Agent"
+        echo "--Clean History | shell='$0' param1='iterm' param2='shell purge --preview' terminal=false refresh=false"
         echo "---"
     fi
     

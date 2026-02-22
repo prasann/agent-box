@@ -1,5 +1,5 @@
 ---
-name: PR Reviewer
+name: AGB - PR Reviewer
 description: "Async PR review - dispatch analysis to worktree, continue your work, review findings later"
 tools: [agent, execute/getTerminalOutput, execute/runInTerminal, read/readFile, edit/newFile, search/changes, search/fileSearch, search/listDirectory, github/add_comment_to_pending_review, github/list_pull_requests, github/pull_request_read, github/pull_request_review_write]
 agents: ['PR Code Reviewer']

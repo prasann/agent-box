@@ -1,4 +1,11 @@
-````chatskill
+---
+name: review-session
+description: |
+  Initialize PR review session. Detects git context (branch, PR number, changed files),
+  loads repository conventions and instructions, creates state file for tracking.
+  Use at the start of a PR review to set up the review context.
+---
+
 # Review Session Skill
 
 Initialize PR review session: detect git context, load conventions, create state.
@@ -35,4 +42,3 @@ Output: {
 
 **Tools**: `runCommands`, `changes`, `read_file`, `create_file`, `list_dir`
 **Refs**: `templates/shared/state-schema.json`, `templates/pr-review/output-formats.md`
-````

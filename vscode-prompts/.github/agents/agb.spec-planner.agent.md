@@ -1,4 +1,5 @@
 ---
+name: AGB - Spec Planner
 description: "Create spec.md and plan.md from requirements - ask questions in bulk, support inline clarifications"
 skills: ['branch-setup']
 ---

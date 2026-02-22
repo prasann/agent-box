@@ -1,4 +1,11 @@
-````chatskill
+---
+name: branch-setup
+description: |
+  Create feature branch and specs folder structure. Use when starting a new feature
+  to automatically create a git branch and initialize the specs directory with
+  spec.md, plan.md, and tasks.md files.
+---
+
 # Branch Setup Skill
 
 Create feature branch and specs folder structure.
@@ -35,4 +42,3 @@ Output: {
 - Permission denied: Check permissions
 
 **Tools**: `run_in_terminal`, `create_directory`
-````

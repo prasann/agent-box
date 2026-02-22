@@ -1,4 +1,5 @@
 ---
+name: AGB - Task Generator
 description: "Generate tasks.md from spec and plan - simple sequential checklist"
 ---
 

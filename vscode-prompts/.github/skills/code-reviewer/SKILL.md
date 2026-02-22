@@ -1,3 +1,11 @@
+---
+name: code-reviewer
+description: |
+  Analyze code changes and generate review comments with severity classification.
+  Use during PR reviews to detect issues, check conventions, validate tests, and
+  generate structured comments categorized as CRITICAL or DEFAULT.
+---
+
 # Code Reviewer Skill
 
 Analyze code changes, detect issues, generate review comments with severity classification.

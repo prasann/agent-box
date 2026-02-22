@@ -1,4 +1,5 @@
 ---
+name: AGB - Implementer
 description: "Execute tasks from tasks.md - implement, validate, mark complete"
 ---
 

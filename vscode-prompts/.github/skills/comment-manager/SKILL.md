@@ -1,4 +1,11 @@
-````chatskill
+---
+name: comment-manager
+description: |
+  Manage PR review comments: present comments to user, process approval/skip/revise
+  feedback, update state files, and post approved comments to GitHub. Use after
+  code-reviewer generates comments to manage the review workflow.
+---
+
 # Comment Manager Skill
 
 Manage review comments: present, process user feedback, update states, post to GitHub.
@@ -54,4 +61,3 @@ Clean comments (remove file/line refs), post via `create_pull_request_review_com
 
 **Tools**: `read_file`, `create_file`, `grep_search`, `github-mcp` (create_pull_request_review_comment, create_pull_request_review)
 **Refs**: `templates/pr-review/output-formats.md`, `templates/shared/state-schema.json`, `templates/pr-review/comment-examples.md`
-````

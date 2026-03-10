@@ -1,59 +1,67 @@
-# Agent Box
+# agent-box 🧰
 
-Personal AI productivity agents running 100% local via Ollama.
+**My personal AI engineering toolkit** — a collection of agents, prompts, skills, and hooks I've built to make working with AI coding assistants faster and more opinionated.
 
-```bash
-agb text fix          # Fix grammar in clipboard
-agb text rewrite      # Rewrite text
-findtab search "..."  # Search browser history by meaning
-```
+This is my Swiss Army knife: CLI tools for local AI tasks, VS Code agents with well-defined roles, reusable skills for common dev workflows, and hooks to stay informed without context switching.
+
+---
 
 ## What's Inside
 
-### [agb/](agb/) - CLI Agents
-Python package with multiple AI agents. See [agb/README.md](agb/README.md) for details.
+### 🤖 [`agb/`](agb/README.md) — Local CLI Agents
+A Python CLI (`agb`) running fully local AI via Ollama. Private, offline, free.
 
-**Current agents:**
-- Text Agent - Grammar fixes and rewrites
-- Find That Tab - Browser history search
+| Command | What it does |
+|---|---|
+| `agb text fix` | Fix grammar in clipboard |
+| `agb text rewrite` | Rewrite text in clipboard |
+| `findtab search "..."` | Search browser history by meaning |
+| `agb shell purge` | Curate shell history with AI |
 
-### [vscode-prompts/](vscode-prompts/) - GitHub Copilot Prompts
-Agent definitions and skills for VS Code. Mount as multi-root workspace to access in any project.
+### 🧠 [`vscode-prompts/`](vscode-prompts/README.md) — VS Code Copilot Configuration
+Custom agents, skills, prompts, and hooks for GitHub Copilot in VS Code.
 
-See [vscode-prompts/README.md](vscode-prompts/README.md) for usage.
+**Agents** — Specialized roles with distinct behaviors:
+- `AGB - Implementer` — executes tasks, validates, marks done
+- `AGB - Spec Planner` — turns requirements into spec + plan
+- `AGB - Task Generator` — breaks specs into a task checklist
+- `AGB - PR Reviewer` — async PR analysis in a worktree
+
+**Skills** — Reusable building blocks invoked by agents:
+`branch-setup` · `code-reviewer` · `comment-manager` · `review-session` · `humanizer`
+
+**Hooks** — macOS notifications on agent lifecycle events ([details](vscode-prompts/.github/hooks/README.md)):
+- Get notified when an agent finishes and is waiting for your input
+- Repo name in every notification — know which project needs attention
+- Click to focus VS Code
+
+---
 
 ## Quick Start
 
 ```bash
-# Prerequisites
-brew install ollama
-ollama serve
-ollama pull llama3.2:3b
+# Clone
+git clone https://github.com/prasann/agent-box
+cd agent-box
 
-# Install CLI
-cd agb/
-pipx install .
+# Local CLI (requires Ollama)
+brew install ollama && ollama pull llama3.2:3b
+cd agb/ && pipx install .
 
-# Or use xbar plugin for menu bar access
-./install-xbar.sh
+# VS Code hooks (macOS)
+brew install terminal-notifier
+./install-hooks.sh
 ```
 
-## Usage
-
-**CLI:**
-```bash
-agb text fix          # Copy text, run this, paste result
-findtab index         # Index browser history
-findtab search "..."  # Search by meaning
+Then add to VS Code user settings:
+```json
+{
+  "chat.hookFilesLocations": {
+    "~/.agent-box-toolkit/hooks": true
+  }
+}
 ```
-
-**Menu bar (xbar):**
-1. Copy text (Cmd+C)
-2. Click 🤖 → "Fix Grammar"
-3. Paste result (Cmd+V)
-
-See [xbar/README.md](xbar/README.md) for setup.
 
 ---
 
-Personal project. Not accepting contributions.
+Built by [@prasann](https://github.com/prasann) · Personal project

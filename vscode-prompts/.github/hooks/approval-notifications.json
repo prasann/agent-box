@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "type": "command",
+        "command": "bash ~/.agent-box-toolkit/hooks/scripts/track-approval.sh",
+        "timeout": 5
+      }
+    ],
+    "PostToolUse": [
+      {
+        "type": "command",
+        "command": "bash ~/.agent-box-toolkit/hooks/scripts/clear-approval.sh",
+        "timeout": 5
+      }
+    ]
+  }
+}

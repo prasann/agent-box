@@ -42,16 +42,23 @@ case "$HOOK_EVENT" in
         ;;
 esac
 
+# Homebrew is not on PATH in VS Code's non-login shell environment
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+
 # Send persistent notification
-# -group:    replaces previous notification for same repo+event (no pile-up)
-# -activate: clicking the notification focuses VS Code
-terminal-notifier \
-    -title "$TITLE" \
-    -subtitle "$SUBTITLE" \
-    -message "$MESSAGE" \
-    -sound "$SOUND" \
-    -group "${REPO}-${HOOK_EVENT}" \
-    -activate "$VSCODE_BUNDLE"
+if command -v terminal-notifier &>/dev/null; then
+    # -group:    replaces previous notification for same repo+event (no pile-up)
+    # -activate: clicking the notification focuses VS Code
+    terminal-notifier \
+        -title "$TITLE" \
+        -subtitle "$SUBTITLE" \
+        -message "$MESSAGE" \
+        -sound "$SOUND" \
+        -group "${REPO}-${HOOK_EVENT}" \
+        -activate "$VSCODE_BUNDLE"
+else
+    osascript -e "display notification \"$MESSAGE\" with title \"$TITLE\" subtitle \"$SUBTITLE\""
+fi
 
 LOG_DIR="${HOME}/.agent-box/logs"
 mkdir -p "$LOG_DIR"

@@ -347,12 +347,13 @@ class BookmarkDatabase:
     # Search operations
     # ─────────────────────────────────────────────────────────────
     
-    def search(self, query: str, limit: int = 10) -> list[dict]:
+    def search(self, query: str, limit: int = 10, since: Optional[str] = None) -> list[dict]:
         """Search bookmarks using FTS5.
         
         Args:
             query: Search query
             limit: Maximum results
+            since: Optional date string (YYYY-MM-DD) to filter by last_visit_at
             
         Returns:
             List of matching bookmarks
@@ -360,18 +361,31 @@ class BookmarkDatabase:
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         
-        # FTS5 search with BM25 ranking
-        cursor.execute("""
-            SELECT 
-                b.id, b.url, b.title, b.category, b.summary, 
-                b.topics, b.why_useful, b.last_visit_at, b.visit_count,
-                bm25(bookmarks_fts) as rank
-            FROM bookmarks_fts fts
-            JOIN bookmarks b ON fts.url = b.url
-            WHERE bookmarks_fts MATCH ?
-            ORDER BY rank
-            LIMIT ?
-        """, (query, limit))
+        if since:
+            cursor.execute("""
+                SELECT 
+                    b.id, b.url, b.title, b.category, b.summary, 
+                    b.topics, b.why_useful, b.last_visit_at, b.visit_count,
+                    bm25(bookmarks_fts) as rank
+                FROM bookmarks_fts fts
+                JOIN bookmarks b ON fts.url = b.url
+                WHERE bookmarks_fts MATCH ?
+                  AND b.last_visit_at >= ?
+                ORDER BY rank
+                LIMIT ?
+            """, (query, since, limit))
+        else:
+            cursor.execute("""
+                SELECT 
+                    b.id, b.url, b.title, b.category, b.summary, 
+                    b.topics, b.why_useful, b.last_visit_at, b.visit_count,
+                    bm25(bookmarks_fts) as rank
+                FROM bookmarks_fts fts
+                JOIN bookmarks b ON fts.url = b.url
+                WHERE bookmarks_fts MATCH ?
+                ORDER BY rank
+                LIMIT ?
+            """, (query, limit))
         
         results = []
         for row in cursor.fetchall():
@@ -386,6 +400,45 @@ class BookmarkDatabase:
                 'last_visit_at': datetime.fromisoformat(row[7]) if row[7] else None,
                 'visit_count': row[8],
                 'rank': row[9],
+            })
+        
+        conn.close()
+        return results
+    
+    def list_by_category(self, category: str, limit: int = 20) -> list[dict]:
+        """List bookmarks by category using direct SQL.
+        
+        Args:
+            category: Category to filter (docs, article, discussion, code, reference)
+            limit: Maximum results
+            
+        Returns:
+            List of bookmarks in the given category
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        
+        cursor.execute("""
+            SELECT id, url, title, category, summary, topics,
+                   why_useful, last_visit_at, visit_count
+            FROM bookmarks
+            WHERE category = ? AND enrichment_status = 'enriched'
+            ORDER BY last_visit_at DESC
+            LIMIT ?
+        """, (category, limit))
+        
+        results = []
+        for row in cursor.fetchall():
+            results.append({
+                'id': row[0],
+                'url': row[1],
+                'title': row[2],
+                'category': row[3],
+                'summary': row[4],
+                'topics': json.loads(row[5]) if row[5] else [],
+                'why_useful': row[6],
+                'last_visit_at': datetime.fromisoformat(row[7]) if row[7] else None,
+                'visit_count': row[8],
             })
         
         conn.close()

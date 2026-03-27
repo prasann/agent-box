@@ -6,7 +6,8 @@ from ...core.github_models import GitHubModelsClient
 from .database import BookmarkDatabase
 from .classifier import BookmarkClassifier
 from .enricher import BookmarkEnricher
-from .models import HistoryEntry
+from .prefilter import URLPreFilter
+from .models import HistoryEntry, ClassifiedEntry
 from .extractors.chromium import create_chrome_extractor, create_edge_extractor
 
 
@@ -16,6 +17,9 @@ class IndexingStats:
     def __init__(self):
         self.extracted: int = 0
         self.already_indexed: int = 0
+        self.prefilter_saved: int = 0
+        self.prefilter_skipped: int = 0
+        self.prefilter_unknown: int = 0
         self.classified_save: int = 0
         self.classified_skip: int = 0
         self.enriched: int = 0
@@ -27,8 +31,8 @@ class IndexingStats:
         return (
             f"Extracted: {self.extracted}, "
             f"New: {self.extracted - self.already_indexed}, "
-            f"Save: {self.classified_save}, "
-            f"Skip: {self.classified_skip}, "
+            f"Pre-filter: {self.prefilter_saved} save / {self.prefilter_skipped} skip / {self.prefilter_unknown} unknown, "
+            f"LLM: {self.classified_save} save / {self.classified_skip} skip, "
             f"Enriched: {self.enriched}"
         )
 
@@ -53,6 +57,9 @@ class BookmarkIndexer:
         self.settings = settings
         self.llm_client = llm_client or GitHubModelsClient()
         
+        self.prefilter = URLPreFilter(
+            custom_rules_path=settings.findtab_rules_path
+        )
         self.classifier = BookmarkClassifier(
             self.llm_client, 
             batch_size=settings.findtab_classifier_batch_size
@@ -120,12 +127,43 @@ class BookmarkIndexer:
             self.db.set_last_processed_at(window_end)
             return stats
         
-        # Stage 3: Classify with LLM
-        classified = self.classifier.classify_batch(new_entries)
-        worth_saving = [e for e in classified if e.should_save]
+        # Stage 2.5: Pre-filter (rule-based)
+        pf_save, pf_skip, pf_unknown = self.prefilter.filter_batch(new_entries)
+        stats.prefilter_saved = len(pf_save)
+        stats.prefilter_skipped = len(pf_skip)
+        stats.prefilter_unknown = len(pf_unknown)
         
-        stats.classified_save = len(worth_saving)
-        stats.classified_skip = len(classified) - len(worth_saving)
+        # Stage 3: Classify with LLM (only unknowns)
+        classified = self.classifier.classify_batch(pf_unknown)
+        llm_save = [e for e in classified if e.should_save]
+        
+        stats.classified_save = len(llm_save)
+        stats.classified_skip = len(classified) - len(llm_save)
+        
+        # Combine pre-filter saves with LLM saves for enrichment
+        worth_saving_entries = pf_save + [
+            HistoryEntry(
+                url=e.url,
+                title=e.title,
+                visit_time=e.visit_time,
+                visit_count=e.visit_count,
+                browser=e.browser,
+            )
+            for e in llm_save
+        ]
+        
+        # Convert to ClassifiedEntry for the enricher
+        worth_saving = [
+            ClassifiedEntry(
+                url=e.url,
+                title=e.title,
+                visit_time=e.visit_time,
+                visit_count=e.visit_count,
+                browser=e.browser,
+                should_save=True,
+            )
+            for e in worth_saving_entries
+        ]
         
         if not worth_saving:
             self.db.set_last_processed_at(window_end)

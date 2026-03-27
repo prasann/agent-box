@@ -5,7 +5,7 @@ Semantic browser history search that finds pages by intent and meaning, not just
 ## Features
 
 - 🔍 **Semantic Search**: Find pages by meaning, not exact matches
-- 🔒 **Privacy First**: All data stays local, no cloud services
+- 🔒 **Privacy First**: Index stays local, LLM calls via GitHub Models API (URL + title only)
 - 🌐 **Multi-Browser**: Supports Edge, Chrome (and more coming soon)
 - ⚡ **Fast**: Sub-100ms search with SQLite FTS5
 - 🎯 **Smart Indexing**: Incremental indexing, keyword extraction
@@ -111,10 +111,11 @@ findtab status
 ## How It Works
 
 1. **Extraction**: Reads browser history from local SQLite databases
-2. **Classification**: LLM classifies URLs as worth saving or skipping
-3. **Enrichment**: LLM generates category, summary, and topics for saved URLs
-4. **Indexing**: Stores in local SQLite with FTS5 full-text search
-5. **Search**: Fast keyword search with BM25 ranking
+2. **Pre-filtering**: Rule-based filter skips banking, email, auth URLs; auto-saves known content sites
+3. **Classification**: LLM classifies ambiguous URLs as worth saving or skipping
+4. **Enrichment**: LLM generates category, summary, and topics for saved URLs
+5. **Indexing**: Stores in local SQLite with FTS5 full-text search
+6. **Search**: LLM expands your query into keywords, FTS5 retrieves candidates, LLM re-ranks by relevance
 
 ## Supported Browsers
 
@@ -125,27 +126,34 @@ findtab status
 
 ## Configuration
 
-Create a `.env` file or set environment variables:
+Set environment variables or use `.env` in the agb directory:
 
 ```env
-# GitHub Models API model selection (default: gpt-4o)
-GITHUB_MODEL=gpt-4o
+# GitHub Models API authentication (or use gh auth login)
+# GITHUB_TOKEN=ghp_...
+
+# Model selection (default: gpt-4o)
+# AB_GITHUB_MODEL=gpt-4o
 
 # Database location (default: ~/.agb/findtab/bookmarks.db)
-# FINDTAB_DB_PATH=~/.agb/findtab/bookmarks.db
+# AB_FINDTAB_DB_PATH=~/.agb/findtab/bookmarks.db
+
+# Custom pre-filter rules (default: ~/.agb/findtab/rules.yaml)
+# AB_FINDTAB_RULES_PATH=~/.agb/findtab/rules.yaml
 ```
 
 ## Requirements
 
 - **GitHub CLI**: Must be authenticated via `gh auth login`
-- **Python 3.12+**
+- **Python 3.10+**
 
 ## Privacy & Security
 
-- **100% Local**: All data stays on your machine
+- **Local Index**: Bookmark database stays on your machine (~/.agb/findtab/)
+- **LLM via GitHub Models**: URL and title sent to GitHub Models API for classification/enrichment (no page content)
 - **Read-Only**: Never modifies browser databases
-- **No Tracking**: No external API calls or cloud sync
-- **Noise Filtering**: Automatically skips sensitive domains (localhost, search results, etc.)
+- **No Tracking**: No cloud sync or telemetry
+- **Smart Filtering**: Rule-based pre-filter skips sensitive domains before LLM sees them
 
 ## Tips
 
@@ -196,10 +204,7 @@ Make sure your browser is installed in the standard location:
 
 ## Future Enhancements
 
-- [ ] True semantic search with embeddings
-- [ ] LLM-generated summaries for key pages
 - [ ] Safari and Firefox support
-- [ ] Page content indexing
 - [ ] Interactive selection with fzf
 - [ ] Browser extension integration
 
@@ -210,13 +215,15 @@ Browser History DB (SQLite)
          ↓
     Extractor (copies DB)
          ↓
+    Pre-Filter (rule-based: skip/save/unknown)
+         ↓ (unknown only)
     Classifier (GitHub Models gpt-4o)
          ↓ (filters to save-worthy content)
     Enricher (GitHub Models gpt-4o)
          ↓ (adds category, summary, topics)
    Local Index (~/.agb/findtab/)
          ↓
-    FTS5 Search Engine
+    LLM Query Expansion → FTS5 Search → LLM Re-ranking
          ↓
       CLI Results
 ```

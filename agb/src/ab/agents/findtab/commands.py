@@ -110,8 +110,8 @@ def index(force, hours, dry_run):
     console.print()
     console.print(f"  📥 Extracted:  [cyan]{stats.extracted}[/cyan] URLs")
     console.print(f"  🔄 Already in index: [dim]{stats.already_indexed}[/dim]")
-    console.print(f"  ✅ Worth saving: [green]{stats.classified_save}[/green]")
-    console.print(f"  ⏭️  Skipped:    [dim]{stats.classified_skip}[/dim]")
+    console.print(f"  🔎 Pre-filter: [green]{stats.prefilter_saved}[/green] save / [dim]{stats.prefilter_skipped}[/dim] skip / [yellow]{stats.prefilter_unknown}[/yellow] → LLM")
+    console.print(f"  🤖 LLM:       [green]{stats.classified_save}[/green] save / [dim]{stats.classified_skip}[/dim] skip")
     console.print(f"  ✨ Enriched:   [magenta]{stats.enriched}[/magenta]")
     
     if stats.failed > 0:
@@ -126,13 +126,18 @@ def index(force, hours, dry_run):
 @click.option('--limit', '-n', default=10, help='Maximum number of results')
 @click.option('--open', 'open_url', is_flag=True, help='Open first result in browser')
 @click.option('--json', 'as_json', is_flag=True, help='Output as JSON')
-def search(query, limit, open_url, as_json):
+@click.option('--no-llm', is_flag=True, help='Skip LLM expansion/re-ranking, use FTS5 only')
+def search(query, limit, open_url, as_json, no_llm):
     """Search bookmarks using natural language.
+    
+    Uses LLM to expand queries and re-rank results for better
+    semantic search. Falls back to FTS5 when LLM is unavailable.
     
     Examples:
         findtab search "rust error handling"
         findtab search "python docs" --limit=20
         findtab search "that github repo" --open
+        findtab search "react hooks" --no-llm
     """
     db, exists = _get_db()
     
@@ -140,7 +145,13 @@ def search(query, limit, open_url, as_json):
         console.print("❌ No bookmarks found. Run 'findtab index' first.", style="bold red")
         return
     
-    searcher = BookmarkSearcher(db)
+    llm_client = None
+    if not no_llm:
+        client = GitHubModelsClient()
+        if client.is_available():
+            llm_client = client
+    
+    searcher = BookmarkSearcher(db, llm_client=llm_client)
     results = searcher.search(query, limit=limit)
     
     if as_json:

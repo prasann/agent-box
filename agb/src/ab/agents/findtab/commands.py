@@ -196,8 +196,7 @@ def search(query, limit, open_url, as_json, no_llm):
             console.print(f"   [magenta]Topics:[/magenta] {topics_str}")
         
         # URL and time
-        url = result.url[:60] + "..." if len(result.url) > 60 else result.url
-        console.print(f"   [blue]{url}[/blue] • [yellow]{result.time_ago()}[/yellow]")
+        console.print(f"   [blue]{result.url}[/blue] • [yellow]{result.time_ago()}[/yellow]")
         console.print()
     
     # Interactive selection

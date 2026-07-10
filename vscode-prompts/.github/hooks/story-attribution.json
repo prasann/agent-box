@@ -1,0 +1,20 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "bash ~/.agent-box-toolkit/hooks/scripts/emit-mapping.sh",
+        "osx": "bash ~/.agent-box-toolkit/hooks/scripts/emit-mapping.sh",
+        "timeout": 5
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "bash ~/.agent-box-toolkit/hooks/scripts/emit-mapping.sh",
+        "osx": "bash ~/.agent-box-toolkit/hooks/scripts/emit-mapping.sh",
+        "timeout": 5
+      }
+    ]
+  }
+}

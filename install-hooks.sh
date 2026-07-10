@@ -35,6 +35,7 @@ ln -sf "$HOOKS_SRC" "$HOOKS_DEST"
 # Make scripts executable
 echo "Making notification script executable..."
 chmod +x "${HOOKS_DEST}/scripts/notify.sh"
+chmod +x "${HOOKS_DEST}/scripts/emit-mapping.sh"
 
 # Create logs directory
 echo "Creating logs directory..."

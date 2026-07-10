@@ -39,7 +39,6 @@ fi
 # Map hook event to OTLP event name
 case "$HOOK_EVENT" in
     SessionStart) EVENT_NAME="branch.session.start" ;;
-    Stop)         EVENT_NAME="branch.session.end"   ;;
     *)
         log "SKIP (unhandled event) $HOOK_EVENT"
         echo '{"continue": true}'; exit 0 ;;
@@ -84,6 +83,10 @@ PAYLOAD=$(cat <<EOF
 }
 EOF
 )
+
+# DEBUG: log the payload being emitted for otel collector validation
+log "EMIT $EVENT_NAME session=$SESSION_ID branch=$BRANCH_ID repo=$REPO"
+log "PAYLOAD: $PAYLOAD"
 
 # POST to collector — silent no-op if collector is not running
 HTTP_STATUS=$(curl \

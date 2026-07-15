@@ -58,31 +58,35 @@ fi
 
 TIMESTAMP_NS="$(date -u +%s)000000000"
 
-PAYLOAD=$(cat <<EOF
-{
-  "resourceLogs": [{
-    "resource": {
-      "attributes": [{"key": "service.name", "value": {"stringValue": "copilot-hooks"}}]
-    },
-    "scopeLogs": [{
-      "scope": {"name": "branch-attribution", "version": "1.0"},
-      "logRecords": [{
-        "timeUnixNano": "$TIMESTAMP_NS",
-        "severityText": "INFO",
-        "body": {"stringValue": "$EVENT_NAME"},
-        "attributes": [
-          {"key": "event",      "value": {"stringValue": "$EVENT_NAME"}},
-          {"key": "session.id", "value": {"stringValue": "$SESSION_ID"}},
-          {"key": "branch.id",  "value": {"stringValue": "$BRANCH_ID"}},
-          {"key": "repo.name",  "value": {"stringValue": "$REPO"}},
-          {"key": "workspace",  "value": {"stringValue": "$CWD"}}
-        ]
+PAYLOAD=$(jq -n \
+    --arg timestamp "$TIMESTAMP_NS" \
+    --arg event     "$EVENT_NAME" \
+    --arg session   "$SESSION_ID" \
+    --arg branch    "$BRANCH_ID" \
+    --arg repo      "$REPO" \
+    --arg workspace "$CWD" \
+    '{
+      resourceLogs: [{
+        resource: {
+          attributes: [{"key": "service.name", "value": {"stringValue": "copilot-hooks"}}]
+        },
+        scopeLogs: [{
+          scope: {"name": "branch-attribution", "version": "1.0"},
+          logRecords: [{
+            timeUnixNano: $timestamp,
+            severityText: "INFO",
+            body: {"stringValue": $event},
+            attributes: [
+              {"key": "event",      "value": {"stringValue": $event}},
+              {"key": "session.id", "value": {"stringValue": $session}},
+              {"key": "branch.id",  "value": {"stringValue": $branch}},
+              {"key": "repo.name",  "value": {"stringValue": $repo}},
+              {"key": "workspace",  "value": {"stringValue": $workspace}}
+            ]
+          }]
+        }]
       }]
-    }]
-  }]
-}
-EOF
-)
+    }')
 
 # DEBUG: log the payload being emitted for otel collector validation
 log "EMIT $EVENT_NAME session=$SESSION_ID branch=$BRANCH_ID repo=$REPO"

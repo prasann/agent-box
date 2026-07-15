@@ -112,10 +112,10 @@ Hand off to the standard PPTX skill workflows:
 
 ### Upload Back
 
-Use `m365_upload_file` — pass the original SharePoint URL and the local path of the modified file. The tool resolves the URL to a Graph item automatically and uploads via the Graph API, no browser interaction needed.
+Use `workiq_upload_file` — pass the original SharePoint URL and the local path of the modified file. The tool resolves the URL to a Graph item automatically and uploads via the Graph API, no browser interaction needed.
 
 ```
-m365_upload_file:
+workiq_upload_file:
   localPath: "/path/to/modified.pptx"
   sharePointUrl: "<the original SharePoint URL from step 1>"
 ```

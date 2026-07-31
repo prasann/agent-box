@@ -5,7 +5,7 @@ Semantic browser history search that finds pages by intent and meaning, not just
 ## Features
 
 - 🔍 **Semantic Search**: Find pages by meaning, not exact matches
-- 🔒 **Privacy First**: Index stays local, LLM calls via GitHub Models API (URL + title only)
+- 🔒 **Privacy First**: Index stays local, LLM calls via Azure OpenAI (URL + title only)
 - 🌐 **Multi-Browser**: Supports Edge, Chrome (and more coming soon)
 - ⚡ **Fast**: Sub-100ms search with SQLite FTS5
 - 🎯 **Smart Indexing**: Incremental indexing, keyword extraction
@@ -129,11 +129,9 @@ findtab status
 Set environment variables or use `.env` in the agb directory:
 
 ```env
-# GitHub Models API authentication (or use gh auth login)
-# GITHUB_TOKEN=ghp_...
-
-# Model selection (default: gpt-4o)
-# AB_GITHUB_MODEL=gpt-4o
+# Azure OpenAI (auth via `az login` / Entra ID, no API key stored)
+# AB_AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com
+# AB_AZURE_OPENAI_DEPLOYMENT=gpt-4o
 
 # Database location (default: ~/.agb/findtab/bookmarks.db)
 # AB_FINDTAB_DB_PATH=~/.agb/findtab/bookmarks.db
@@ -144,13 +142,13 @@ Set environment variables or use `.env` in the agb directory:
 
 ## Requirements
 
-- **GitHub CLI**: Must be authenticated via `gh auth login`
+- **Azure CLI**: Must be authenticated via `az login` (Entra ID auth, no API key stored)
 - **Python 3.10+**
 
 ## Privacy & Security
 
 - **Local Index**: Bookmark database stays on your machine (~/.agb/findtab/)
-- **LLM via GitHub Models**: URL and title sent to GitHub Models API for classification/enrichment (no page content)
+- **LLM via Azure OpenAI**: URL and title sent to Azure OpenAI for classification/enrichment (no page content)
 - **Read-Only**: Never modifies browser databases
 - **No Tracking**: No cloud sync or telemetry
 - **Smart Filtering**: Rule-based pre-filter skips sensitive domains before LLM sees them
@@ -217,9 +215,9 @@ Browser History DB (SQLite)
          ↓
     Pre-Filter (rule-based: skip/save/unknown)
          ↓ (unknown only)
-    Classifier (GitHub Models gpt-4o)
+    Classifier (Azure OpenAI gpt-4o)
          ↓ (filters to save-worthy content)
-    Enricher (GitHub Models gpt-4o)
+    Enricher (Azure OpenAI gpt-4o)
          ↓ (adds category, summary, topics)
    Local Index (~/.agb/findtab/)
          ↓

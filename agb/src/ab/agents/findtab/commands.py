@@ -5,7 +5,7 @@ from rich.console import Console
 from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from datetime import datetime
-from ...core.github_models import GitHubModelsClient
+from ...core.azure_openai_client import AzureOpenAIClient
 from ...core.config import get_settings
 from .database import BookmarkDatabase
 from .indexer import BookmarkIndexer
@@ -56,11 +56,11 @@ def index(force, hours, dry_run):
     settings = get_settings()
     db, _ = _get_db()
     
-    # Use GitHub Models API
-    llm_client = GitHubModelsClient()
+    # Use Azure OpenAI (Entra ID auth via az login)
+    llm_client = AzureOpenAIClient(settings.azure_openai_endpoint, settings.azure_openai_deployment,
+                                    settings.azure_openai_api_version)
     if not llm_client.is_available():
-        console.print("❌ GitHub CLI not authenticated.", style="bold red")
-        console.print("   Run: gh auth login")
+        console.print("❌ Azure OpenAI not available. Check AB_AZURE_OPENAI_ENDPOINT and `az login`.", style="bold red")
         return
     
     # Determine processing window
@@ -77,7 +77,7 @@ def index(force, hours, dry_run):
         window_start = db.get_processing_window(bootstrap_days=settings.findtab_bootstrap_days)
     
     console.print("📚 [bold blue]FindTab Indexer[/bold blue]\n")
-    console.print(f"  LLM:    [green]GitHub Models ({llm_client.model})[/green]")
+    console.print(f"  LLM:    [green]Azure OpenAI ({llm_client.deployment})[/green]")
     console.print(f"  Window: [dim]{window_start.strftime('%Y-%m-%d %H:%M')} → {window_end.strftime('%Y-%m-%d %H:%M')}[/dim]")
     
     if hours:
@@ -139,6 +139,7 @@ def search(query, limit, open_url, as_json, no_llm):
         findtab search "that github repo" --open
         findtab search "react hooks" --no-llm
     """
+    settings = get_settings()
     db, exists = _get_db()
     
     if not exists:
@@ -147,7 +148,8 @@ def search(query, limit, open_url, as_json, no_llm):
     
     llm_client = None
     if not no_llm:
-        client = GitHubModelsClient()
+        client = AzureOpenAIClient(settings.azure_openai_endpoint, settings.azure_openai_deployment,
+                                    settings.azure_openai_api_version)
         if client.is_available():
             llm_client = client
     
@@ -328,9 +330,10 @@ def enrich(batch):
     
     console.print(f"🔄 Enriching {min(batch, pending)} pending bookmarks...\n")
     
-    llm_client = GitHubModelsClient()
+    llm_client = AzureOpenAIClient(settings.azure_openai_endpoint, settings.azure_openai_deployment,
+                                    settings.azure_openai_api_version)
     if not llm_client.is_available():
-        console.print("❌ GitHub CLI not authenticated.", style="bold red")
+        console.print("❌ Azure OpenAI not available. Check AB_AZURE_OPENAI_ENDPOINT and `az login`.", style="bold red")
         return
     
     indexer = BookmarkIndexer(db, settings, llm_client)

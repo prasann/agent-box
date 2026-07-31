@@ -2,6 +2,10 @@
 from pydantic_settings import BaseSettings
 from pathlib import Path
 
+# agb/.env - absolute path so config loads correctly regardless of caller's cwd
+# (agb is invoked system-wide, e.g. from xbar, not just from the project directory)
+_ENV_FILE = Path(__file__).resolve().parents[3] / ".env"
+
 
 class Settings(BaseSettings):
     """Global settings for all agents."""
@@ -12,6 +16,11 @@ class Settings(BaseSettings):
     # Ollama (shared)
     ollama_model: str = "qwen3:1.7b"
     ollama_url: str = "http://localhost:11434"
+    
+    # Azure OpenAI (shared, Entra ID auth via az login)
+    azure_openai_endpoint: str = ""
+    azure_openai_deployment: str = "gpt-4o"
+    azure_openai_api_version: str = "2024-10-21"
     
     # Gmail agent (future)
     gmail_batch_size: int = 100
@@ -34,10 +43,10 @@ class Settings(BaseSettings):
     
     # Logging
     log_level: str = "INFO"
-    log_file: Path = Path("data/logs/ab.log")
+    log_file: Path = Path.home() / ".agb" / "logs" / "ab.log"
     
     class Config:
-        env_file = ".env"
+        env_file = _ENV_FILE
         env_prefix = "AB_"
 
 

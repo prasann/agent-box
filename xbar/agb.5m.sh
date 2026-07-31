@@ -4,11 +4,11 @@
 # <xbar.version>v1.0</xbar.version>
 # <xbar.author>Prasann Nagarajan</xbar.author>
 # <xbar.author.github>prasann</xbar.author.github>
-# <xbar.desc>Quick access to AI productivity agents via GitHub Models</xbar.desc>
-# <xbar.dependencies>python3,gh</xbar.dependencies>
+# <xbar.desc>Quick access to AI productivity agents via Azure OpenAI</xbar.desc>
+# <xbar.dependencies>python3,az</xbar.dependencies>
 # <xbar.abouturl>https://github.com/prasann/agent-box</xbar.abouturl>
 
-# Load user environment for PATH and tokens
+# Load user environment for PATH
 # xbar runs with minimal env, so we need to source the profile
 if [ -f "$HOME/.zshrc" ]; then
     # Source non-interactively for env vars only
@@ -23,31 +23,16 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 VENV_PATH="$HOME/.local/share/agent-box/venv"
 AGB_PATH="$VENV_PATH/bin/agb"
 FULL_AGB_PATH="/Users/$USER/.local/share/agent-box/venv/bin/agb"
-AGB_CONFIG="$HOME/.config/agent-box/env.sh"
 
-# Load GitHub token from config file
-if [ -f "$AGB_CONFIG" ]; then
-    source "$AGB_CONFIG"
-elif [ -z "$GITHUB_TOKEN" ]; then
-    # Fallback: get from gh CLI and cache it
-    GITHUB_TOKEN=$(gh auth token 2>/dev/null)
-    export GITHUB_TOKEN
-fi
-
-# Check if GitHub CLI is authenticated (needed for all agents)
-check_gh_auth() {
-    gh auth status >/dev/null 2>&1
+# Check if Azure CLI is authenticated (needed for text/findtab agents)
+check_az_auth() {
+    az account show >/dev/null 2>&1
     return $?
 }
 
 # Run command in iTerm2 (new tab if open, new window if not)
 run_in_iterm() {
     local cmd="$1"
-    # Source the config file for GITHUB_TOKEN (if it exists)
-    local source_cmd=""
-    if [ -f "$AGB_CONFIG" ]; then
-        source_cmd="source $AGB_CONFIG; "
-    fi
     osascript <<EOF
 tell application "iTerm"
     activate
@@ -55,13 +40,13 @@ tell application "iTerm"
         tell current window
             create tab with default profile
             tell current session
-                write text "${source_cmd}$cmd"
+                write text "$cmd"
             end tell
         end tell
     else
         set newWindow to (create window with default profile)
         tell current session of newWindow
-            write text "${source_cmd}$cmd"
+            write text "$cmd"
         end tell
     end if
 end tell
@@ -81,7 +66,7 @@ run_agb_command() {
         done_msg="Done! Paste with Cmd+V"
     fi
     
-    # Run in background with notifications (GITHUB_TOKEN inherited from env)
+    # Run in background with notifications
     (
         osascript -e "display notification \"Processing...\" with title \"$title\"" 2>/dev/null
         
@@ -106,7 +91,7 @@ main() {
     fi
     
     # Menu bar icon
-    if check_gh_auth; then
+    if check_az_auth; then
         echo "⚡"
     else
         echo "⚠️"
@@ -118,10 +103,10 @@ main() {
     echo "Agent Box | size=14 font=Menlo-Bold"
     echo "---"
     
-    # GitHub auth status warning (needed for all agents)
-    if ! check_gh_auth; then
-        echo "⚠️ GitHub CLI not authenticated | color=orange"
-        echo "--Run: gh auth login | shell='$0' param1='iterm' param2='gh auth login' terminal=false refresh=false"
+    # Azure auth status warning (needed for text/findtab agents)
+    if ! check_az_auth; then
+        echo "⚠️ Azure CLI not authenticated | color=orange"
+        echo "--Run: az login | shell='$0' param1='iterm' param2='az login' terminal=false refresh=false"
         echo "---"
     fi
     
@@ -133,13 +118,13 @@ main() {
     
     # FindTab Agent commands (if available)
     if "$AGB_PATH" findtab --help >/dev/null 2>&1; then
-        if check_gh_auth; then
+        if check_az_auth; then
             echo "🔍 FindTab Agent"
             echo "--Search Tabs | shell='$0' param1='findtab-search' terminal=false refresh=false"
             echo "--Index Tabs | shell='$0' param1='run' param2='findtab index' param3='FindTab Index' terminal=false refresh=true"
             echo "--Status | shell='$0' param1='iterm' param2='findtab status' terminal=false refresh=false"
         else
-            echo "🔍 FindTab Agent (needs gh auth) | color=gray"
+            echo "🔍 FindTab Agent (needs az login) | color=gray"
         fi
         echo "---"
     fi

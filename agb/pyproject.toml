@@ -14,6 +14,9 @@ dependencies = [
     # Text agent deps
     "requests>=2.31.0",
     
+    # Azure OpenAI auth (Entra ID / az login, no API keys stored)
+    "azure-identity>=1.15.0",
+    
     # Shared deps
     "pydantic>=2.0",
     "pydantic-settings>=2.0",

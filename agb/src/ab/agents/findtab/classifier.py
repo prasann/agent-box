@@ -1,11 +1,11 @@
 """LLM-based URL classifier for FindTab.
 
-Uses GitHub Models API to classify which URLs are worth saving as bookmarks.
+Uses Azure OpenAI to classify which URLs are worth saving as bookmarks.
 Classifies based on URL patterns only - does not fetch webpage content.
 """
 import json
 from typing import Optional
-from ...core.github_models import GitHubModelsClient
+from ...core.azure_openai_client import AzureOpenAIClient
 from .models import HistoryEntry, ClassifiedEntry
 
 
@@ -44,16 +44,16 @@ JSON:"""
 
 
 class BookmarkClassifier:
-    """Classifies URLs using GitHub Models API."""
+    """Classifies URLs using Azure OpenAI."""
     
-    def __init__(self, client: Optional[GitHubModelsClient] = None, batch_size: int = 30):
+    def __init__(self, client: Optional[AzureOpenAIClient] = None, batch_size: int = 30):
         """Initialize classifier.
         
         Args:
-            client: GitHub Models client
+            client: Azure OpenAI client
             batch_size: Number of URLs to process per LLM call
         """
-        self.client = client or GitHubModelsClient()
+        self.client = client or AzureOpenAIClient()
         self.batch_size = batch_size
     
     def classify_batch(self, entries: list[HistoryEntry]) -> list[ClassifiedEntry]:

@@ -1,10 +1,10 @@
 """LLM enricher for FindTab.
 
-Uses GitHub Models API to generate rich bookmark metadata.
+Uses Azure OpenAI to generate rich bookmark metadata.
 """
 import json
 from typing import Optional
-from ...core.github_models import GitHubModelsClient
+from ...core.azure_openai_client import AzureOpenAIClient
 from .models import ClassifiedEntry, EnrichedBookmark
 
 
@@ -33,14 +33,14 @@ JSON response:"""
 class BookmarkEnricher:
     """Enriches bookmarks with LLM-generated metadata."""
     
-    def __init__(self, llm_client: Optional[GitHubModelsClient] = None, batch_size: int = 15):
+    def __init__(self, llm_client: Optional[AzureOpenAIClient] = None, batch_size: int = 15):
         """Initialize enricher.
         
         Args:
-            llm_client: GitHub Models client
+            llm_client: Azure OpenAI client
             batch_size: URLs to process per LLM call
         """
-        self.client = llm_client or GitHubModelsClient()
+        self.client = llm_client or AzureOpenAIClient()
         self.batch_size = batch_size
     
     def enrich_batch(self, entries: list[ClassifiedEntry]) -> list[EnrichedBookmark]:
@@ -163,6 +163,6 @@ class BookmarkEnricher:
         return [str(t).strip().lower() for t in topics[:5] if t]
 
 
-def create_enricher(llm_client: Optional[GitHubModelsClient] = None, batch_size: int = 15) -> BookmarkEnricher:
+def create_enricher(llm_client: Optional[AzureOpenAIClient] = None, batch_size: int = 15) -> BookmarkEnricher:
     """Factory function to create enricher."""
     return BookmarkEnricher(llm_client=llm_client, batch_size=batch_size)

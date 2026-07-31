@@ -2,7 +2,7 @@
 from datetime import datetime
 from typing import Optional
 from ...core.config import Settings
-from ...core.github_models import GitHubModelsClient
+from ...core.azure_openai_client import AzureOpenAIClient
 from .database import BookmarkDatabase
 from .classifier import BookmarkClassifier
 from .enricher import BookmarkEnricher
@@ -44,18 +44,18 @@ class BookmarkIndexer:
         self, 
         db: BookmarkDatabase, 
         settings: Settings,
-        llm_client: Optional[GitHubModelsClient] = None
+        llm_client: Optional[AzureOpenAIClient] = None
     ):
         """Initialize indexer.
         
         Args:
             db: Bookmark database
             settings: Configuration settings
-            llm_client: GitHub Models client
+            llm_client: Azure OpenAI client
         """
         self.db = db
         self.settings = settings
-        self.llm_client = llm_client or GitHubModelsClient()
+        self.llm_client = llm_client or AzureOpenAIClient()
         
         self.prefilter = URLPreFilter(
             custom_rules_path=settings.findtab_rules_path

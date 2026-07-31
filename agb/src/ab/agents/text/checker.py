@@ -1,6 +1,6 @@
 """Grammar checker core logic."""
 from ab.core import Settings
-from ab.core.github_models import GitHubModelsClient
+from ab.core.azure_openai_client import AzureOpenAIClient
 from .clipboard import get_clipboard, set_clipboard
 from rich.console import Console
 from rich.panel import Panel
@@ -11,7 +11,7 @@ console = Console()
 class GrammarChecker:
     """Simple grammar and typo checker."""
     
-    def __init__(self, llm_client: GitHubModelsClient, settings: Settings):
+    def __init__(self, llm_client: AzureOpenAIClient, settings: Settings):
         self.llm = llm_client
         self.settings = settings
     

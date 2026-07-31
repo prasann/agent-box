@@ -1,7 +1,7 @@
 """Text agent CLI commands."""
 import click
 from ab.core import get_settings
-from ab.core.github_models import GitHubModelsClient
+from ab.core.azure_openai_client import AzureOpenAIClient
 from .checker import GrammarChecker
 
 
@@ -17,7 +17,8 @@ def text_group():
 def fix(no_preview):
     """Fix typos and grammar in clipboard text."""
     settings = get_settings()
-    llm = GitHubModelsClient()
+    llm = AzureOpenAIClient(settings.azure_openai_endpoint, settings.azure_openai_deployment,
+                             settings.azure_openai_api_version)
     checker = GrammarChecker(llm, settings)
     checker.process_clipboard(mode="fix", show_preview=not no_preview)
 
@@ -28,6 +29,7 @@ def fix(no_preview):
 def rewrite(no_preview):
     """Rewrite text in clipboard for clarity and professionalism."""
     settings = get_settings()
-    llm = GitHubModelsClient()
+    llm = AzureOpenAIClient(settings.azure_openai_endpoint, settings.azure_openai_deployment,
+                             settings.azure_openai_api_version)
     checker = GrammarChecker(llm, settings)
     checker.process_clipboard(mode="rewrite", show_preview=not no_preview)

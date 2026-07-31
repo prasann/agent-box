@@ -22,3 +22,7 @@ def setup_logging(log_level: str = "INFO", log_file: Path = None):
         format="%(message)s",
         handlers=handlers
     )
+    
+    # Azure SDK auth chatter is noisy at INFO and not useful for CLI output
+    for noisy_logger in ("azure", "msal"):
+        logging.getLogger(noisy_logger).setLevel(logging.WARNING)

@@ -10,7 +10,7 @@ from .models import BookmarkSearchResult
 class BookmarkSearcher:
     """Search bookmarks using LLM query expansion + re-ranking over FTS5."""
     
-    def __init__(self, db: BookmarkDatabase, llm_client: Optional['GitHubModelsClient'] = None):
+    def __init__(self, db: BookmarkDatabase, llm_client: Optional['AzureOpenAIClient'] = None):
         """Initialize searcher.
         
         Args:

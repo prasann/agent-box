@@ -26,6 +26,19 @@ def test_purger_preview_mode(tmp_path):
     assert history_file.read_text().count('\n') == 3
 
 
+def test_purger_preview_details_includes_sample(tmp_path):
+    history_file = tmp_path / ".zsh_history"
+    history_file.write_text(
+        ": 1707217234:0;git status\n"
+        ": 1707217235:0;git status\n"
+    )
+
+    result = SafePurger(history_file).preview_details()
+
+    assert result["removed"] == 1
+    assert result["sample"][0]["command"] == "git status"
+
+
 def test_purger_actual_purge(tmp_path):
     """Test actual purging."""
     history_file = tmp_path / ".zsh_history"

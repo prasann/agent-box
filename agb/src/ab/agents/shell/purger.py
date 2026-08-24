@@ -71,6 +71,38 @@ class SafePurger:
         
         stats['backup'] = str(backup_path)
         return stats
+
+    def preview_details(self, sample_limit: int = 12) -> dict:
+        """Return a read-only purge preview suitable for non-terminal clients."""
+        if not self.history_file.exists():
+            raise FileNotFoundError(f"History file not found: {self.history_file}")
+
+        from .parser import ZshHistoryParser
+
+        entries = list(ZshHistoryParser(self.history_file).parse())
+        if not entries:
+            return {
+                "total": 0,
+                "kept": 0,
+                "removed": 0,
+                "pct_removed": 0,
+                "sample": [],
+            }
+
+        to_keep, to_remove, reasons = self._decide_purge(entries)
+        return {
+            "total": len(entries),
+            "kept": len(to_keep),
+            "removed": len(to_remove),
+            "pct_removed": len(to_remove) / len(entries) * 100,
+            "sample": [
+                {
+                    "command": entry.command,
+                    "reason": reasons.get(entry.command, "cleanup rule"),
+                }
+                for entry in to_remove[:sample_limit]
+            ],
+        }
     
     def _decide_purge(self, entries: List[HistoryEntry]) -> Tuple[List, List, Dict]:
         """

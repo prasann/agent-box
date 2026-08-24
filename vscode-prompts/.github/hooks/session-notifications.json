@@ -1,14 +1,5 @@
 {
   "hooks": {
-    "PreToolUse": [
-      {
-        "type": "command",
-        "command": "python ~/.agent-box-toolkit/hooks/scripts/safety_check.py",
-        "osx": "python ~/.agent-box-toolkit/hooks/scripts/safety_check.py",
-        "events": ["run_in_terminal"],
-        "cwd": "."
-      }
-    ],
     "Stop": [
       {
         "type": "command",

@@ -3,7 +3,7 @@ import click
 import sys
 from ab.core import setup_logging, get_settings
 from ab.agents import text_group, findtab_group, shell_group
-from ab.agents.web import serve
+from ab.web_command import serve
 
 
 @click.group()

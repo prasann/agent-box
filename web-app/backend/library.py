@@ -9,7 +9,7 @@ import yaml
 
 def default_library_root() -> Path:
     """Return the repository's vscode-prompts directory."""
-    return Path(__file__).resolve().parents[5] / "vscode-prompts"
+    return Path(__file__).resolve().parents[2] / "vscode-prompts"
 
 
 def _item_id(relative_path: str) -> str:

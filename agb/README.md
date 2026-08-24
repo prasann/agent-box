@@ -189,17 +189,21 @@ agb gmail clean --from-date 2026-02-01
 
 ### Environment Variables
 
-Create a `.env` file in your project root:
+Create the shared configuration file. Agent Box uses this file across regular
+checkouts, worktrees, xbar, and Control Center:
 
 ```bash
-# Copy example file
-cp .env.example .env
+mkdir -p ~/.agb
+cp .env.example ~/.agb/.env
 
 # Edit as needed
 AB_OLLAMA_MODEL=llama3.2:3b
 AB_OLLAMA_URL=http://localhost:11434
 AB_TEXT_SHOW_PREVIEW=true
 ```
+
+An existing `agb/.env` remains supported as a fallback. Values in
+`~/.agb/.env` take priority, as do exported environment variables.
 
 ### Available Settings
 

@@ -72,7 +72,7 @@ def _health() -> dict[str, Any]:
             "remedy": (
                 None
                 if azure_available
-                else "Set AB_AZURE_OPENAI_ENDPOINT in agb/.env, then run: az login"
+                else "Set AB_AZURE_OPENAI_ENDPOINT in ~/.agb/.env, then run: az login"
             ),
         },
         "ollama": {

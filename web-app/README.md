@@ -28,3 +28,11 @@ cd agb
 uv sync
 uv run agb serve
 ```
+
+Agent configuration is shared with xbar and other checkouts through
+`~/.agb/.env`. To initialize it from the example:
+
+```bash
+mkdir -p ~/.agb
+cp agb/.env.example ~/.agb/.env
+```

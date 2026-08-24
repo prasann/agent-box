@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 import requests
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from fastapi.staticfiles import StaticFiles
@@ -179,10 +179,6 @@ def create_app(
     @app.get("/api/health")
     async def health() -> dict[str, Any]:
         return await asyncio.to_thread(_health)
-
-    @app.get("/api/activity")
-    async def activity(limit: int = Query(default=8, ge=1, le=50)) -> list[dict[str, Any]]:
-        return app.state.runs.recent(limit)
 
     @app.post("/api/findtab/search")
     async def search(request: SearchRequest) -> dict[str, Any]:

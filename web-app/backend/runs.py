@@ -89,16 +89,6 @@ class RunStore:
                 raise KeyError(run_id)
             return {key: value for key, value in run.items() if key != "events"}
 
-    def recent(self, limit: int = 10) -> list[dict[str, Any]]:
-        with self._lock:
-            runs = sorted(
-                self._runs.values(), key=lambda run: run["created_at"], reverse=True
-            )
-            return [
-                {key: value for key, value in run.items() if key != "events"}
-                for run in runs[:limit]
-            ]
-
     def stream(self, run_id: str) -> Generator[str, None, None]:
         index = 0
         while True:

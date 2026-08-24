@@ -665,7 +665,6 @@ main {
 .agent-card,
 .result-card,
 .stat-card,
-.activity-list,
 .editor-panel,
 .library-index,
 .library-reader,
@@ -764,13 +763,11 @@ main {
   gap: 4px;
 }
 
-.activity-list,
 .command-list {
   border-radius: 16px;
   overflow: hidden;
 }
 
-.activity-row,
 .command-row {
   align-items: center;
   border-bottom: 1px solid var(--cp-border);
@@ -779,37 +776,13 @@ main {
   padding: 14px 16px;
 }
 
-.activity-row:last-child,
 .command-row:last-child {
   border-bottom: 0;
 }
 
-.activity-row > div {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  font-size: 13px;
-}
-
-.activity-row > div span,
-.run-status,
 .command-row span {
   color: var(--cp-text-muted);
   font-size: 12px;
-}
-
-.run-icon {
-  align-items: center;
-  background: var(--cp-surface-soft);
-  border-radius: 50%;
-  display: flex;
-  height: 30px;
-  justify-content: center;
-  width: 30px;
-}
-
-.run-icon.completed {
-  color: var(--cp-success);
 }
 
 .result-grid {

@@ -193,11 +193,9 @@ function SearchPanel({ compact = false }: { compact?: boolean }) {
 
 function Dashboard({
   agents,
-  activity,
   navigate,
 }: {
   agents: Agent[]
-  activity: Run[]
   navigate: (view: View, libraryItem?: string) => void
 }) {
   return (
@@ -260,32 +258,6 @@ function Dashboard({
           })}
         </div>
       </section>
-      <section>
-        <div className="section-heading">
-          <div>
-            <h2>Recent activity</h2>
-          </div>
-        </div>
-        <div className="activity-list">
-          {activity.map((run) => (
-            <div className="activity-row" key={run.id}>
-              <span className={`run-icon ${run.status}`}>
-                {run.status === "completed" ? <Check size={16} /> : <RefreshCw size={16} />}
-              </span>
-              <div>
-                <strong>
-                  {run.agent_id} / {run.action_id}
-                </strong>
-                <span>{new Date(run.created_at).toLocaleString()}</span>
-              </div>
-              <span className="run-status">{run.status}</span>
-            </div>
-          ))}
-          {!activity.length && (
-            <EmptyState title="No runs yet" body="Your background agent activity will appear here." />
-          )}
-        </div>
-      </section>
     </>
   )
 }
@@ -316,7 +288,6 @@ function FindTabView() {
     const finish = () => {
       events.close()
       queryClient.invalidateQueries({ queryKey: ["findtab-status"] })
-      queryClient.invalidateQueries({ queryKey: ["activity"] })
       setProgress("Index refresh complete")
     }
     events.addEventListener("completed", finish)
@@ -713,7 +684,6 @@ function App() {
   const [theme, setTheme] = useState(document.documentElement.dataset.theme || "dark")
   const agents = useQuery({ queryKey: ["agents"], queryFn: () => request<Agent[]>("/api/agents") })
   const health = useQuery({ queryKey: ["health"], queryFn: () => request<Health>("/api/health"), refetchInterval: 30_000 })
-  const activity = useQuery({ queryKey: ["activity"], queryFn: () => request<Run[]>("/api/activity") })
   const libraryCatalog = useQuery({
     queryKey: ["library"],
     queryFn: () => request<{ items: LibraryItem[]; groups: Record<string, number> }>("/api/library"),
@@ -766,7 +736,6 @@ function App() {
     return (
       <Dashboard
         agents={agents.data || []}
-        activity={activity.data || []}
         navigate={navigate}
       />
     )

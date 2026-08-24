@@ -2,9 +2,10 @@
 from pydantic_settings import BaseSettings
 from pathlib import Path
 
-# agb/.env - absolute path so config loads correctly regardless of caller's cwd
-# (agb is invoked system-wide, e.g. from xbar, not just from the project directory)
-_ENV_FILE = Path(__file__).resolve().parents[3] / ".env"
+# Keep the checkout-local file as a fallback for existing installations. The
+# shared file is loaded last so it wins consistently across xbar and worktrees.
+_LEGACY_ENV_FILE = Path(__file__).resolve().parents[3] / ".env"
+_SHARED_ENV_FILE = Path.home() / ".agb" / ".env"
 
 
 class Settings(BaseSettings):
@@ -46,7 +47,7 @@ class Settings(BaseSettings):
     log_file: Path = Path.home() / ".agb" / "logs" / "ab.log"
     
     class Config:
-        env_file = _ENV_FILE
+        env_file = (_LEGACY_ENV_FILE, _SHARED_ENV_FILE)
         env_prefix = "AB_"
 
 

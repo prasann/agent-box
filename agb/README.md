@@ -1,6 +1,6 @@
 # AB - Personal AI Agents
 
-Single command-line tool (`agb`) that provides multiple AI agents as subcommands. Install once, get all your productivity agents.
+Single local tool (`agb`) that provides AI agents through both CLI commands and Prasanna's Control Center, a private web dashboard.
 
 ## Features
 
@@ -9,6 +9,7 @@ Single command-line tool (`agb`) that provides multiple AI agents as subcommands
 - 📦 **Unified Package**: Install once, get all agents
 - 🔧 **Easy to Extend**: Add new agents in minutes
 - 🎨 **Beautiful Output**: Rich terminal interface with colors and panels
+- 🧭 **Control Center**: Run and inspect agents from a localhost-only web app
 
 ## Quick Start
 
@@ -48,10 +49,28 @@ agb text rewrite
 agb shell purge              # Preview mode (safe)
 agb shell purge --no-preview # Actually modify
 
+# Control Center - dashboard, FindTab, Text, Shell preview, and library
+agb serve                    # Opens at http://127.0.0.1:4747
+
 # Get help
 agb --help
 agb shell --help
 ```
+
+### Prasanna's Control Center
+
+The Control Center lives in the repository's top-level `web-app/` folder beside `xbar/`.
+It imports the existing agents from `agb/src/ab/` and serves its built React application
+and FastAPI backend from one localhost-only process:
+
+```bash
+agb serve
+agb serve --port 4748
+```
+
+Open `http://127.0.0.1:4747` to use the dashboard. It exposes FindTab search and background indexing, paste-in/copy-out text tools, a read-only shell purge preview, health checks, recent activity, and a read-only browser for `vscode-prompts`.
+
+`agb serve` expects an editable source checkout so it can load `web-app/backend`. The web UI intentionally cannot perform a destructive shell purge. Use the CLI after reviewing the preview. Autostart is not installed by default.
 
 ## Available Agents
 
@@ -170,17 +189,21 @@ agb gmail clean --from-date 2026-02-01
 
 ### Environment Variables
 
-Create a `.env` file in your project root:
+Create the shared configuration file. Agent Box uses this file across regular
+checkouts, worktrees, xbar, and Control Center:
 
 ```bash
-# Copy example file
-cp .env.example .env
+mkdir -p ~/.agb
+cp .env.example ~/.agb/.env
 
 # Edit as needed
 AB_OLLAMA_MODEL=llama3.2:3b
 AB_OLLAMA_URL=http://localhost:11434
 AB_TEXT_SHOW_PREVIEW=true
 ```
+
+An existing `agb/.env` remains supported as a fallback. Values in
+`~/.agb/.env` take priority, as do exported environment variables.
 
 ### Available Settings
 

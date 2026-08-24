@@ -1,0 +1,3717 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  '@hookform/resolvers':
+    specifier: ^5.9.1
+    version: 5.9.1(react-hook-form@8.0.0-beta.3)(zod@4.4.3)
+  '@radix-ui/react-accordion':
+    specifier: ^1.2.20
+    version: 1.2.20(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-aspect-ratio':
+    specifier: ^1.1.15
+    version: 1.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-avatar':
+    specifier: ^1.2.6
+    version: 1.2.6(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-checkbox':
+    specifier: ^1.3.11
+    version: 1.3.11(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-collapsible':
+    specifier: ^1.1.20
+    version: 1.1.20(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-context-menu':
+    specifier: ^2.3.7
+    version: 2.3.7(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-dialog':
+    specifier: ^1.1.23
+    version: 1.1.23(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-dropdown-menu':
+    specifier: ^2.1.24
+    version: 2.1.24(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-hover-card':
+    specifier: ^1.1.23
+    version: 1.1.23(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-label':
+    specifier: ^2.1.15
+    version: 2.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-menubar':
+    specifier: ^1.1.24
+    version: 1.1.24(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-navigation-menu':
+    specifier: ^1.2.22
+    version: 1.2.22(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-popover':
+    specifier: ^1.1.23
+    version: 1.1.23(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-progress':
+    specifier: ^1.1.16
+    version: 1.1.16(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-radio-group':
+    specifier: ^1.4.7
+    version: 1.4.7(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-scroll-area':
+    specifier: ^1.2.18
+    version: 1.2.18(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-select':
+    specifier: ^2.3.7
+    version: 2.3.7(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-separator':
+    specifier: ^1.1.15
+    version: 1.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-slider':
+    specifier: ^1.4.7
+    version: 1.4.7(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-slot':
+    specifier: ^1.3.3
+    version: 1.3.3(@types/react@19.2.18)(react@19.2.8)
+  '@radix-ui/react-switch':
+    specifier: ^1.3.7
+    version: 1.3.7(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-tabs':
+    specifier: ^1.1.21
+    version: 1.1.21(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-toast':
+    specifier: ^1.2.23
+    version: 1.2.23(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-toggle':
+    specifier: ^1.1.18
+    version: 1.1.18(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-toggle-group':
+    specifier: ^1.1.19
+    version: 1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@radix-ui/react-tooltip':
+    specifier: ^1.2.16
+    version: 1.2.16(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  '@tanstack/react-query':
+    specifier: ^5.101.4
+    version: 5.101.4(react@19.2.8)
+  class-variance-authority:
+    specifier: ^0.7.1
+    version: 0.7.1
+  clsx:
+    specifier: ^2.1.1
+    version: 2.1.1
+  cmdk:
+    specifier: ^1.1.1
+    version: 1.1.1(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  date-fns:
+    specifier: ^4.4.0
+    version: 4.4.0
+  embla-carousel-react:
+    specifier: ^8.6.0
+    version: 8.6.0(react@19.2.8)
+  lucide-react:
+    specifier: ^1.31.0
+    version: 1.31.0(react@19.2.8)
+  next-themes:
+    specifier: ^0.4.6
+    version: 0.4.6(react-dom@19.2.8)(react@19.2.8)
+  react:
+    specifier: ^19.2.8
+    version: 19.2.8
+  react-day-picker:
+    specifier: ^10.0.1
+    version: 10.0.1(@types/react@19.2.18)(react@19.2.8)
+  react-dom:
+    specifier: ^19.2.8
+    version: 19.2.8(react@19.2.8)
+  react-hook-form:
+    specifier: 8.0.0-beta.3
+    version: 8.0.0-beta.3(react@19.2.8)
+  react-markdown:
+    specifier: ^10.1.0
+    version: 10.1.0(@types/react@19.2.18)(react@19.2.8)
+  react-resizable-panels:
+    specifier: ^4.12.3
+    version: 4.12.3(react-dom@19.2.8)(react@19.2.8)
+  remark-gfm:
+    specifier: ^4.0.1
+    version: 4.0.1
+  sonner:
+    specifier: ^2.0.8
+    version: 2.0.8(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  tailwind-merge:
+    specifier: ^3.6.0
+    version: 3.6.0
+  vaul:
+    specifier: ^1.1.2
+    version: 1.1.2(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+  zod:
+    specifier: ^4.4.3
+    version: 4.4.3
+
+devDependencies:
+  '@types/node':
+    specifier: ^24.13.3
+    version: 24.13.3
+  '@types/react':
+    specifier: ^19.2.17
+    version: 19.2.18
+  '@types/react-dom':
+    specifier: ^19.2.3
+    version: 19.2.4(@types/react@19.2.18)
+  '@vitejs/plugin-react':
+    specifier: ^6.0.4
+    version: 6.0.5(vite@8.2.1)
+  autoprefixer:
+    specifier: ^10.5.4
+    version: 10.5.4(postcss@8.5.26)
+  oxlint:
+    specifier: ^1.75.0
+    version: 1.78.0
+  postcss:
+    specifier: ^8.5.26
+    version: 8.5.26
+  tailwindcss:
+    specifier: 3.4.1
+    version: 3.4.1
+  tailwindcss-animate:
+    specifier: ^1.0.7
+    version: 1.0.7(tailwindcss@3.4.1)
+  typescript:
+    specifier: ~6.0.2
+    version: 6.0.3
+  vite:
+    specifier: ^8.2.0
+    version: 8.2.1(@types/node@24.13.3)
+
+packages:
+
+  /@alloc/quick-lru@5.2.0:
+    resolution: {integrity: sha1-e/aLIMCjUPk2kV/K4G9Y4yAHzjA=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@alloc/quick-lru/-/quick-lru-5.2.0.tgz}
+    engines: {node: '>=10'}
+    dev: true
+
+  /@date-fns/tz@1.5.0:
+    resolution: {integrity: sha1-6eebdYPwsTIsU9uISgESVRCV4/M=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@date-fns/tz/-/tz-1.5.0.tgz}
+    dev: false
+
+  /@floating-ui/core@1.8.0:
+    resolution: {integrity: sha1-0BwLvqAuSlf2/X1d5vwsXH3KQOE=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@floating-ui/core/-/core-1.8.0.tgz}
+    dependencies:
+      '@floating-ui/utils': 0.2.12
+    dev: false
+
+  /@floating-ui/dom@1.8.0:
+    resolution: {integrity: sha1-iiDm+sviRWr9vrbIuWinLfaJz2M=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@floating-ui/dom/-/dom-1.8.0.tgz}
+    dependencies:
+      '@floating-ui/core': 1.8.0
+      '@floating-ui/utils': 0.2.12
+    dev: false
+
+  /@floating-ui/react-dom@2.1.9(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-9CpfRp6lbW8uJ1Hvoc+TYkOoc1U=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@floating-ui/react-dom/-/react-dom-2.1.9.tgz}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@floating-ui/dom': 1.8.0
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@floating-ui/utils@0.2.12:
+    resolution: {integrity: sha1-r+/nhZSfFqxM3R5pWTWjIVct1Wo=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@floating-ui/utils/-/utils-0.2.12.tgz}
+    dev: false
+
+  /@hookform/resolvers@5.9.1(react-hook-form@8.0.0-beta.3)(zod@4.4.3):
+    resolution: {integrity: sha1-IBDBtULOb6dfpdj+5cyRHs4An1w=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@hookform/resolvers/-/resolvers-5.9.1.tgz}
+    peerDependencies:
+      '@sinclair/typebox': '>=0.25.24'
+      '@standard-schema/spec': ^1.0.0
+      '@typeschema/main': '>=0.13.7'
+      '@vinejs/vine': ^2.0.0 || ^3.0.0 || ^4.0.0
+      ajv: ^8.12.0
+      ajv-errors: ^3.0.0
+      ajv-formats: ^2.1.1
+      arktype: ^2.0.0
+      ata-validator: ^1.2.0
+      class-transformer: '>=0.4.0'
+      class-validator: '>=0.12.0'
+      computed-types: ^1.0.0
+      effect: ^3.10.3
+      fluentvalidation-ts: ^3.0.0
+      fp-ts: ^2.7.0
+      io-ts: ^2.0.0
+      joi: ^17.0.0 || ^18.0.0
+      nope-validator: '>=0.12.0'
+      react-hook-form: ^7.55.0
+      superstruct: '>=0.12.0'
+      typanion: ^3.3.2
+      valibot: '>=0.31.0 || ^1.0.0-beta.4 || ^1.0.0-rc'
+      vest: '>=6.0.0'
+      yup: ^1.0.0
+      zod: ^3.25.0 || ^4.0.0
+    peerDependenciesMeta:
+      '@sinclair/typebox':
+        optional: true
+      '@standard-schema/spec':
+        optional: true
+      '@typeschema/main':
+        optional: true
+      '@vinejs/vine':
+        optional: true
+      ajv:
+        optional: true
+      ajv-errors:
+        optional: true
+      ajv-formats:
+        optional: true
+      arktype:
+        optional: true
+      ata-validator:
+        optional: true
+      class-transformer:
+        optional: true
+      class-validator:
+        optional: true
+      computed-types:
+        optional: true
+      effect:
+        optional: true
+      fluentvalidation-ts:
+        optional: true
+      fp-ts:
+        optional: true
+      io-ts:
+        optional: true
+      joi:
+        optional: true
+      nope-validator:
+        optional: true
+      superstruct:
+        optional: true
+      typanion:
+        optional: true
+      valibot:
+        optional: true
+      vest:
+        optional: true
+      yup:
+        optional: true
+      zod:
+        optional: true
+    dependencies:
+      '@standard-schema/utils': 0.3.0
+      react-hook-form: 8.0.0-beta.3(react@19.2.8)
+      zod: 4.4.3
+    dev: false
+
+  /@jridgewell/gen-mapping@0.3.13:
+    resolution: {integrity: sha1-Y0Khn0Q0dRjJPkOxrGnes8Rlah8=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@jridgewell/gen-mapping/-/gen-mapping-0.3.13.tgz}
+    dependencies:
+      '@jridgewell/sourcemap-codec': 1.5.5
+      '@jridgewell/trace-mapping': 0.3.31
+    dev: true
+
+  /@jridgewell/resolve-uri@3.1.2:
+    resolution: {integrity: sha1-eg7mAfYPmaIMfHxf8MgDiMEYm9Y=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@jridgewell/resolve-uri/-/resolve-uri-3.1.2.tgz}
+    engines: {node: '>=6.0.0'}
+    dev: true
+
+  /@jridgewell/sourcemap-codec@1.5.5:
+    resolution: {integrity: sha1-aRKwDSxjHA0Vzhp6tXzWV/Ko+Lo=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.5.tgz}
+    dev: true
+
+  /@jridgewell/trace-mapping@0.3.31:
+    resolution: {integrity: sha1-2xXWeByTHzolGj2sOVAcmKYIL9A=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@jridgewell/trace-mapping/-/trace-mapping-0.3.31.tgz}
+    dependencies:
+      '@jridgewell/resolve-uri': 3.1.2
+      '@jridgewell/sourcemap-codec': 1.5.5
+    dev: true
+
+  /@nodelib/fs.scandir@2.1.5:
+    resolution: {integrity: sha1-dhnC6yGyVIP20WdUi0z9WnSIw9U=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz}
+    engines: {node: '>= 8'}
+    dependencies:
+      '@nodelib/fs.stat': 2.0.5
+      run-parallel: 1.2.0
+    dev: true
+
+  /@nodelib/fs.stat@2.0.5:
+    resolution: {integrity: sha1-W9Jir5Tp0lvR5xsF3u1Eh2oiLos=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@nodelib/fs.stat/-/fs.stat-2.0.5.tgz}
+    engines: {node: '>= 8'}
+    dev: true
+
+  /@nodelib/fs.walk@1.2.8:
+    resolution: {integrity: sha1-6Vc36LtnRt3t9pxVaVNJTxlv5po=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@nodelib/fs.walk/-/fs.walk-1.2.8.tgz}
+    engines: {node: '>= 8'}
+    dependencies:
+      '@nodelib/fs.scandir': 2.1.5
+      fastq: 1.20.1
+    dev: true
+
+  /@oxc-project/types@0.144.0:
+    resolution: {integrity: sha1-ffv7+7ucJNSr62+YVqHsoCr/ZGg=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxc-project/types/-/types-0.144.0.tgz}
+    dev: true
+
+  /@oxlint/binding-android-arm-eabi@1.78.0:
+    resolution: {integrity: sha1-WZfR0v5dZMqVvDzC6ZCiGNE1c7w=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-android-arm-eabi/-/binding-android-arm-eabi-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm]
+    os: [android]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-android-arm64@1.78.0:
+    resolution: {integrity: sha1-VYsyL9FBp0zaAiv7Zw9gjKORCUQ=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-android-arm64/-/binding-android-arm64-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm64]
+    os: [android]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-darwin-arm64@1.78.0:
+    resolution: {integrity: sha1-auuzefROZM1rhO/j0o5Rkjw4jHo=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-darwin-arm64/-/binding-darwin-arm64-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-darwin-x64@1.78.0:
+    resolution: {integrity: sha1-+MQcp8xwJC5oRi2yKRQqkxbSAnw=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-darwin-x64/-/binding-darwin-x64-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-freebsd-x64@1.78.0:
+    resolution: {integrity: sha1-mciu9/nP7b5dJdMrIoJM1Q+gF70=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-freebsd-x64/-/binding-freebsd-x64-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [x64]
+    os: [freebsd]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-linux-arm-gnueabihf@1.78.0:
+    resolution: {integrity: sha1-Fu0PZ/AqOOh1S5AB0PZyiWeIfgU=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-linux-arm-gnueabihf/-/binding-linux-arm-gnueabihf-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-linux-arm-musleabihf@1.78.0:
+    resolution: {integrity: sha1-YPxuJBMSrwUvRZ658ay0zxbLWNQ=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-linux-arm-musleabihf/-/binding-linux-arm-musleabihf-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-linux-arm64-gnu@1.78.0:
+    resolution: {integrity: sha1-y9GepwaAafIREv7lfUqelqy3Bw4=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-linux-arm64-gnu/-/binding-linux-arm64-gnu-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-linux-arm64-musl@1.78.0:
+    resolution: {integrity: sha1-jW/tI8T1QGfIjDs/QRDIxP2aykA=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-linux-arm64-musl/-/binding-linux-arm64-musl-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm64]
+    os: [linux]
+    libc: [musl]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-linux-ppc64-gnu@1.78.0:
+    resolution: {integrity: sha1-obQn7gOdZH/n4NsCO1ghtNYJnMg=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-linux-ppc64-gnu/-/binding-linux-ppc64-gnu-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [ppc64]
+    os: [linux]
+    libc: [glibc]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-linux-riscv64-gnu@1.78.0:
+    resolution: {integrity: sha1-GEF15gMva7tGIUBbI08NL3hL848=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-linux-riscv64-gnu/-/binding-linux-riscv64-gnu-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [riscv64]
+    os: [linux]
+    libc: [glibc]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-linux-riscv64-musl@1.78.0:
+    resolution: {integrity: sha1-4QrP+7M0DEg48mmee7GFEDepgLM=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-linux-riscv64-musl/-/binding-linux-riscv64-musl-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [riscv64]
+    os: [linux]
+    libc: [musl]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-linux-s390x-gnu@1.78.0:
+    resolution: {integrity: sha1-Hck0Y7F6iLnyUZ6A8MO2GykQCSE=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-linux-s390x-gnu/-/binding-linux-s390x-gnu-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [s390x]
+    os: [linux]
+    libc: [glibc]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-linux-x64-gnu@1.78.0:
+    resolution: {integrity: sha1-b8w6nJUnREYJgoMyaIpX9Gx+FoE=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-linux-x64-gnu/-/binding-linux-x64-gnu-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-linux-x64-musl@1.78.0:
+    resolution: {integrity: sha1-Eb1JA56XM3Odfnf8OOGuzvrbtco=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-linux-x64-musl/-/binding-linux-x64-musl-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [x64]
+    os: [linux]
+    libc: [musl]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-openharmony-arm64@1.78.0:
+    resolution: {integrity: sha1-dXdBoXatvixfXJe7T3HYQo12Qe8=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-openharmony-arm64/-/binding-openharmony-arm64-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm64]
+    os: [openharmony]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-win32-arm64-msvc@1.78.0:
+    resolution: {integrity: sha1-QQ3eRDlQng7Jgptiy0m2FJdGobQ=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-win32-arm64-msvc/-/binding-win32-arm64-msvc-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-win32-ia32-msvc@1.78.0:
+    resolution: {integrity: sha1-EJpgt5X1FszdV6+oN97iiAYNi9M=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-win32-ia32-msvc/-/binding-win32-ia32-msvc-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [ia32]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/binding-win32-x64-msvc@1.78.0:
+    resolution: {integrity: sha1-5ot7S5mOjh6sltNXzURHG8o3xDA=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@oxlint/binding-win32-x64-msvc/-/binding-win32-x64-msvc-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@radix-ui/number@1.1.3:
+    resolution: {integrity: sha1-lmHEu0TekzVZk+Hgn+1PyN+p96Y=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/number/-/number-1.1.3.tgz}
+    dev: false
+
+  /@radix-ui/primitive@1.1.7:
+    resolution: {integrity: sha1-DQkp0gKZ9gsM2KDer615+ASPkwY=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/primitive/-/primitive-1.1.7.tgz}
+    dev: false
+
+  /@radix-ui/react-accordion@1.2.20(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-tHLwoyAovEPor3SRabZcu839cL8=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-accordion/-/react-accordion-1.2.20.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-collapsible': 1.1.20(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-collection': 1.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-direction': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-id': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-arrow@1.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-ZmWMeOkEa39gAMHsI9mN2A4d5Yo=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-arrow/-/react-arrow-1.1.15.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-aspect-ratio@1.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-Q+b5eRL+v0MrgSRUReIKp2kzzok=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-aspect-ratio/-/react-aspect-ratio-1.1.15.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-avatar@1.2.6(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-ETO0sTsV5XF5bUQxF1EU3drDsG4=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-avatar/-/react-avatar-1.2.6.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-callback-ref': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-is-hydrated': 0.1.3(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-checkbox@1.3.11(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-KntPt0e5s/88MAlLj7lf8iHGpLU=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-checkbox/-/react-checkbox-1.3.11.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-presence': 1.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-size': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-collapsible@1.1.20(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-FGBXEH8BWHOAtvWw749gq9cjCyM=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-collapsible/-/react-collapsible-1.1.20.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-id': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-presence': 1.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-collection@1.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-bwRWMNb5d4qxsMRWrpe0dK7Iogs=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-collection/-/react-collection-1.1.15.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-slot': 1.3.3(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-compose-refs@1.1.5(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-iD5kLF7Aujk90b9Ybn53KYV3DYc=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-compose-refs/-/react-compose-refs-1.1.5.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 19.2.18
+      react: 19.2.8
+    dev: false
+
+  /@radix-ui/react-context-menu@2.3.7(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-mXPrvMyUS9mVgsYN0emaW8AoXI0=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-context-menu/-/react-context-menu-2.3.7.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-menu': 2.1.24(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-context@1.2.2(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-/iVI6YRl9fm3dsWVPeNdBKiRm2s=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-context/-/react-context-1.2.2.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 19.2.18
+      react: 19.2.8
+    dev: false
+
+  /@radix-ui/react-dialog@1.1.23(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-t9joOjzPl+RvPD9Hegv1Y/Degjk=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-dialog/-/react-dialog-1.1.23.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-dismissable-layer': 1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-focus-guards': 1.1.6(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-focus-scope': 1.1.16(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-id': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-portal': 1.1.17(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-presence': 1.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-slot': 1.3.3(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      aria-hidden: 1.2.6
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+      react-remove-scroll: 2.7.2(@types/react@19.2.18)(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-direction@1.1.4(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-57cEnzw6uObgFMRgD58ZdKUsBfE=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-direction/-/react-direction-1.1.4.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 19.2.18
+      react: 19.2.8
+    dev: false
+
+  /@radix-ui/react-dismissable-layer@1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-72SgiUO98E4AmW9VRyRWNTAU+mg=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-dismissable-layer/-/react-dismissable-layer-1.1.19.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-callback-ref': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-effect-event': 0.0.5(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-dropdown-menu@2.1.24(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-PtbVDNrLHmilIwwTUQtqhxMbV3s=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-dropdown-menu/-/react-dropdown-menu-2.1.24.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-id': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-menu': 2.1.24(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-focus-guards@1.1.6(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-hTmF+3f7f29lqy5HUNHP3pxwLjY=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-focus-guards/-/react-focus-guards-1.1.6.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 19.2.18
+      react: 19.2.8
+    dev: false
+
+  /@radix-ui/react-focus-scope@1.1.16(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-EiFJiyIu+q5niiWuS4ECXF/toZU=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-focus-scope/-/react-focus-scope-1.1.16.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-callback-ref': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-hover-card@1.1.23(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-lUNnEyGvs+gi0b+rjMEBbMTZXp4=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-hover-card/-/react-hover-card-1.1.23.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-dismissable-layer': 1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-popper': 1.3.7(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-portal': 1.1.17(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-presence': 1.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-id@1.1.4(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-5kJxS9r1UcG/rL5RUI7YQ6OieYA=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-id/-/react-id-1.1.4.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      react: 19.2.8
+    dev: false
+
+  /@radix-ui/react-label@2.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-1t82HoU9jenjpRL2dytkb9uNNOc=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-label/-/react-label-2.1.15.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-menu@2.1.24(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-zYdeZvsOtexTgRMpM+DXkNBD7cw=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-menu/-/react-menu-2.1.24.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-collection': 1.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-direction': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-dismissable-layer': 1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-focus-guards': 1.1.6(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-focus-scope': 1.1.16(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-id': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-popper': 1.3.7(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-portal': 1.1.17(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-presence': 1.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-roving-focus': 1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-slot': 1.3.3(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-callback-ref': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      aria-hidden: 1.2.6
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+      react-remove-scroll: 2.7.2(@types/react@19.2.18)(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-menubar@1.1.24(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-nNAYHLA7vpcUF8djOe1U29HWu/c=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-menubar/-/react-menubar-1.1.24.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-collection': 1.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-direction': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-id': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-menu': 2.1.24(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-roving-focus': 1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-navigation-menu@1.2.22(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-5tsGprsYgjPH2zYW5/djKHBVcN0=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-navigation-menu/-/react-navigation-menu-1.2.22.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-collection': 1.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-direction': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-dismissable-layer': 1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-id': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-presence': 1.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-callback-ref': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-previous': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-visually-hidden': 1.2.11(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-popover@1.1.23(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-DTv7KS1KwUYlAixYECnQ5ZalIwg=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-popover/-/react-popover-1.1.23.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-dismissable-layer': 1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-focus-guards': 1.1.6(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-focus-scope': 1.1.16(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-id': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-popper': 1.3.7(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-portal': 1.1.17(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-presence': 1.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-slot': 1.3.3(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      aria-hidden: 1.2.6
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+      react-remove-scroll: 2.7.2(@types/react@19.2.18)(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-popper@1.3.7(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-pGAC3sl/mJ5ieUU3J7GwumNpFnc=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-popper/-/react-popper-1.3.7.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@floating-ui/react-dom': 2.1.9(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-arrow': 1.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-callback-ref': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-rect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-size': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/rect': 1.1.3
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-portal@1.1.17(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-87YLtdePEhQ+F1U8Re0FBrAm7Bg=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-portal/-/react-portal-1.1.17.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-presence@1.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-SQQcucQcPo0Xkda5ah07zYQpoVE=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-presence/-/react-presence-1.1.10.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-primitive@2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-KSt0dkmdFyJ/M3yNHFnycMaDhCo=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-primitive/-/react-primitive-2.1.10.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/react-slot': 1.3.3(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-progress@1.1.16(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-JQsDUyVzumA/B0t3AjiKlCelvMQ=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-progress/-/react-progress-1.1.16.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-radio-group@1.4.7(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-kV0INUfSbXY4hLdoO+RpxkAq7ZY=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-radio-group/-/react-radio-group-1.4.7.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-direction': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-presence': 1.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-roving-focus': 1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-size': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-roving-focus@1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-KrwGdkSPTrroxDph+VMa6+D1yCM=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-roving-focus/-/react-roving-focus-1.1.19.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-collection': 1.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-direction': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-id': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-callback-ref': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-is-hydrated': 0.1.3(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-scroll-area@1.2.18(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-k8FjeOgSrV/pugq9Y1tRyEACEWI=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-scroll-area/-/react-scroll-area-1.2.18.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/number': 1.1.3
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-direction': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-presence': 1.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-callback-ref': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-select@2.3.7(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-/IPd2Gbez/jKmeY/CTxuOHrVR5A=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-select/-/react-select-2.3.7.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/number': 1.1.3
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-collection': 1.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-direction': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-dismissable-layer': 1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-focus-guards': 1.1.6(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-focus-scope': 1.1.16(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-id': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-popper': 1.3.7(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-portal': 1.1.17(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-presence': 1.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-slot': 1.3.3(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-callback-ref': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-previous': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-visually-hidden': 1.2.11(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      aria-hidden: 1.2.6
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+      react-remove-scroll: 2.7.2(@types/react@19.2.18)(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-separator@1.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-C1mlXOQviBvabaRaHMgGkhSoYGw=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-separator/-/react-separator-1.1.15.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-slider@1.4.7(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-k3xEukBEBKL79XKGOjtMRGNdUOg=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-slider/-/react-slider-1.4.7.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/number': 1.1.3
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-collection': 1.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-direction': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-previous': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-size': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-slot@1.3.3(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-zMjIk2//EvfjJNaRf+UWc1cJdnY=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-slot/-/react-slot-1.3.3.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      react: 19.2.8
+    dev: false
+
+  /@radix-ui/react-switch@1.3.7(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-VNwNMxFFQYwuOsZUXBZricseGG4=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-switch/-/react-switch-1.3.7.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-size': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-tabs@1.1.21(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-2365sz8l1kWmohAo6eAEfUV8SaA=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-tabs/-/react-tabs-1.1.21.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-direction': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-id': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-presence': 1.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-roving-focus': 1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-toast@1.2.23(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-tk4uK3NbTyGI/Xn0RuDiy8Yk0Ig=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-toast/-/react-toast-1.2.23.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-collection': 1.1.15(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-dismissable-layer': 1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-portal': 1.1.17(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-presence': 1.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-callback-ref': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-visually-hidden': 1.2.11(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-toggle-group@1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-zvwy204RfloVgSu5RGdqTRTZ5Zs=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-toggle-group/-/react-toggle-group-1.1.19.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-direction': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-roving-focus': 1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-toggle': 1.1.18(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-toggle@1.1.18(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-O0ZLI152GTFC2eonZhGpyO87q8c=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-toggle/-/react-toggle-1.1.18.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-tooltip@1.2.16(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-s4/IR1tNVhmw9Q+gVzkLJ4pdTmk=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-tooltip/-/react-tooltip-1.2.16.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-context': 1.2.2(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-dismissable-layer': 1.1.19(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-id': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-popper': 1.3.7(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-portal': 1.1.17(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-presence': 1.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-slot': 1.3.3(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-visually-hidden': 1.2.11(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/react-use-callback-ref@1.1.4(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-HlXTcUjmCj9H3kvH6nz/b6P0Ja4=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-use-callback-ref/-/react-use-callback-ref-1.1.4.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 19.2.18
+      react: 19.2.8
+    dev: false
+
+  /@radix-ui/react-use-controllable-state@1.2.6(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-DxCe/wBMPB/1+XCVcPRd7plVUT4=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-use-controllable-state/-/react-use-controllable-state-1.2.6.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.7
+      '@radix-ui/react-use-effect-event': 0.0.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      react: 19.2.8
+    dev: false
+
+  /@radix-ui/react-use-effect-event@0.0.5(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-dzKkrmvAMsf2VOZYID35LTUg+NE=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-use-effect-event/-/react-use-effect-event-0.0.5.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      react: 19.2.8
+    dev: false
+
+  /@radix-ui/react-use-is-hydrated@0.1.3(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-8P+kc5RyYEa6bG0LfJcjn0jI30U=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-use-is-hydrated/-/react-use-is-hydrated-0.1.3.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 19.2.18
+      react: 19.2.8
+    dev: false
+
+  /@radix-ui/react-use-layout-effect@1.1.4(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-UaC7w0IxUHCYM4Oz+PAAYQg3gqg=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-use-layout-effect/-/react-use-layout-effect-1.1.4.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 19.2.18
+      react: 19.2.8
+    dev: false
+
+  /@radix-ui/react-use-previous@1.1.4(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-SieJwWjYWnjlH4EsPpcn7wHTAto=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-use-previous/-/react-use-previous-1.1.4.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 19.2.18
+      react: 19.2.8
+    dev: false
+
+  /@radix-ui/react-use-rect@1.1.4(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-nWjdHRSaCvTyKMXJrkZG086qDio=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-use-rect/-/react-use-rect-1.1.4.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@radix-ui/rect': 1.1.3
+      '@types/react': 19.2.18
+      react: 19.2.8
+    dev: false
+
+  /@radix-ui/react-use-size@1.1.4(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-LW0Kl6XNEadvTwmYQjnZ4mxZzk4=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-use-size/-/react-use-size-1.1.4.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@radix-ui/react-use-layout-effect': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@types/react': 19.2.18
+      react: 19.2.8
+    dev: false
+
+  /@radix-ui/react-visually-hidden@1.2.11(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-PgKuv4JddAQtG4Y6IMzGcxa3jns=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/react-visually-hidden/-/react-visually-hidden-1.2.11.tgz}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@types/react': 19.2.18
+      '@types/react-dom': 19.2.4(@types/react@19.2.18)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /@radix-ui/rect@1.1.3:
+    resolution: {integrity: sha1-Wlj7rj3u+3+M/m6jFCh9aZ62lKk=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@radix-ui/rect/-/rect-1.1.3.tgz}
+    dev: false
+
+  /@rolldown/binding-android-arm64@1.2.4:
+    resolution: {integrity: sha1-msOQJV3tc4ZyrRQlvtZCNFP/cf0=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@rolldown/binding-android-arm64/-/binding-android-arm64-1.2.4.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm64]
+    os: [android]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rolldown/binding-darwin-arm64@1.2.4:
+    resolution: {integrity: sha1-xjytL2VrZyeC3XCJSviVr5y6Ncg=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@rolldown/binding-darwin-arm64/-/binding-darwin-arm64-1.2.4.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rolldown/binding-darwin-x64@1.2.4:
+    resolution: {integrity: sha1-VPYwXWeFeTxjwVIaTaRBK/fY4Ik=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@rolldown/binding-darwin-x64/-/binding-darwin-x64-1.2.4.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rolldown/binding-freebsd-x64@1.2.4:
+    resolution: {integrity: sha1-wGmj69Sl3P/9eaAPM8BrwkLZVms=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@rolldown/binding-freebsd-x64/-/binding-freebsd-x64-1.2.4.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [x64]
+    os: [freebsd]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rolldown/binding-linux-arm-gnueabihf@1.2.4:
+    resolution: {integrity: sha1-z/DQWlbhnwJEMxPyq/c89pMXOGc=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@rolldown/binding-linux-arm-gnueabihf/-/binding-linux-arm-gnueabihf-1.2.4.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rolldown/binding-linux-arm64-gnu@1.2.4:
+    resolution: {integrity: sha1-JnYFNmuivzFGYJQXptuZJTlDyW8=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@rolldown/binding-linux-arm64-gnu/-/binding-linux-arm64-gnu-1.2.4.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rolldown/binding-linux-arm64-musl@1.2.4:
+    resolution: {integrity: sha1-c9R7/boqcsFr+yccI++4lJssIBg=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@rolldown/binding-linux-arm64-musl/-/binding-linux-arm64-musl-1.2.4.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm64]
+    os: [linux]
+    libc: [musl]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rolldown/binding-linux-ppc64-gnu@1.2.4:
+    resolution: {integrity: sha1-O6RVxy0+nv2XPfWWidSOdcpvdVk=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@rolldown/binding-linux-ppc64-gnu/-/binding-linux-ppc64-gnu-1.2.4.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [ppc64]
+    os: [linux]
+    libc: [glibc]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rolldown/binding-linux-s390x-gnu@1.2.4:
+    resolution: {integrity: sha1-L93LSO7hKmIHNcg6AFYwe27eLts=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@rolldown/binding-linux-s390x-gnu/-/binding-linux-s390x-gnu-1.2.4.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [s390x]
+    os: [linux]
+    libc: [glibc]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rolldown/binding-linux-x64-gnu@1.2.4:
+    resolution: {integrity: sha1-l/uRQw945G+B1P6CoEmoxH9OzpY=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@rolldown/binding-linux-x64-gnu/-/binding-linux-x64-gnu-1.2.4.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rolldown/binding-linux-x64-musl@1.2.4:
+    resolution: {integrity: sha1-ceyZZ7X/VGptXdoW0cepflC/ZHo=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@rolldown/binding-linux-x64-musl/-/binding-linux-x64-musl-1.2.4.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [x64]
+    os: [linux]
+    libc: [musl]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rolldown/binding-openharmony-arm64@1.2.4:
+    resolution: {integrity: sha1-HhmrKPvbAJy22VA+P/bL7/1yJa4=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@rolldown/binding-openharmony-arm64/-/binding-openharmony-arm64-1.2.4.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm64]
+    os: [openharmony]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rolldown/binding-win32-arm64-msvc@1.2.4:
+    resolution: {integrity: sha1-n60WfQFcaZ9DdcKh0E0eUuSjLeQ=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@rolldown/binding-win32-arm64-msvc/-/binding-win32-arm64-msvc-1.2.4.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rolldown/binding-win32-x64-msvc@1.2.4:
+    resolution: {integrity: sha1-el8tPohsNXApMytT84rSBC5GFcQ=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@rolldown/binding-win32-x64-msvc/-/binding-win32-x64-msvc-1.2.4.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rolldown/pluginutils@1.0.1:
+    resolution: {integrity: sha1-4/zuCT+7XOdl4a0Ij/TeKIn2+b4=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@rolldown/pluginutils/-/pluginutils-1.0.1.tgz}
+    dev: true
+
+  /@standard-schema/utils@0.3.0:
+    resolution: {integrity: sha1-PV5gjxbCOQwQUo6Y5Zrva/c8rns=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@standard-schema/utils/-/utils-0.3.0.tgz}
+    dev: false
+
+  /@tanstack/query-core@5.101.4:
+    resolution: {integrity: sha1-wBtCibMJQUTY75YjWqUGJCz4Pvo=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@tanstack/query-core/-/query-core-5.101.4.tgz}
+    dev: false
+
+  /@tanstack/react-query@5.101.4(react@19.2.8):
+    resolution: {integrity: sha1-BEE3dU15qqMKgvbmxCSIvnnIbqc=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@tanstack/react-query/-/react-query-5.101.4.tgz}
+    peerDependencies:
+      react: ^18 || ^19
+    dependencies:
+      '@tanstack/query-core': 5.101.4
+      react: 19.2.8
+    dev: false
+
+  /@types/debug@4.1.13:
+    resolution: {integrity: sha1-ItHMnVQtNZPK6nZPl0MGqzYobuc=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@types/debug/-/debug-4.1.13.tgz}
+    dependencies:
+      '@types/ms': 2.1.0
+    dev: false
+
+  /@types/estree-jsx@1.0.5:
+    resolution: {integrity: sha1-hYqI6iDzT+ZREfAFpon6Hr9w3Bg=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@types/estree-jsx/-/estree-jsx-1.0.5.tgz}
+    dependencies:
+      '@types/estree': 1.0.9
+    dev: false
+
+  /@types/estree@1.0.9:
+    resolution: {integrity: sha1-zz8Oh2177hWpOrkluCv1cKOQSiQ=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@types/estree/-/estree-1.0.9.tgz}
+    dev: false
+
+  /@types/hast@3.0.5:
+    resolution: {integrity: sha1-SAIN5MDmNJL0yp20IGjBCPaLf48=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@types/hast/-/hast-3.0.5.tgz}
+    dependencies:
+      '@types/unist': 3.0.3
+    dev: false
+
+  /@types/mdast@4.0.4:
+    resolution: {integrity: sha1-fM9y7dLxqn3TQ34YDGQ3NYWATdY=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@types/mdast/-/mdast-4.0.4.tgz}
+    dependencies:
+      '@types/unist': 3.0.3
+    dev: false
+
+  /@types/ms@2.1.0:
+    resolution: {integrity: sha1-BSqmekjszEMJ1/AZG35BQ0uQu3g=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@types/ms/-/ms-2.1.0.tgz}
+    dev: false
+
+  /@types/node@24.13.3:
+    resolution: {integrity: sha1-SfGL08ZHhm3NpRoHVsFF4UWQzhY=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@types/node/-/node-24.13.3.tgz}
+    dependencies:
+      undici-types: 7.18.2
+    dev: true
+
+  /@types/react-dom@19.2.4(@types/react@19.2.18):
+    resolution: {integrity: sha1-Flq16X37CBhHsPZ1UGDPQKP2Zms=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@types/react-dom/-/react-dom-19.2.4.tgz}
+    peerDependencies:
+      '@types/react': ^19.2.0
+    dependencies:
+      '@types/react': 19.2.18
+
+  /@types/react@19.2.18:
+    resolution: {integrity: sha1-6wtqH7Y10alpLV+Eo0lb2K0VNwc=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@types/react/-/react-19.2.18.tgz}
+    dependencies:
+      csstype: 3.2.3
+
+  /@types/unist@2.0.11:
+    resolution: {integrity: sha1-Ea9XsSfjJId3SEH3pOVOqxZtA8Q=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@types/unist/-/unist-2.0.11.tgz}
+    dev: false
+
+  /@types/unist@3.0.3:
+    resolution: {integrity: sha1-rKqw+RnOaczmKcLU7S60rcG2wgw=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@types/unist/-/unist-3.0.3.tgz}
+    dev: false
+
+  /@ungap/structured-clone@1.3.3:
+    resolution: {integrity: sha1-CUBB4aTLGYfwODNUISgayL45C8w=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@ungap/structured-clone/-/structured-clone-1.3.3.tgz}
+    dev: false
+
+  /@vitejs/plugin-react@6.0.5(vite@8.2.1):
+    resolution: {integrity: sha1-SO55UQk/+QVJUs/51k6HQ1XN43I=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@vitejs/plugin-react/-/plugin-react-6.0.5.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    peerDependencies:
+      '@rolldown/plugin-babel': ^0.1.7 || ^0.2.0
+      babel-plugin-react-compiler: ^1.0.0
+      vite: ^8.0.0
+    peerDependenciesMeta:
+      '@rolldown/plugin-babel':
+        optional: true
+      babel-plugin-react-compiler:
+        optional: true
+    dependencies:
+      '@rolldown/pluginutils': 1.0.1
+      vite: 8.2.1(@types/node@24.13.3)
+    dev: true
+
+  /any-promise@1.3.0:
+    resolution: {integrity: sha1-q8av7tzqUugJzcA3au0845Y10X8=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/any-promise/-/any-promise-1.3.0.tgz}
+    dev: true
+
+  /anymatch@3.1.3:
+    resolution: {integrity: sha1-eQxYsZuhcgqEIFtXxhjVrYUklz4=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/anymatch/-/anymatch-3.1.3.tgz}
+    engines: {node: '>= 8'}
+    dependencies:
+      normalize-path: 3.0.0
+      picomatch: 2.3.2
+    dev: true
+
+  /arg@5.0.2:
+    resolution: {integrity: sha1-yBQzzEJ8ksTc9IZRQtvKbxWs1Zw=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/arg/-/arg-5.0.2.tgz}
+    dev: true
+
+  /aria-hidden@1.2.6:
+    resolution: {integrity: sha1-cwUcmwiBFMeVsepBTpwP/4dP/Bo=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/aria-hidden/-/aria-hidden-1.2.6.tgz}
+    engines: {node: '>=10'}
+    dependencies:
+      tslib: 2.8.1
+    dev: false
+
+  /autoprefixer@10.5.4(postcss@8.5.26):
+    resolution: {integrity: sha1-O33YSLQVVRSpWtH2zlmIRL6glpc=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/autoprefixer/-/autoprefixer-10.5.4.tgz}
+    engines: {node: ^10 || ^12 || >=14}
+    hasBin: true
+    peerDependencies:
+      postcss: ^8.1.0
+    dependencies:
+      browserslist: 4.28.8
+      caniuse-lite: 1.0.30001809
+      fraction.js: 5.3.4
+      picocolors: 1.1.1
+      postcss: 8.5.26
+      postcss-value-parser: 4.2.0
+    dev: true
+
+  /bail@2.0.2:
+    resolution: {integrity: sha1-0m9c2P5db4MqMVF7n3w1YEC6bV0=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/bail/-/bail-2.0.2.tgz}
+    dev: false
+
+  /baseline-browser-mapping@2.11.14:
+    resolution: {integrity: sha1-1Ru5IoVgiw5jVoQaLup2hCp3HVI=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/baseline-browser-mapping/-/baseline-browser-mapping-2.11.14.tgz}
+    engines: {node: '>=6.0.0'}
+    hasBin: true
+    dev: true
+
+  /binary-extensions@2.3.0:
+    resolution: {integrity: sha1-9uFKl4WNMnJSIAJC1Mz+UixEVSI=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/binary-extensions/-/binary-extensions-2.3.0.tgz}
+    engines: {node: '>=8'}
+    dev: true
+
+  /braces@3.0.3:
+    resolution: {integrity: sha1-SQMy9AkZRSJy1VqEgK3AxEE1h4k=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/braces/-/braces-3.0.3.tgz}
+    engines: {node: '>=8'}
+    dependencies:
+      fill-range: 7.1.1
+    dev: true
+
+  /browserslist@4.28.8:
+    resolution: {integrity: sha1-o8ec63AChSfl2n2vyIfzIAtRaMA=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/browserslist/-/browserslist-4.28.8.tgz}
+    engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
+    hasBin: true
+    dependencies:
+      baseline-browser-mapping: 2.11.14
+      caniuse-lite: 1.0.30001809
+      electron-to-chromium: 1.5.408
+      node-releases: 2.0.53
+      update-browserslist-db: 1.3.1(browserslist@4.28.8)
+    dev: true
+
+  /camelcase-css@2.0.1:
+    resolution: {integrity: sha1-7pePaUeRTMMMa0R0G27R338EP9U=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/camelcase-css/-/camelcase-css-2.0.1.tgz}
+    engines: {node: '>= 6'}
+    dev: true
+
+  /caniuse-lite@1.0.30001809:
+    resolution: {integrity: sha1-5s9x8U3f4AjxFN0qhGkjvjwDoHs=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/caniuse-lite/-/caniuse-lite-1.0.30001809.tgz}
+    dev: true
+
+  /ccount@2.0.1:
+    resolution: {integrity: sha1-F6O/gjAuCHDW2kOgExGovAKj7PU=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/ccount/-/ccount-2.0.1.tgz}
+    dev: false
+
+  /character-entities-html4@2.1.0:
+    resolution: {integrity: sha1-HxrblAyXGksiujndymthjcblays=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/character-entities-html4/-/character-entities-html4-2.1.0.tgz}
+    dev: false
+
+  /character-entities-legacy@3.0.0:
+    resolution: {integrity: sha1-dryDqQc4kB17wiOp6TdZ/dVgEls=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/character-entities-legacy/-/character-entities-legacy-3.0.0.tgz}
+    dev: false
+
+  /character-entities@2.0.2:
+    resolution: {integrity: sha1-LQnC5yzZUjB2zLIRV9/2atQ/zCI=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/character-entities/-/character-entities-2.0.2.tgz}
+    dev: false
+
+  /character-reference-invalid@2.0.1:
+    resolution: {integrity: sha1-hcZrBB5DtHIQ+vQBJ4q/gIrEXLk=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/character-reference-invalid/-/character-reference-invalid-2.0.1.tgz}
+    dev: false
+
+  /chokidar@3.6.0:
+    resolution: {integrity: sha1-GXxsxmnvKo3F57TZfuTgksPrDVs=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/chokidar/-/chokidar-3.6.0.tgz}
+    engines: {node: '>= 8.10.0'}
+    dependencies:
+      anymatch: 3.1.3
+      braces: 3.0.3
+      glob-parent: 5.1.2
+      is-binary-path: 2.1.0
+      is-glob: 4.0.3
+      normalize-path: 3.0.0
+      readdirp: 3.6.0
+    optionalDependencies:
+      fsevents: 2.3.3
+    dev: true
+
+  /class-variance-authority@0.7.1:
+    resolution: {integrity: sha1-QAinmKDkVTp4GlesUXfJ+10EN4c=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/class-variance-authority/-/class-variance-authority-0.7.1.tgz}
+    dependencies:
+      clsx: 2.1.1
+    dev: false
+
+  /clsx@2.1.1:
+    resolution: {integrity: sha1-7tOXyf2L2IK/sY3qtxAgSaLzKZk=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/clsx/-/clsx-2.1.1.tgz}
+    engines: {node: '>=6'}
+    dev: false
+
+  /cmdk@1.1.1(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-uFJCcmmcyqN6rwfzaFCzdr89WOU=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/cmdk/-/cmdk-1.1.1.tgz}
+    peerDependencies:
+      react: ^18 || ^19 || ^19.0.0-rc
+      react-dom: ^18 || ^19 || ^19.0.0-rc
+    dependencies:
+      '@radix-ui/react-compose-refs': 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-dialog': 1.1.23(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      '@radix-ui/react-id': 1.1.4(@types/react@19.2.18)(react@19.2.8)
+      '@radix-ui/react-primitive': 2.1.10(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
+    dev: false
+
+  /comma-separated-tokens@2.0.3:
+    resolution: {integrity: sha1-TonJRYrLYbyP7xn0UplzsjkoOe4=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/comma-separated-tokens/-/comma-separated-tokens-2.0.3.tgz}
+    dev: false
+
+  /commander@4.1.1:
+    resolution: {integrity: sha1-n9YCvZNilOnp70aj9NaWQESxgGg=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/commander/-/commander-4.1.1.tgz}
+    engines: {node: '>= 6'}
+    dev: true
+
+  /cssesc@3.0.0:
+    resolution: {integrity: sha1-N3QZGZA7hoVl4cCep0dEXNGJg+4=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/cssesc/-/cssesc-3.0.0.tgz}
+    engines: {node: '>=4'}
+    hasBin: true
+    dev: true
+
+  /csstype@3.2.3:
+    resolution: {integrity: sha1-7EjA8+mT5QZIyG2lWeJhCZXPmJo=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/csstype/-/csstype-3.2.3.tgz}
+
+  /date-fns@4.4.0:
+    resolution: {integrity: sha1-gGU57fRcYWsrdrX3i4jFbtPH4DY=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/date-fns/-/date-fns-4.4.0.tgz}
+    dev: false
+
+  /debug@4.4.3:
+    resolution: {integrity: sha1-xq5DLZvZZiWC/OCHCbA4xY6ePWo=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/debug/-/debug-4.4.3.tgz}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    dependencies:
+      ms: 2.1.3
+    dev: false
+
+  /decode-named-character-reference@1.3.0:
+    resolution: {integrity: sha1-PkBgN2CHTC5YZ2kbWZ1zp9oltT8=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/decode-named-character-reference/-/decode-named-character-reference-1.3.0.tgz}
+    dependencies:
+      character-entities: 2.0.2
+    dev: false
+
+  /dequal@2.0.3:
+    resolution: {integrity: sha1-JkQhTxmX057Q7g7OcjNUkKesZ74=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/dequal/-/dequal-2.0.3.tgz}
+    engines: {node: '>=6'}
+    dev: false
+
+  /detect-libc@2.1.2:
+    resolution: {integrity: sha1-aJxdzcGQDvVYOky59te0c3QgdK0=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/detect-libc/-/detect-libc-2.1.2.tgz}
+    engines: {node: '>=8'}
+    dev: true
+
+  /detect-node-es@1.1.0:
+    resolution: {integrity: sha1-FjrN9kMzDKoLTNfCHn7ndV1vpJM=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/detect-node-es/-/detect-node-es-1.1.0.tgz}
+    dev: false
+
+  /devlop@1.1.0:
+    resolution: {integrity: sha1-TbfCyk3G4Og0wwvnDJS7yXbccBg=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/devlop/-/devlop-1.1.0.tgz}
+    dependencies:
+      dequal: 2.0.3
+    dev: false
+
+  /didyoumean@1.2.2:
+    resolution: {integrity: sha1-mJNG/+noObRVXs9WZu3qDT6K0Dc=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/didyoumean/-/didyoumean-1.2.2.tgz}
+    dev: true
+
+  /dlv@1.1.3:
+    resolution: {integrity: sha1-XBmKihFFNZbnUUlNSYdLx3MvLnk=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/dlv/-/dlv-1.1.3.tgz}
+    dev: true
+
+  /electron-to-chromium@1.5.408:
+    resolution: {integrity: sha1-c3RO6Pq+TmieR312fxFyh37mHkY=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/electron-to-chromium/-/electron-to-chromium-1.5.408.tgz}
+    dev: true
+
+  /embla-carousel-react@8.6.0(react@19.2.8):
+    resolution: {integrity: sha1-tzcEKjJ2HDjWYUWTZTs6xhlHe9E=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/embla-carousel-react/-/embla-carousel-react-8.6.0.tgz}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.1 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+    dependencies:
+      embla-carousel: 8.6.0
+      embla-carousel-reactive-utils: 8.6.0(embla-carousel@8.6.0)
+      react: 19.2.8
+    dev: false
+
+  /embla-carousel-reactive-utils@8.6.0(embla-carousel@8.6.0):
+    resolution: {integrity: sha1-YH8dirmSHJBqVVwgYlGyxttociM=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/embla-carousel-reactive-utils/-/embla-carousel-reactive-utils-8.6.0.tgz}
+    peerDependencies:
+      embla-carousel: 8.6.0
+    dependencies:
+      embla-carousel: 8.6.0
+    dev: false
+
+  /embla-carousel@8.6.0:
+    resolution: {integrity: sha1-q87f8r/zaZLqisJ80wCAyltqP1g=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/embla-carousel/-/embla-carousel-8.6.0.tgz}
+    dev: false
+
+  /es-errors@1.3.0:
+    resolution: {integrity: sha1-BfdaJdq5jk+x3NXhRywFRtUFfI8=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/es-errors/-/es-errors-1.3.0.tgz}
+    engines: {node: '>= 0.4'}
+    dev: true
+
+  /escalade@3.2.0:
+    resolution: {integrity: sha1-ARo/aYVroYnf+n3I/M6Z0qh5A+U=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/escalade/-/escalade-3.2.0.tgz}
+    engines: {node: '>=6'}
+    dev: true
+
+  /escape-string-regexp@5.0.0:
+    resolution: {integrity: sha1-RoMSa1ALYXYvLb66zhgG6L4xscg=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/escape-string-regexp/-/escape-string-regexp-5.0.0.tgz}
+    engines: {node: '>=12'}
+    dev: false
+
+  /estree-util-is-identifier-name@3.0.0:
+    resolution: {integrity: sha1-C170xP8TUIs03NAez6lF9h/OXb0=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/estree-util-is-identifier-name/-/estree-util-is-identifier-name-3.0.0.tgz}
+    dev: false
+
+  /extend@3.0.2:
+    resolution: {integrity: sha1-+LETa0Bx+9jrFAr/hYsQGewpFfo=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/extend/-/extend-3.0.2.tgz}
+    dev: false
+
+  /fast-glob@3.3.3:
+    resolution: {integrity: sha1-0G1YXOjbqQoWsFBcVDw8z7OuuBg=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/fast-glob/-/fast-glob-3.3.3.tgz}
+    engines: {node: '>=8.6.0'}
+    dependencies:
+      '@nodelib/fs.stat': 2.0.5
+      '@nodelib/fs.walk': 1.2.8
+      glob-parent: 5.1.2
+      merge2: 1.4.1
+      micromatch: 4.0.8
+    dev: true
+
+  /fastq@1.20.1:
+    resolution: {integrity: sha1-ynUKENySW8ixiDn9ID4+9LPO1nU=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/fastq/-/fastq-1.20.1.tgz}
+    dependencies:
+      reusify: 1.1.0
+    dev: true
+
+  /fdir@6.5.0(picomatch@4.0.5):
+    resolution: {integrity: sha1-7Sq5Z6MxreYvGNB32uGSaE1Q01A=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/fdir/-/fdir-6.5.0.tgz}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      picomatch: ^3 || ^4
+    peerDependenciesMeta:
+      picomatch:
+        optional: true
+    dependencies:
+      picomatch: 4.0.5
+    dev: true
+
+  /fill-range@7.1.1:
+    resolution: {integrity: sha1-RCZdPKwH4+p9wkdRY4BkN1SgUpI=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/fill-range/-/fill-range-7.1.1.tgz}
+    engines: {node: '>=8'}
+    dependencies:
+      to-regex-range: 5.0.1
+    dev: true
+
+  /fraction.js@5.3.4:
+    resolution: {integrity: sha1-jA/MapkIJi307Rl0J73u9WPgaZo=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/fraction.js/-/fraction.js-5.3.4.tgz}
+    dev: true
+
+  /fsevents@2.3.3:
+    resolution: {integrity: sha1-ysZAd4XQNnWipeGlMFxpezR9kNY=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/fsevents/-/fsevents-2.3.3.tgz}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /function-bind@1.1.2:
+    resolution: {integrity: sha1-LALYZNl/PqbIgwxGTL0Rq26rehw=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/function-bind/-/function-bind-1.1.2.tgz}
+    dev: true
+
+  /get-nonce@1.0.1:
+    resolution: {integrity: sha1-/fPwJ4Bzgg0s6UJsGPB0gbHgzfM=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/get-nonce/-/get-nonce-1.0.1.tgz}
+    engines: {node: '>=6'}
+    dev: false
+
+  /glob-parent@5.1.2:
+    resolution: {integrity: sha1-hpgyxYA0/mikCTwX3BXoNA2EAcQ=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/glob-parent/-/glob-parent-5.1.2.tgz}
+    engines: {node: '>= 6'}
+    dependencies:
+      is-glob: 4.0.3
+    dev: true
+
+  /glob-parent@6.0.2:
+    resolution: {integrity: sha1-bSN9mQg5UMeSkPJMdkKj3poo+eM=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/glob-parent/-/glob-parent-6.0.2.tgz}
+    engines: {node: '>=10.13.0'}
+    dependencies:
+      is-glob: 4.0.3
+    dev: true
+
+  /hasown@2.0.4:
+    resolution: {integrity: sha1-jGLYy5C+sqrV0KW2dYGtmFTD8AM=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/hasown/-/hasown-2.0.4.tgz}
+    engines: {node: '>= 0.4'}
+    dependencies:
+      function-bind: 1.1.2
+    dev: true
+
+  /hast-util-to-jsx-runtime@2.3.6:
+    resolution: {integrity: sha1-/zGJeq5Z9iIy4hWU6sfva2MzPpg=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/hast-util-to-jsx-runtime/-/hast-util-to-jsx-runtime-2.3.6.tgz}
+    dependencies:
+      '@types/estree': 1.0.9
+      '@types/hast': 3.0.5
+      '@types/unist': 3.0.3
+      comma-separated-tokens: 2.0.3
+      devlop: 1.1.0
+      estree-util-is-identifier-name: 3.0.0
+      hast-util-whitespace: 3.0.0
+      mdast-util-mdx-expression: 2.0.1
+      mdast-util-mdx-jsx: 3.2.0
+      mdast-util-mdxjs-esm: 2.0.1
+      property-information: 7.2.0
+      space-separated-tokens: 2.0.2
+      style-to-js: 1.1.21
+      unist-util-position: 5.0.0
+      vfile-message: 4.0.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /hast-util-whitespace@3.0.0:
+    resolution: {integrity: sha1-d3jtnTyS3Z6MXI9kiknCH8UctiE=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/hast-util-whitespace/-/hast-util-whitespace-3.0.0.tgz}
+    dependencies:
+      '@types/hast': 3.0.5
+    dev: false
+
+  /html-url-attributes@3.0.1:
+    resolution: {integrity: sha1-g7BSzV5DcHG3Vs10rnD3CIcMLYc=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/html-url-attributes/-/html-url-attributes-3.0.1.tgz}
+    dev: false
+
+  /inline-style-parser@0.2.7:
+    resolution: {integrity: sha1-sfxov8AxO4aFdF5EZON/k3a5yQk=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/inline-style-parser/-/inline-style-parser-0.2.7.tgz}
+    dev: false
+
+  /is-alphabetical@2.0.1:
+    resolution: {integrity: sha1-AQcgU+p8EDbfPH0Zptqux/GeeJs=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/is-alphabetical/-/is-alphabetical-2.0.1.tgz}
+    dev: false
+
+  /is-alphanumerical@2.0.1:
+    resolution: {integrity: sha1-fAP76W4+kxET5X+WSwo2jMLf2HU=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/is-alphanumerical/-/is-alphanumerical-2.0.1.tgz}
+    dependencies:
+      is-alphabetical: 2.0.1
+      is-decimal: 2.0.1
+    dev: false
+
+  /is-binary-path@2.1.0:
+    resolution: {integrity: sha1-6h9/O4DwZCNug0cPhsCcJU+0Wwk=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/is-binary-path/-/is-binary-path-2.1.0.tgz}
+    engines: {node: '>=8'}
+    dependencies:
+      binary-extensions: 2.3.0
+    dev: true
+
+  /is-core-module@2.16.2:
+    resolution: {integrity: sha1-PgdFCoCA684/vwysSU9NKrMk4II=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/is-core-module/-/is-core-module-2.16.2.tgz}
+    engines: {node: '>= 0.4'}
+    dependencies:
+      hasown: 2.0.4
+    dev: true
+
+  /is-decimal@2.0.1:
+    resolution: {integrity: sha1-lGnS3BkNAhT9h9eLeMrswMwU7vc=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/is-decimal/-/is-decimal-2.0.1.tgz}
+    dev: false
+
+  /is-extglob@2.1.1:
+    resolution: {integrity: sha1-qIwCU1eR8C7TfHahueqXc8gz+MI=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/is-extglob/-/is-extglob-2.1.1.tgz}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
+  /is-glob@4.0.3:
+    resolution: {integrity: sha1-ZPYeQsu7LuwgcanawLKLoeZdUIQ=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/is-glob/-/is-glob-4.0.3.tgz}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      is-extglob: 2.1.1
+    dev: true
+
+  /is-hexadecimal@2.0.1:
+    resolution: {integrity: sha1-hrW/Zo/KMHSY0xnfwDKJ14GpACc=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/is-hexadecimal/-/is-hexadecimal-2.0.1.tgz}
+    dev: false
+
+  /is-number@7.0.0:
+    resolution: {integrity: sha1-dTU0W4lnNNX4DE0GxQlVUnoU8Ss=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/is-number/-/is-number-7.0.0.tgz}
+    engines: {node: '>=0.12.0'}
+    dev: true
+
+  /is-plain-obj@4.1.0:
+    resolution: {integrity: sha1-1lAl7ew2V84DL9fbY8l4g+rtcfA=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/is-plain-obj/-/is-plain-obj-4.1.0.tgz}
+    engines: {node: '>=12'}
+    dev: false
+
+  /jiti@1.21.7:
+    resolution: {integrity: sha1-ndgQQ0JKPShFixk9ll8NGKIwC6k=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/jiti/-/jiti-1.21.7.tgz}
+    hasBin: true
+    dev: true
+
+  /lightningcss-android-arm64@1.33.0:
+    resolution: {integrity: sha1-mmhB+IrlD8g1ApA4krQa9BvCuQc=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lightningcss-android-arm64/-/lightningcss-android-arm64-1.33.0.tgz}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [android]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-darwin-arm64@1.33.0:
+    resolution: {integrity: sha1-wPLDHAv9GfpN0/GOlXofGhUgl9Y=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lightningcss-darwin-arm64/-/lightningcss-darwin-arm64-1.33.0.tgz}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-darwin-x64@1.33.0:
+    resolution: {integrity: sha1-ywcFllrLU4xmg5Sc5pJfs833w2E=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lightningcss-darwin-x64/-/lightningcss-darwin-x64-1.33.0.tgz}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-freebsd-x64@1.33.0:
+    resolution: {integrity: sha1-djU4gosmurJoDa2vzITueLDrUCs=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lightningcss-freebsd-x64/-/lightningcss-freebsd-x64-1.33.0.tgz}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [freebsd]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-linux-arm-gnueabihf@1.33.0:
+    resolution: {integrity: sha1-aGLjF2ozGu297B7TUrTX0N0HhN4=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lightningcss-linux-arm-gnueabihf/-/lightningcss-linux-arm-gnueabihf-1.33.0.tgz}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-linux-arm64-gnu@1.33.0:
+    resolution: {integrity: sha1-xqOi7RUUHa9r3CYokw+OOb30c6o=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lightningcss-linux-arm64-gnu/-/lightningcss-linux-arm64-gnu-1.33.0.tgz}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-linux-arm64-musl@1.33.0:
+    resolution: {integrity: sha1-f6EzSXH8goRfmCffbvigsgkUusY=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lightningcss-linux-arm64-musl/-/lightningcss-linux-arm64-musl-1.33.0.tgz}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [linux]
+    libc: [musl]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-linux-x64-gnu@1.33.0:
+    resolution: {integrity: sha1-i5J4YuqMK7xoMaRlCSRLUNmTblU=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lightningcss-linux-x64-gnu/-/lightningcss-linux-x64-gnu-1.33.0.tgz}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-linux-x64-musl@1.33.0:
+    resolution: {integrity: sha1-DFJbsHff2UQEwFnP5C2teX6Wrq8=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lightningcss-linux-x64-musl/-/lightningcss-linux-x64-musl-1.33.0.tgz}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [linux]
+    libc: [musl]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-win32-arm64-msvc@1.33.0:
+    resolution: {integrity: sha1-hQ7hED2smJz6tQ46wi0aaeOU5j0=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lightningcss-win32-arm64-msvc/-/lightningcss-win32-arm64-msvc-1.33.0.tgz}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-win32-x64-msvc@1.33.0:
+    resolution: {integrity: sha1-40OuFS7tNgncbhGUnRo785oclG8=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lightningcss-win32-x64-msvc/-/lightningcss-win32-x64-msvc-1.33.0.tgz}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss@1.33.0:
+    resolution: {integrity: sha1-wIhn1xp5OFxuGQIU/XL+8+X5Xws=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lightningcss/-/lightningcss-1.33.0.tgz}
+    engines: {node: '>= 12.0.0'}
+    dependencies:
+      detect-libc: 2.1.2
+    optionalDependencies:
+      lightningcss-android-arm64: 1.33.0
+      lightningcss-darwin-arm64: 1.33.0
+      lightningcss-darwin-x64: 1.33.0
+      lightningcss-freebsd-x64: 1.33.0
+      lightningcss-linux-arm-gnueabihf: 1.33.0
+      lightningcss-linux-arm64-gnu: 1.33.0
+      lightningcss-linux-arm64-musl: 1.33.0
+      lightningcss-linux-x64-gnu: 1.33.0
+      lightningcss-linux-x64-musl: 1.33.0
+      lightningcss-win32-arm64-msvc: 1.33.0
+      lightningcss-win32-x64-msvc: 1.33.0
+    dev: true
+
+  /lilconfig@2.1.0:
+    resolution: {integrity: sha1-eOI6yJ67fhv78lsYBD3nVlSOf1I=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lilconfig/-/lilconfig-2.1.0.tgz}
+    engines: {node: '>=10'}
+    dev: true
+
+  /lilconfig@3.1.3:
+    resolution: {integrity: sha1-obz9Ylf5WFv1rhTO7rt7VZAl5MQ=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lilconfig/-/lilconfig-3.1.3.tgz}
+    engines: {node: '>=14'}
+    dev: true
+
+  /lines-and-columns@1.2.4:
+    resolution: {integrity: sha1-7KKE910pZQeTCdwK2SVauy68FjI=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lines-and-columns/-/lines-and-columns-1.2.4.tgz}
+    dev: true
+
+  /longest-streak@3.1.0:
+    resolution: {integrity: sha1-YvpnzZWHQqFXSvnzmGY2QQLZDNQ=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/longest-streak/-/longest-streak-3.1.0.tgz}
+    dev: false
+
+  /lucide-react@1.31.0(react@19.2.8):
+    resolution: {integrity: sha1-HnWPP4a8BFaVfUR+blULZF2W4lU=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lucide-react/-/lucide-react-1.31.0.tgz}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    dependencies:
+      react: 19.2.8
+    dev: false
+
+  /markdown-table@3.0.4:
+    resolution: {integrity: sha1-/kTW1BD/nW8uoXl6P2CqTStjHCo=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/markdown-table/-/markdown-table-3.0.4.tgz}
+    dev: false
+
+  /mdast-util-find-and-replace@3.0.2:
+    resolution: {integrity: sha1-cKMXTIlOFN9yKr9DvCUMuuRLEd8=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/mdast-util-find-and-replace/-/mdast-util-find-and-replace-3.0.2.tgz}
+    dependencies:
+      '@types/mdast': 4.0.4
+      escape-string-regexp: 5.0.0
+      unist-util-is: 6.0.1
+      unist-util-visit-parents: 6.0.2
+    dev: false
+
+  /mdast-util-from-markdown@2.0.3:
+    resolution: {integrity: sha1-yVgiuRqrdfGKTL6LL1G4c+0s8Mc=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/mdast-util-from-markdown/-/mdast-util-from-markdown-2.0.3.tgz}
+    dependencies:
+      '@types/mdast': 4.0.4
+      '@types/unist': 3.0.3
+      decode-named-character-reference: 1.3.0
+      devlop: 1.1.0
+      mdast-util-to-string: 4.0.0
+      micromark: 4.0.2
+      micromark-util-decode-numeric-character-reference: 2.0.2
+      micromark-util-decode-string: 2.0.1
+      micromark-util-normalize-identifier: 2.0.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+      unist-util-stringify-position: 4.0.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /mdast-util-gfm-autolink-literal@2.0.1:
+    resolution: {integrity: sha1-q9VXYwM3vTCm1aS9glLhwtwIddU=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/mdast-util-gfm-autolink-literal/-/mdast-util-gfm-autolink-literal-2.0.1.tgz}
+    dependencies:
+      '@types/mdast': 4.0.4
+      ccount: 2.0.1
+      devlop: 1.1.0
+      mdast-util-find-and-replace: 3.0.2
+      micromark-util-character: 2.1.1
+    dev: false
+
+  /mdast-util-gfm-footnote@2.1.0:
+    resolution: {integrity: sha1-d3jp2co99yOMwr0/orG/amWxlAM=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/mdast-util-gfm-footnote/-/mdast-util-gfm-footnote-2.1.0.tgz}
+    dependencies:
+      '@types/mdast': 4.0.4
+      devlop: 1.1.0
+      mdast-util-from-markdown: 2.0.3
+      mdast-util-to-markdown: 2.1.2
+      micromark-util-normalize-identifier: 2.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /mdast-util-gfm-strikethrough@2.0.0:
+    resolution: {integrity: sha1-1E756O0oOsjBFlqw0N/QWMJ2TBY=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/mdast-util-gfm-strikethrough/-/mdast-util-gfm-strikethrough-2.0.0.tgz}
+    dependencies:
+      '@types/mdast': 4.0.4
+      mdast-util-from-markdown: 2.0.3
+      mdast-util-to-markdown: 2.1.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /mdast-util-gfm-table@2.0.0:
+    resolution: {integrity: sha1-ekNftiI6crCGKzOvvXErba6HjTg=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/mdast-util-gfm-table/-/mdast-util-gfm-table-2.0.0.tgz}
+    dependencies:
+      '@types/mdast': 4.0.4
+      devlop: 1.1.0
+      markdown-table: 3.0.4
+      mdast-util-from-markdown: 2.0.3
+      mdast-util-to-markdown: 2.1.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /mdast-util-gfm-task-list-item@2.0.0:
+    resolution: {integrity: sha1-5oCV0vikMD7yQJSrZC4QR7mRqTY=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/mdast-util-gfm-task-list-item/-/mdast-util-gfm-task-list-item-2.0.0.tgz}
+    dependencies:
+      '@types/mdast': 4.0.4
+      devlop: 1.1.0
+      mdast-util-from-markdown: 2.0.3
+      mdast-util-to-markdown: 2.1.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /mdast-util-gfm@3.1.0:
+    resolution: {integrity: sha1-LN9juSwqMxQGsPsNtMB3wbAzF1E=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/mdast-util-gfm/-/mdast-util-gfm-3.1.0.tgz}
+    dependencies:
+      mdast-util-from-markdown: 2.0.3
+      mdast-util-gfm-autolink-literal: 2.0.1
+      mdast-util-gfm-footnote: 2.1.0
+      mdast-util-gfm-strikethrough: 2.0.0
+      mdast-util-gfm-table: 2.0.0
+      mdast-util-gfm-task-list-item: 2.0.0
+      mdast-util-to-markdown: 2.1.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /mdast-util-mdx-expression@2.0.1:
+    resolution: {integrity: sha1-Q/CrrJrcdW4ghvY4IqOMjTw6UJY=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/mdast-util-mdx-expression/-/mdast-util-mdx-expression-2.0.1.tgz}
+    dependencies:
+      '@types/estree-jsx': 1.0.5
+      '@types/hast': 3.0.5
+      '@types/mdast': 4.0.4
+      devlop: 1.1.0
+      mdast-util-from-markdown: 2.0.3
+      mdast-util-to-markdown: 2.1.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /mdast-util-mdx-jsx@3.2.0:
+    resolution: {integrity: sha1-/QTGeip0me+5BailxXjd3J/a2g0=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/mdast-util-mdx-jsx/-/mdast-util-mdx-jsx-3.2.0.tgz}
+    dependencies:
+      '@types/estree-jsx': 1.0.5
+      '@types/hast': 3.0.5
+      '@types/mdast': 4.0.4
+      '@types/unist': 3.0.3
+      ccount: 2.0.1
+      devlop: 1.1.0
+      mdast-util-from-markdown: 2.0.3
+      mdast-util-to-markdown: 2.1.2
+      parse-entities: 4.0.2
+      stringify-entities: 4.0.4
+      unist-util-stringify-position: 4.0.0
+      vfile-message: 4.0.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /mdast-util-mdxjs-esm@2.0.1:
+    resolution: {integrity: sha1-AZz751etYt1VfbNaaV5zFLzJ+pc=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/mdast-util-mdxjs-esm/-/mdast-util-mdxjs-esm-2.0.1.tgz}
+    dependencies:
+      '@types/estree-jsx': 1.0.5
+      '@types/hast': 3.0.5
+      '@types/mdast': 4.0.4
+      devlop: 1.1.0
+      mdast-util-from-markdown: 2.0.3
+      mdast-util-to-markdown: 2.1.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /mdast-util-phrasing@4.1.0:
+    resolution: {integrity: sha1-fMCo3sMOrwS3salmGpKtszgqpuM=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/mdast-util-phrasing/-/mdast-util-phrasing-4.1.0.tgz}
+    dependencies:
+      '@types/mdast': 4.0.4
+      unist-util-is: 6.0.1
+    dev: false
+
+  /mdast-util-to-hast@13.2.1:
+    resolution: {integrity: sha1-1/+EykmaV+LAYK5nVIrZUOaJoFM=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/mdast-util-to-hast/-/mdast-util-to-hast-13.2.1.tgz}
+    dependencies:
+      '@types/hast': 3.0.5
+      '@types/mdast': 4.0.4
+      '@ungap/structured-clone': 1.3.3
+      devlop: 1.1.0
+      micromark-util-sanitize-uri: 2.0.1
+      trim-lines: 3.0.1
+      unist-util-position: 5.0.0
+      unist-util-visit: 5.1.0
+      vfile: 6.0.3
+    dev: false
+
+  /mdast-util-to-markdown@2.1.2:
+    resolution: {integrity: sha1-+RD/5giX8Eu0t+fuQ0SG92KINhs=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/mdast-util-to-markdown/-/mdast-util-to-markdown-2.1.2.tgz}
+    dependencies:
+      '@types/mdast': 4.0.4
+      '@types/unist': 3.0.3
+      longest-streak: 3.1.0
+      mdast-util-phrasing: 4.1.0
+      mdast-util-to-string: 4.0.0
+      micromark-util-classify-character: 2.0.1
+      micromark-util-decode-string: 2.0.1
+      unist-util-visit: 5.1.0
+      zwitch: 2.0.4
+    dev: false
+
+  /mdast-util-to-string@4.0.0:
+    resolution: {integrity: sha1-elEhR1VWoE5+3etnsmSq550xKBQ=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/mdast-util-to-string/-/mdast-util-to-string-4.0.0.tgz}
+    dependencies:
+      '@types/mdast': 4.0.4
+    dev: false
+
+  /merge2@1.4.1:
+    resolution: {integrity: sha1-Q2iJL4hekHRVpv19xVwMnUBJkK4=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/merge2/-/merge2-1.4.1.tgz}
+    engines: {node: '>= 8'}
+    dev: true
+
+  /micromark-core-commonmark@2.0.3:
+    resolution: {integrity: sha1-xpFjDkhQIaaM8o28Kyyifr9njNQ=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-core-commonmark/-/micromark-core-commonmark-2.0.3.tgz}
+    dependencies:
+      decode-named-character-reference: 1.3.0
+      devlop: 1.1.0
+      micromark-factory-destination: 2.0.1
+      micromark-factory-label: 2.0.1
+      micromark-factory-space: 2.0.1
+      micromark-factory-title: 2.0.1
+      micromark-factory-whitespace: 2.0.1
+      micromark-util-character: 2.1.1
+      micromark-util-chunked: 2.0.1
+      micromark-util-classify-character: 2.0.1
+      micromark-util-html-tag-name: 2.0.1
+      micromark-util-normalize-identifier: 2.0.1
+      micromark-util-resolve-all: 2.0.1
+      micromark-util-subtokenize: 2.1.0
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-extension-gfm-autolink-literal@2.1.0:
+    resolution: {integrity: sha1-Yoau6WhsRGLB41UqnVBf7dzuuTU=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-extension-gfm-autolink-literal/-/micromark-extension-gfm-autolink-literal-2.1.0.tgz}
+    dependencies:
+      micromark-util-character: 2.1.1
+      micromark-util-sanitize-uri: 2.0.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-extension-gfm-footnote@2.1.0:
+    resolution: {integrity: sha1-TatW1OOYuYU/b+TvrE/JNh8+B1A=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-extension-gfm-footnote/-/micromark-extension-gfm-footnote-2.1.0.tgz}
+    dependencies:
+      devlop: 1.1.0
+      micromark-core-commonmark: 2.0.3
+      micromark-factory-space: 2.0.1
+      micromark-util-character: 2.1.1
+      micromark-util-normalize-identifier: 2.0.1
+      micromark-util-sanitize-uri: 2.0.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-extension-gfm-strikethrough@2.1.0:
+    resolution: {integrity: sha1-hhBt+LOmkrX2qSKA04eb5r5G2SM=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-extension-gfm-strikethrough/-/micromark-extension-gfm-strikethrough-2.1.0.tgz}
+    dependencies:
+      devlop: 1.1.0
+      micromark-util-chunked: 2.0.1
+      micromark-util-classify-character: 2.0.1
+      micromark-util-resolve-all: 2.0.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-extension-gfm-table@2.1.1:
+    resolution: {integrity: sha1-+scLy/Uf5l9fRAMxGNOb6Km1lAs=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-extension-gfm-table/-/micromark-extension-gfm-table-2.1.1.tgz}
+    dependencies:
+      devlop: 1.1.0
+      micromark-factory-space: 2.0.1
+      micromark-util-character: 2.1.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-extension-gfm-tagfilter@2.0.0:
+    resolution: {integrity: sha1-8m2KeAe1mF+6E89hRltYyl/33Fc=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-extension-gfm-tagfilter/-/micromark-extension-gfm-tagfilter-2.0.0.tgz}
+    dependencies:
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-extension-gfm-task-list-item@2.1.0:
+    resolution: {integrity: sha1-vMNNgFY5gpmQ7BdcPuoSu1t4Hyw=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-extension-gfm-task-list-item/-/micromark-extension-gfm-task-list-item-2.1.0.tgz}
+    dependencies:
+      devlop: 1.1.0
+      micromark-factory-space: 2.0.1
+      micromark-util-character: 2.1.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-extension-gfm@3.0.0:
+    resolution: {integrity: sha1-PhM3arld16XP0OKVYN/pmWV7PFs=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-extension-gfm/-/micromark-extension-gfm-3.0.0.tgz}
+    dependencies:
+      micromark-extension-gfm-autolink-literal: 2.1.0
+      micromark-extension-gfm-footnote: 2.1.0
+      micromark-extension-gfm-strikethrough: 2.1.0
+      micromark-extension-gfm-table: 2.1.1
+      micromark-extension-gfm-tagfilter: 2.0.0
+      micromark-extension-gfm-task-list-item: 2.1.0
+      micromark-util-combine-extensions: 2.0.1
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-factory-destination@2.0.1:
+    resolution: {integrity: sha1-j++OD3CB8EdPvdkt61DJkKAmRjk=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-factory-destination/-/micromark-factory-destination-2.0.1.tgz}
+    dependencies:
+      micromark-util-character: 2.1.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-factory-label@2.0.1:
+    resolution: {integrity: sha1-UmfvqX8eUlTvx/ILRZo4yyEFi6E=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-factory-label/-/micromark-factory-label-2.0.1.tgz}
+    dependencies:
+      devlop: 1.1.0
+      micromark-util-character: 2.1.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-factory-space@2.0.1:
+    resolution: {integrity: sha1-NtAhLpYrKzEh+FJfx6PHwCnzNPw=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-factory-space/-/micromark-factory-space-2.0.1.tgz}
+    dependencies:
+      micromark-util-character: 2.1.1
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-factory-title@2.0.1:
+    resolution: {integrity: sha1-I35KpdWKlYY/AQMtnumwkPHebpQ=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-factory-title/-/micromark-factory-title-2.0.1.tgz}
+    dependencies:
+      micromark-factory-space: 2.0.1
+      micromark-util-character: 2.1.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-factory-whitespace@2.0.1:
+    resolution: {integrity: sha1-BrJrKYPE0nv8xlezPiUTTUhosLE=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-factory-whitespace/-/micromark-factory-whitespace-2.0.1.tgz}
+    dependencies:
+      micromark-factory-space: 2.0.1
+      micromark-util-character: 2.1.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-util-character@2.1.1:
+    resolution: {integrity: sha1-L5h4MaQNTFEKwmHomFLE6XA8zaY=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-util-character/-/micromark-util-character-2.1.1.tgz}
+    dependencies:
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-util-chunked@2.0.1:
+    resolution: {integrity: sha1-R/vNk0caP8yrhs/wOEf8NVLbEFE=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-util-chunked/-/micromark-util-chunked-2.0.1.tgz}
+    dependencies:
+      micromark-util-symbol: 2.0.1
+    dev: false
+
+  /micromark-util-classify-character@2.0.1:
+    resolution: {integrity: sha1-05n6+cRcoUyLS+mLHqSBvO2Htik=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-util-classify-character/-/micromark-util-classify-character-2.0.1.tgz}
+    dependencies:
+      micromark-util-character: 2.1.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-util-combine-extensions@2.0.1:
+    resolution: {integrity: sha1-Kg9JCrCL/1zC/V7sbdDKBPibMKk=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-util-combine-extensions/-/micromark-util-combine-extensions-2.0.1.tgz}
+    dependencies:
+      micromark-util-chunked: 2.0.1
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-util-decode-numeric-character-reference@2.0.2:
+    resolution: {integrity: sha1-/PFbZgl5OI5vEYzba/fXnXPSb+U=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-util-decode-numeric-character-reference/-/micromark-util-decode-numeric-character-reference-2.0.2.tgz}
+    dependencies:
+      micromark-util-symbol: 2.0.1
+    dev: false
+
+  /micromark-util-decode-string@2.0.1:
+    resolution: {integrity: sha1-bLmVguXScehO/KjmGoB5lNcWHrI=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-util-decode-string/-/micromark-util-decode-string-2.0.1.tgz}
+    dependencies:
+      decode-named-character-reference: 1.3.0
+      micromark-util-character: 2.1.1
+      micromark-util-decode-numeric-character-reference: 2.0.2
+      micromark-util-symbol: 2.0.1
+    dev: false
+
+  /micromark-util-encode@2.0.1:
+    resolution: {integrity: sha1-DVHRwJVVHPqsNoMmljz1XxX1QLg=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-util-encode/-/micromark-util-encode-2.0.1.tgz}
+    dev: false
+
+  /micromark-util-html-tag-name@2.0.1:
+    resolution: {integrity: sha1-5AQDCWSBmGtBwQZif5j3LU0QuCU=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-util-html-tag-name/-/micromark-util-html-tag-name-2.0.1.tgz}
+    dev: false
+
+  /micromark-util-normalize-identifier@2.0.1:
+    resolution: {integrity: sha1-ww13sugyrPZSb4vxqke8nJQ4wW0=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-util-normalize-identifier/-/micromark-util-normalize-identifier-2.0.1.tgz}
+    dependencies:
+      micromark-util-symbol: 2.0.1
+    dev: false
+
+  /micromark-util-resolve-all@2.0.1:
+    resolution: {integrity: sha1-4aLWLN0jcjCirhGDkCexk4HjHos=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-util-resolve-all/-/micromark-util-resolve-all-2.0.1.tgz}
+    dependencies:
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-util-sanitize-uri@2.0.1:
+    resolution: {integrity: sha1-q4l4m4GKWHUrc9a1UjhiG3+qj9c=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-util-sanitize-uri/-/micromark-util-sanitize-uri-2.0.1.tgz}
+    dependencies:
+      micromark-util-character: 2.1.1
+      micromark-util-encode: 2.0.1
+      micromark-util-symbol: 2.0.1
+    dev: false
+
+  /micromark-util-subtokenize@2.1.0:
+    resolution: {integrity: sha1-2K3lug8xl6HPaimZ+7/mNXoaGe4=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-util-subtokenize/-/micromark-util-subtokenize-2.1.0.tgz}
+    dependencies:
+      devlop: 1.1.0
+      micromark-util-chunked: 2.0.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+    dev: false
+
+  /micromark-util-symbol@2.0.1:
+    resolution: {integrity: sha1-5dpJTo6ysHGg0I+zT2zv7GwKGbg=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-util-symbol/-/micromark-util-symbol-2.0.1.tgz}
+    dev: false
+
+  /micromark-util-types@2.0.2:
+    resolution: {integrity: sha1-8AIl9fWg68MlT5bDa2YFxLOTkI4=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark-util-types/-/micromark-util-types-2.0.2.tgz}
+    dev: false
+
+  /micromark@4.0.2:
+    resolution: {integrity: sha1-kTlaPhiEoZjmIRbjPJxWjjmTb9s=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromark/-/micromark-4.0.2.tgz}
+    dependencies:
+      '@types/debug': 4.1.13
+      debug: 4.4.3
+      decode-named-character-reference: 1.3.0
+      devlop: 1.1.0
+      micromark-core-commonmark: 2.0.3
+      micromark-factory-space: 2.0.1
+      micromark-util-character: 2.1.1
+      micromark-util-chunked: 2.0.1
+      micromark-util-combine-extensions: 2.0.1
+      micromark-util-decode-numeric-character-reference: 2.0.2
+      micromark-util-encode: 2.0.1
+      micromark-util-normalize-identifier: 2.0.1
+      micromark-util-resolve-all: 2.0.1
+      micromark-util-sanitize-uri: 2.0.1
+      micromark-util-subtokenize: 2.1.0
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /micromatch@4.0.8:
+    resolution: {integrity: sha1-1m+hjzpHB2eJMgubGvMr2G2fogI=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/micromatch/-/micromatch-4.0.8.tgz}
+    engines: {node: '>=8.6'}
+    dependencies:
+      braces: 3.0.3
+      picomatch: 2.3.2
+    dev: true
+
+  /ms@2.1.3:
+    resolution: {integrity: sha1-V0yBOM4dK1hh8LRFedut1gxmFbI=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/ms/-/ms-2.1.3.tgz}
+    dev: false
+
+  /mz@2.7.0:
+    resolution: {integrity: sha1-lQCAV6Vsr63CvGPd5/n/aVWUjjI=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/mz/-/mz-2.7.0.tgz}
+    dependencies:
+      any-promise: 1.3.0
+      object-assign: 4.1.1
+      thenify-all: 1.6.0
+    dev: true
+
+  /nanoid@3.3.18:
+    resolution: {integrity: sha1-9mot4Rmf/eD88hyKXxMQaxwIGRM=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/nanoid/-/nanoid-3.3.18.tgz}
+    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+    dev: true
+
+  /next-themes@0.4.6(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-jX6S0DuP6mWCiSpQqSjJsjUC6LY=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/next-themes/-/next-themes-0.4.6.tgz}
+    peerDependencies:
+      react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
+    dependencies:
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /node-releases@2.0.53:
+    resolution: {integrity: sha1-D+Wtink14HUXL1dOVvDCDwf6Qa8=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/node-releases/-/node-releases-2.0.53.tgz}
+    engines: {node: '>=18'}
+    dev: true
+
+  /normalize-path@3.0.0:
+    resolution: {integrity: sha1-Dc1p/yOhybEf0JeDFmRKA4ghamU=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/normalize-path/-/normalize-path-3.0.0.tgz}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
+  /object-assign@4.1.1:
+    resolution: {integrity: sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/object-assign/-/object-assign-4.1.1.tgz}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
+  /object-hash@3.0.0:
+    resolution: {integrity: sha1-c/l/dT57r/wOLMnW4HkHl0Ssguk=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/object-hash/-/object-hash-3.0.0.tgz}
+    engines: {node: '>= 6'}
+    dev: true
+
+  /oxlint@1.78.0:
+    resolution: {integrity: sha1-KGVmgXiWoqfwTSsjBazcSEe81lA=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/oxlint/-/oxlint-1.78.0.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    hasBin: true
+    peerDependencies:
+      oxlint-tsgolint: '>=7.0.2001'
+      vite-plus: '*'
+    peerDependenciesMeta:
+      oxlint-tsgolint:
+        optional: true
+      vite-plus:
+        optional: true
+    optionalDependencies:
+      '@oxlint/binding-android-arm-eabi': 1.78.0
+      '@oxlint/binding-android-arm64': 1.78.0
+      '@oxlint/binding-darwin-arm64': 1.78.0
+      '@oxlint/binding-darwin-x64': 1.78.0
+      '@oxlint/binding-freebsd-x64': 1.78.0
+      '@oxlint/binding-linux-arm-gnueabihf': 1.78.0
+      '@oxlint/binding-linux-arm-musleabihf': 1.78.0
+      '@oxlint/binding-linux-arm64-gnu': 1.78.0
+      '@oxlint/binding-linux-arm64-musl': 1.78.0
+      '@oxlint/binding-linux-ppc64-gnu': 1.78.0
+      '@oxlint/binding-linux-riscv64-gnu': 1.78.0
+      '@oxlint/binding-linux-riscv64-musl': 1.78.0
+      '@oxlint/binding-linux-s390x-gnu': 1.78.0
+      '@oxlint/binding-linux-x64-gnu': 1.78.0
+      '@oxlint/binding-linux-x64-musl': 1.78.0
+      '@oxlint/binding-openharmony-arm64': 1.78.0
+      '@oxlint/binding-win32-arm64-msvc': 1.78.0
+      '@oxlint/binding-win32-ia32-msvc': 1.78.0
+      '@oxlint/binding-win32-x64-msvc': 1.78.0
+    dev: true
+
+  /parse-entities@4.0.2:
+    resolution: {integrity: sha1-YdRvXtKOTuYundxD1rAQGIRD8Vk=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/parse-entities/-/parse-entities-4.0.2.tgz}
+    dependencies:
+      '@types/unist': 2.0.11
+      character-entities-legacy: 3.0.0
+      character-reference-invalid: 2.0.1
+      decode-named-character-reference: 1.3.0
+      is-alphanumerical: 2.0.1
+      is-decimal: 2.0.1
+      is-hexadecimal: 2.0.1
+    dev: false
+
+  /path-parse@1.0.7:
+    resolution: {integrity: sha1-+8EUtgykKzDZ2vWFjkvWi77bZzU=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/path-parse/-/path-parse-1.0.7.tgz}
+    dev: true
+
+  /picocolors@1.1.1:
+    resolution: {integrity: sha1-PTIa8+q5ObCDyPkpodEs2oHCa2s=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/picocolors/-/picocolors-1.1.1.tgz}
+    dev: true
+
+  /picomatch@2.3.2:
+    resolution: {integrity: sha1-WpQpFeJrNy3A8OZ1MUmhbmscVgE=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/picomatch/-/picomatch-2.3.2.tgz}
+    engines: {node: '>=8.6'}
+    dev: true
+
+  /picomatch@4.0.5:
+    resolution: {integrity: sha1-UepXoX2G9gX4EDlZX7xA7QalX6s=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/picomatch/-/picomatch-4.0.5.tgz}
+    engines: {node: '>=12'}
+    dev: true
+
+  /pify@2.3.0:
+    resolution: {integrity: sha1-7RQaasBDqEnqWISY59yosVMw6Qw=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/pify/-/pify-2.3.0.tgz}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
+  /pirates@4.0.7:
+    resolution: {integrity: sha1-ZDtKGMQlfIplEEtz8wSc6aChXiI=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/pirates/-/pirates-4.0.7.tgz}
+    engines: {node: '>= 6'}
+    dev: true
+
+  /postcss-import@15.1.0(postcss@8.5.26):
+    resolution: {integrity: sha1-QcZO2MwOI3NalpizJJ/9v3BK3HA=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/postcss-import/-/postcss-import-15.1.0.tgz}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      postcss: ^8.0.0
+    dependencies:
+      postcss: 8.5.26
+      postcss-value-parser: 4.2.0
+      read-cache: 1.0.0
+      resolve: 1.22.12
+    dev: true
+
+  /postcss-js@4.1.0(postcss@8.5.26):
+    resolution: {integrity: sha1-ADtjxu3elIdm5A89r36ZeuQ6XOY=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/postcss-js/-/postcss-js-4.1.0.tgz}
+    engines: {node: ^12 || ^14 || >= 16}
+    peerDependencies:
+      postcss: ^8.4.21
+    dependencies:
+      camelcase-css: 2.0.1
+      postcss: 8.5.26
+    dev: true
+
+  /postcss-load-config@4.0.2(postcss@8.5.26):
+    resolution: {integrity: sha1-cVnc9iYRjTPimfSF1q/kr/fEo+M=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/postcss-load-config/-/postcss-load-config-4.0.2.tgz}
+    engines: {node: '>= 14'}
+    peerDependencies:
+      postcss: '>=8.0.9'
+      ts-node: '>=9.0.0'
+    peerDependenciesMeta:
+      postcss:
+        optional: true
+      ts-node:
+        optional: true
+    dependencies:
+      lilconfig: 3.1.3
+      postcss: 8.5.26
+      yaml: 2.9.0
+    dev: true
+
+  /postcss-nested@6.2.0(postcss@8.5.26):
+    resolution: {integrity: sha1-TC0iq18gucth4sXFkVlQeE0GgTE=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/postcss-nested/-/postcss-nested-6.2.0.tgz}
+    engines: {node: '>=12.0'}
+    peerDependencies:
+      postcss: ^8.2.14
+    dependencies:
+      postcss: 8.5.26
+      postcss-selector-parser: 6.1.4
+    dev: true
+
+  /postcss-selector-parser@6.1.4:
+    resolution: {integrity: sha1-/exMqA9Xgb0hbKm/iaKg/M//pfA=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/postcss-selector-parser/-/postcss-selector-parser-6.1.4.tgz}
+    engines: {node: '>=4'}
+    dependencies:
+      cssesc: 3.0.0
+      util-deprecate: 1.0.2
+    dev: true
+
+  /postcss-value-parser@4.2.0:
+    resolution: {integrity: sha1-cjwJkgg2um0+WvAZ+SvAlxwC5RQ=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz}
+    dev: true
+
+  /postcss@8.5.26:
+    resolution: {integrity: sha1-bnUTV4DH4Q3zQzvyJmxVLTXIxiA=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/postcss/-/postcss-8.5.26.tgz}
+    engines: {node: ^10 || ^12 || >=14}
+    dependencies:
+      nanoid: 3.3.18
+      picocolors: 1.1.1
+      source-map-js: 1.2.1
+    dev: true
+
+  /property-information@7.2.0:
+    resolution: {integrity: sha1-CAmzQmTplcC/zTInAooeNSEK+Ao=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/property-information/-/property-information-7.2.0.tgz}
+    dev: false
+
+  /queue-microtask@1.2.3:
+    resolution: {integrity: sha1-SSkii7xyTfrEPg77BYyve2z7YkM=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/queue-microtask/-/queue-microtask-1.2.3.tgz}
+    dev: true
+
+  /react-day-picker@10.0.1(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-hJjj8Kzi6dA8IJpUWMRRo3fC2Fw=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/react-day-picker/-/react-day-picker-10.0.1.tgz}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/react': '>=16.8.0'
+      react: '>=16.8.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@date-fns/tz': 1.5.0
+      '@types/react': 19.2.18
+      date-fns: 4.4.0
+      react: 19.2.8
+    dev: false
+
+  /react-dom@19.2.8(react@19.2.8):
+    resolution: {integrity: sha1-O0a57tqHfN/yzxPSdw//SuNsLsI=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/react-dom/-/react-dom-19.2.8.tgz}
+    peerDependencies:
+      react: ^19.2.8
+    dependencies:
+      react: 19.2.8
+      scheduler: 0.27.0
+    dev: false
+
+  /react-hook-form@8.0.0-beta.3(react@19.2.8):
+    resolution: {integrity: sha1-xlMUjrvc3uAWQQZVBJNI8kt5H3s=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/react-hook-form/-/react-hook-form-8.0.0-beta.3.tgz}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18 || ^19
+    dependencies:
+      react: 19.2.8
+    dev: false
+
+  /react-markdown@10.1.0(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-4ivCD63bwHYFwVKEJVZTwPO61co=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/react-markdown/-/react-markdown-10.1.0.tgz}
+    peerDependencies:
+      '@types/react': '>=18'
+      react: '>=18'
+    dependencies:
+      '@types/hast': 3.0.5
+      '@types/mdast': 4.0.4
+      '@types/react': 19.2.18
+      devlop: 1.1.0
+      hast-util-to-jsx-runtime: 2.3.6
+      html-url-attributes: 3.0.1
+      mdast-util-to-hast: 13.2.1
+      react: 19.2.8
+      remark-parse: 11.0.0
+      remark-rehype: 11.1.2
+      unified: 11.0.5
+      unist-util-visit: 5.1.0
+      vfile: 6.0.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /react-remove-scroll-bar@2.3.8(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-mcIPkI7kZ7OFtoo0abSj51ABIiM=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/react-remove-scroll-bar/-/react-remove-scroll-bar-2.3.8.tgz}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 19.2.18
+      react: 19.2.8
+      react-style-singleton: 2.2.3(@types/react@19.2.18)(react@19.2.8)
+      tslib: 2.8.1
+    dev: false
+
+  /react-remove-scroll@2.7.2(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-ZELaVnkRF2YZeK6ZzSm+kCb+zKA=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/react-remove-scroll/-/react-remove-scroll-2.7.2.tgz}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 19.2.18
+      react: 19.2.8
+      react-remove-scroll-bar: 2.3.8(@types/react@19.2.18)(react@19.2.8)
+      react-style-singleton: 2.2.3(@types/react@19.2.18)(react@19.2.8)
+      tslib: 2.8.1
+      use-callback-ref: 1.3.3(@types/react@19.2.18)(react@19.2.8)
+      use-sidecar: 1.1.3(@types/react@19.2.18)(react@19.2.8)
+    dev: false
+
+  /react-resizable-panels@4.12.3(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-Rk3q0xkpx1F82WXD8DgIhMwVc7I=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/react-resizable-panels/-/react-resizable-panels-4.12.3.tgz}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    dependencies:
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /react-style-singleton@2.2.3(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-QmVgi+aaTXDP4wR/LGyIssOs44g=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/react-style-singleton/-/react-style-singleton-2.2.3.tgz}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 19.2.18
+      get-nonce: 1.0.1
+      react: 19.2.8
+      tslib: 2.8.1
+    dev: false
+
+  /react@19.2.8:
+    resolution: {integrity: sha1-qAZj27WNacb+P9KR08syTop9/y0=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/react/-/react-19.2.8.tgz}
+    engines: {node: '>=0.10.0'}
+    dev: false
+
+  /read-cache@1.0.0:
+    resolution: {integrity: sha1-5mTvMRYRZsl1HNvo28+GtftY93Q=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/read-cache/-/read-cache-1.0.0.tgz}
+    dependencies:
+      pify: 2.3.0
+    dev: true
+
+  /readdirp@3.6.0:
+    resolution: {integrity: sha1-dKNwvYVxFuJFspzJc0DNQxoCpsc=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/readdirp/-/readdirp-3.6.0.tgz}
+    engines: {node: '>=8.10.0'}
+    dependencies:
+      picomatch: 2.3.2
+    dev: true
+
+  /remark-gfm@4.0.1:
+    resolution: {integrity: sha1-MyJ7KnQ5dnDTV78FwJjq+FE/DWs=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/remark-gfm/-/remark-gfm-4.0.1.tgz}
+    dependencies:
+      '@types/mdast': 4.0.4
+      mdast-util-gfm: 3.1.0
+      micromark-extension-gfm: 3.0.0
+      remark-parse: 11.0.0
+      remark-stringify: 11.0.0
+      unified: 11.0.5
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /remark-parse@11.0.0:
+    resolution: {integrity: sha1-qmB0P8s36/awaSBOtNowTkDbRaE=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/remark-parse/-/remark-parse-11.0.0.tgz}
+    dependencies:
+      '@types/mdast': 4.0.4
+      mdast-util-from-markdown: 2.0.3
+      micromark-util-types: 2.0.2
+      unified: 11.0.5
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /remark-rehype@11.1.2:
+    resolution: {integrity: sha1-Kt2q3agMqb2aoNp2PnTRYydoOzc=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/remark-rehype/-/remark-rehype-11.1.2.tgz}
+    dependencies:
+      '@types/hast': 3.0.5
+      '@types/mdast': 4.0.4
+      mdast-util-to-hast: 13.2.1
+      unified: 11.0.5
+      vfile: 6.0.3
+    dev: false
+
+  /remark-stringify@11.0.0:
+    resolution: {integrity: sha1-TFsB3XEcJp3xqq4RdD634udjb9M=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/remark-stringify/-/remark-stringify-11.0.0.tgz}
+    dependencies:
+      '@types/mdast': 4.0.4
+      mdast-util-to-markdown: 2.1.2
+      unified: 11.0.5
+    dev: false
+
+  /resolve@1.22.12:
+    resolution: {integrity: sha1-9bKmgIl8acI4oTzRaxVnH4tzVJ8=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/resolve/-/resolve-1.22.12.tgz}
+    engines: {node: '>= 0.4'}
+    hasBin: true
+    dependencies:
+      es-errors: 1.3.0
+      is-core-module: 2.16.2
+      path-parse: 1.0.7
+      supports-preserve-symlinks-flag: 1.0.0
+    dev: true
+
+  /reusify@1.1.0:
+    resolution: {integrity: sha1-D+E7lSLhRz9RtVjueW4I8R+bSJ8=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/reusify/-/reusify-1.1.0.tgz}
+    engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
+    dev: true
+
+  /rolldown@1.2.4:
+    resolution: {integrity: sha1-pwZV/dMFuCm7wPxZiz3RdltKh9w=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/rolldown/-/rolldown-1.2.4.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    hasBin: true
+    dependencies:
+      '@oxc-project/types': 0.144.0
+      '@rolldown/pluginutils': 1.0.1
+    optionalDependencies:
+      '@rolldown/binding-android-arm64': 1.2.4
+      '@rolldown/binding-darwin-arm64': 1.2.4
+      '@rolldown/binding-darwin-x64': 1.2.4
+      '@rolldown/binding-freebsd-x64': 1.2.4
+      '@rolldown/binding-linux-arm-gnueabihf': 1.2.4
+      '@rolldown/binding-linux-arm64-gnu': 1.2.4
+      '@rolldown/binding-linux-arm64-musl': 1.2.4
+      '@rolldown/binding-linux-ppc64-gnu': 1.2.4
+      '@rolldown/binding-linux-s390x-gnu': 1.2.4
+      '@rolldown/binding-linux-x64-gnu': 1.2.4
+      '@rolldown/binding-linux-x64-musl': 1.2.4
+      '@rolldown/binding-openharmony-arm64': 1.2.4
+      '@rolldown/binding-win32-arm64-msvc': 1.2.4
+      '@rolldown/binding-win32-x64-msvc': 1.2.4
+    dev: true
+
+  /run-parallel@1.2.0:
+    resolution: {integrity: sha1-ZtE2jae9+SHrnZW9GpIp5/IaQ+4=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/run-parallel/-/run-parallel-1.2.0.tgz}
+    dependencies:
+      queue-microtask: 1.2.3
+    dev: true
+
+  /scheduler@0.27.0:
+    resolution: {integrity: sha1-DE74LWfR5cHjWej8dtOofwRf5b0=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/scheduler/-/scheduler-0.27.0.tgz}
+    dev: false
+
+  /sonner@2.0.8(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-2/oCu06wkkYWgApFlOmkVamhlaw=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/sonner/-/sonner-2.0.8.tgz}
+    peerDependencies:
+      '@types/react': ^18.0.0 || ^19.0.0
+      react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+      react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 19.2.18
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    dev: false
+
+  /source-map-js@1.2.1:
+    resolution: {integrity: sha1-HOVlD93YerwJnto33P8CTCZnrkY=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/source-map-js/-/source-map-js-1.2.1.tgz}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
+  /space-separated-tokens@2.0.2:
+    resolution: {integrity: sha1-Hs2dI1CjhEVyw/SjErzrAYNIhZ8=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/space-separated-tokens/-/space-separated-tokens-2.0.2.tgz}
+    dev: false
+
+  /stringify-entities@4.0.4:
+    resolution: {integrity: sha1-s7ee9fJ3zErHPK6wI2xbqTmzpPM=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/stringify-entities/-/stringify-entities-4.0.4.tgz}
+    dependencies:
+      character-entities-html4: 2.1.0
+      character-entities-legacy: 3.0.0
+    dev: false
+
+  /style-to-js@1.1.21:
+    resolution: {integrity: sha1-KQiUEYf4V+eeKOnNeACLmgs+Do0=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/style-to-js/-/style-to-js-1.1.21.tgz}
+    dependencies:
+      style-to-object: 1.0.14
+    dev: false
+
+  /style-to-object@1.0.14:
+    resolution: {integrity: sha1-HSLw5yZruMbYyuXK9OxPAF4I9hE=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/style-to-object/-/style-to-object-1.0.14.tgz}
+    dependencies:
+      inline-style-parser: 0.2.7
+    dev: false
+
+  /sucrase@3.35.1:
+    resolution: {integrity: sha1-RhnqUDk/6L0K5QccJqvZsuNGv+E=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/sucrase/-/sucrase-3.35.1.tgz}
+    engines: {node: '>=16 || 14 >=14.17'}
+    hasBin: true
+    dependencies:
+      '@jridgewell/gen-mapping': 0.3.13
+      commander: 4.1.1
+      lines-and-columns: 1.2.4
+      mz: 2.7.0
+      pirates: 4.0.7
+      tinyglobby: 0.2.17
+      ts-interface-checker: 0.1.13
+    dev: true
+
+  /supports-preserve-symlinks-flag@1.0.0:
+    resolution: {integrity: sha1-btpL00SjyUrqN21MwxvHcxEDngk=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz}
+    engines: {node: '>= 0.4'}
+    dev: true
+
+  /tailwind-merge@3.6.0:
+    resolution: {integrity: sha1-iNgyQtHde8hHIj9z3PIQ3R8u4Rw=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/tailwind-merge/-/tailwind-merge-3.6.0.tgz}
+    dev: false
+
+  /tailwindcss-animate@1.0.7(tailwindcss@3.4.1):
+    resolution: {integrity: sha1-MYtpLExCZ2zJ5nsZt4d1dCOIvvQ=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/tailwindcss-animate/-/tailwindcss-animate-1.0.7.tgz}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders'
+    dependencies:
+      tailwindcss: 3.4.1
+    dev: true
+
+  /tailwindcss@3.4.1:
+    resolution: {integrity: sha1-9RLKXR3UyVA8fT0oqWjxrY9cg50=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/tailwindcss/-/tailwindcss-3.4.1.tgz}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    dependencies:
+      '@alloc/quick-lru': 5.2.0
+      arg: 5.0.2
+      chokidar: 3.6.0
+      didyoumean: 1.2.2
+      dlv: 1.1.3
+      fast-glob: 3.3.3
+      glob-parent: 6.0.2
+      is-glob: 4.0.3
+      jiti: 1.21.7
+      lilconfig: 2.1.0
+      micromatch: 4.0.8
+      normalize-path: 3.0.0
+      object-hash: 3.0.0
+      picocolors: 1.1.1
+      postcss: 8.5.26
+      postcss-import: 15.1.0(postcss@8.5.26)
+      postcss-js: 4.1.0(postcss@8.5.26)
+      postcss-load-config: 4.0.2(postcss@8.5.26)
+      postcss-nested: 6.2.0(postcss@8.5.26)
+      postcss-selector-parser: 6.1.4
+      resolve: 1.22.12
+      sucrase: 3.35.1
+    transitivePeerDependencies:
+      - ts-node
+    dev: true
+
+  /thenify-all@1.6.0:
+    resolution: {integrity: sha1-GhkY1ALY/D+Y+/I02wvMjMEOlyY=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/thenify-all/-/thenify-all-1.6.0.tgz}
+    engines: {node: '>=0.8'}
+    dependencies:
+      thenify: 3.3.1
+    dev: true
+
+  /thenify@3.3.1:
+    resolution: {integrity: sha1-iTLmhqQGYDigFt2eLKRq3Zg4qV8=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/thenify/-/thenify-3.3.1.tgz}
+    dependencies:
+      any-promise: 1.3.0
+    dev: true
+
+  /tinyglobby@0.2.17:
+    resolution: {integrity: sha1-ViqabJ6ys7Ej05cZ+a9btE/NdjE=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/tinyglobby/-/tinyglobby-0.2.17.tgz}
+    engines: {node: '>=12.0.0'}
+    dependencies:
+      fdir: 6.5.0(picomatch@4.0.5)
+      picomatch: 4.0.5
+    dev: true
+
+  /to-regex-range@5.0.1:
+    resolution: {integrity: sha1-FkjESq58jZiKMmAY7XL1tN0DkuQ=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/to-regex-range/-/to-regex-range-5.0.1.tgz}
+    engines: {node: '>=8.0'}
+    dependencies:
+      is-number: 7.0.0
+    dev: true
+
+  /trim-lines@3.0.1:
+    resolution: {integrity: sha1-2ALjMqB9+GHEiALAQyEBexvYczg=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/trim-lines/-/trim-lines-3.0.1.tgz}
+    dev: false
+
+  /trough@2.2.0:
+    resolution: {integrity: sha1-lKYL1r03XBUsHfkRpLEdWwJW9Q8=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/trough/-/trough-2.2.0.tgz}
+    dev: false
+
+  /ts-interface-checker@0.1.13:
+    resolution: {integrity: sha1-eE/T1nlyK8EDsbS4AwvN212yppk=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/ts-interface-checker/-/ts-interface-checker-0.1.13.tgz}
+    dev: true
+
+  /tslib@2.8.1:
+    resolution: {integrity: sha1-YS7+TtI11Wfoq6Xypfq3AoCt6D8=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/tslib/-/tslib-2.8.1.tgz}
+    dev: false
+
+  /typescript@6.0.3:
+    resolution: {integrity: sha1-kCUdwAeRbpcnhsuU100VsYVXfSE=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/typescript/-/typescript-6.0.3.tgz}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    dev: true
+
+  /undici-types@7.18.2:
+    resolution: {integrity: sha1-KTV6iee3ykrvO/D9P9DNc4hCKek=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/undici-types/-/undici-types-7.18.2.tgz}
+    dev: true
+
+  /unified@11.0.5:
+    resolution: {integrity: sha1-9mZ3YQpcCp7pDKsrjU1mA3Am2eE=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/unified/-/unified-11.0.5.tgz}
+    dependencies:
+      '@types/unist': 3.0.3
+      bail: 2.0.2
+      devlop: 1.1.0
+      extend: 3.0.2
+      is-plain-obj: 4.1.0
+      trough: 2.2.0
+      vfile: 6.0.3
+    dev: false
+
+  /unist-util-is@6.0.1:
+    resolution: {integrity: sha1-0KP4by3Q23rNfYwkeAgLXGf5xqk=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/unist-util-is/-/unist-util-is-6.0.1.tgz}
+    dependencies:
+      '@types/unist': 3.0.3
+    dev: false
+
+  /unist-util-position@5.0.0:
+    resolution: {integrity: sha1-Z48gq1yhIHqX1+qKOINzyc+Ja+Q=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/unist-util-position/-/unist-util-position-5.0.0.tgz}
+    dependencies:
+      '@types/unist': 3.0.3
+    dev: false
+
+  /unist-util-stringify-position@4.0.0:
+    resolution: {integrity: sha1-RJxuIaiA4IVb9aq63rOnQDFKusI=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/unist-util-stringify-position/-/unist-util-stringify-position-4.0.0.tgz}
+    dependencies:
+      '@types/unist': 3.0.3
+    dev: false
+
+  /unist-util-visit-parents@6.0.2:
+    resolution: {integrity: sha1-d333+5hlLOFrS3zZmdChpA76OgI=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/unist-util-visit-parents/-/unist-util-visit-parents-6.0.2.tgz}
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-is: 6.0.1
+    dev: false
+
+  /unist-util-visit@5.1.0:
+    resolution: {integrity: sha1-mioosKp2oV4NpwoIpYY6LwYOJGg=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/unist-util-visit/-/unist-util-visit-5.1.0.tgz}
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-is: 6.0.1
+      unist-util-visit-parents: 6.0.2
+    dev: false
+
+  /update-browserslist-db@1.3.1(browserslist@4.28.8):
+    resolution: {integrity: sha1-pxwo3SL1BUgdvEaJCHsY2TPpCv0=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/update-browserslist-db/-/update-browserslist-db-1.3.1.tgz}
+    hasBin: true
+    peerDependencies:
+      browserslist: '>= 4.21.0'
+    dependencies:
+      browserslist: 4.28.8
+      escalade: 3.2.0
+      picocolors: 1.1.1
+    dev: true
+
+  /use-callback-ref@1.3.3(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-mNn6sGcHWEHFssaFIJDV0P6r4r8=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/use-callback-ref/-/use-callback-ref-1.3.3.tgz}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 19.2.18
+      react: 19.2.8
+      tslib: 2.8.1
+    dev: false
+
+  /use-sidecar@1.1.3(@types/react@19.2.18)(react@19.2.8):
+    resolution: {integrity: sha1-EOf9iX0TC4luLFRsY6XoIz0A79s=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/use-sidecar/-/use-sidecar-1.1.3.tgz}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 19.2.18
+      detect-node-es: 1.1.0
+      react: 19.2.8
+      tslib: 2.8.1
+    dev: false
+
+  /util-deprecate@1.0.2:
+    resolution: {integrity: sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/util-deprecate/-/util-deprecate-1.0.2.tgz}
+    dev: true
+
+  /vaul@1.1.2(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8):
+    resolution: {integrity: sha1-yVn4udwu1PfZk2bK7kM/vvkfW6k=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/vaul/-/vaul-1.1.2.tgz}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc
+    dependencies:
+      '@radix-ui/react-dialog': 1.1.23(@types/react-dom@19.2.4)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
+    dev: false
+
+  /vfile-message@4.0.3:
+    resolution: {integrity: sha1-h7RN3de3DwZBwuPtCGS6c+LqjfQ=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/vfile-message/-/vfile-message-4.0.3.tgz}
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-stringify-position: 4.0.0
+    dev: false
+
+  /vfile@6.0.3:
+    resolution: {integrity: sha1-NlKrHEllMYUr9VprrFevmB68OKs=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/vfile/-/vfile-6.0.3.tgz}
+    dependencies:
+      '@types/unist': 3.0.3
+      vfile-message: 4.0.3
+    dev: false
+
+  /vite@8.2.1(@types/node@24.13.3):
+    resolution: {integrity: sha1-b8jYu4Q71SNTCR+sl44ZTU3lsx0=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/vite/-/vite-8.2.1.tgz}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': ^20.19.0 || >=22.12.0
+      '@vitejs/devtools': ^0.4.0
+      esbuild: ^0.27.0 || ^0.28.0
+      jiti: '>=1.21.0'
+      less: ^4.0.0
+      sass: ^1.70.0
+      sass-embedded: ^1.70.0
+      stylus: '>=0.54.8'
+      sugarss: ^5.0.0
+      terser: ^5.16.0
+      tsx: ^4.8.1
+      yaml: ^2.4.2
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      '@vitejs/devtools':
+        optional: true
+      esbuild:
+        optional: true
+      jiti:
+        optional: true
+      less:
+        optional: true
+      sass:
+        optional: true
+      sass-embedded:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+      tsx:
+        optional: true
+      yaml:
+        optional: true
+    dependencies:
+      '@types/node': 24.13.3
+      lightningcss: 1.33.0
+      picomatch: 4.0.5
+      postcss: 8.5.26
+      rolldown: 1.2.4
+      tinyglobby: 0.2.17
+    optionalDependencies:
+      fsevents: 2.3.3
+    dev: true
+
+  /yaml@2.9.0:
+    resolution: {integrity: sha1-eCdK/ZNZih391hMN9qVm3vy/mqQ=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/yaml/-/yaml-2.9.0.tgz}
+    engines: {node: '>= 14.6'}
+    hasBin: true
+    dev: true
+
+  /zod@4.4.3:
+    resolution: {integrity: sha1-toDxcohdGLvr8hqDTqJeVaG781Y=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/zod/-/zod-4.4.3.tgz}
+    dev: false
+
+  /zwitch@2.0.4:
+    resolution: {integrity: sha1-yCfUsKy3b8PmhaTG7CkC1RBw6dc=, tarball: https://ms-feed-17.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/zwitch/-/zwitch-2.0.4.tgz}
+    dev: false

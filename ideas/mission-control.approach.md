@@ -45,7 +45,9 @@ Browser (SPA)  ->  FastAPI (agb serve)  ->  Agent classes + config
 
 ### Backend
 
-The backend is FastAPI, added as a new agent group under `agb/src/ab/agents/web/` with an `app.py` and a `commands.py` that exposes `agb serve`. It registers alongside the existing groups in the main CLI entry point, so it ships with the same install.
+The FastAPI backend lives under the top-level `web-app/backend/` folder beside `xbar/`.
+It imports the existing agent classes from `agb/src/ab/` directly. The `agb serve`
+command is a small launcher bridge that loads the repository-local web application.
 
 Planned endpoints:
 
@@ -115,9 +117,10 @@ The application shell has a left navigation for Dashboard, FindTab, Text, Shell,
 
 ## Repository Layout
 
-* `agb/src/ab/agents/web/` holds the FastAPI application and the `agb serve` command.
-* A sibling `web/` folder holds the Vite React application.
-* The package build copies or mounts the built frontend assets so `agb serve` can serve them.
+* `web-app/backend/` holds the FastAPI application and built frontend assets.
+* `web-app/frontend/` holds the Vite React application.
+* `agb/src/ab/web_command.py` is the minimal CLI bridge for `agb serve`.
+* The frontend build writes directly to `web-app/backend/static/`.
 
 ## Dependencies
 

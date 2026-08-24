@@ -10,13 +10,10 @@ dependencies = [
     "google-auth-oauthlib>=1.0.0",
     "google-auth-httplib2>=0.1.0",
     "google-api-python-client>=2.0.0",
-    
     # Text agent deps
     "requests>=2.31.0",
-    
     # Azure OpenAI auth (Entra ID / az login, no API keys stored)
     "azure-identity>=1.15.0",
-    
     # Shared deps
     "pydantic>=2.0",
     "pydantic-settings>=2.0",
@@ -25,6 +22,8 @@ dependencies = [
     "click>=8.1.0",
     "tenacity>=8.0.0",
     "pyyaml>=6.0",
+    "fastapi>=0.141.1",
+    "uvicorn[standard]>=0.52.3",
 ]
 
 [project.scripts]

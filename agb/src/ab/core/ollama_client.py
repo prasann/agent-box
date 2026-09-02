@@ -1,7 +1,8 @@
 """Shared Ollama API client."""
-import requests
+
 import json
-from typing import Optional
+
+import requests
 from tenacity import retry, stop_after_attempt, wait_exponential
 
 
@@ -17,7 +18,14 @@ class OllamaClient:
     
     @retry(stop=stop_after_attempt(3), 
            wait=wait_exponential(multiplier=1, min=2, max=10))
-    def generate(self, prompt: str, temperature: float = 0.7, max_tokens: Optional[int] = None, timeout: int = 120) -> str:
+    def generate(
+        self,
+        prompt: str,
+        temperature: float = 0.7,
+        max_tokens: int | None = None,
+        timeout: int = 120,
+        think: bool | None = None,
+    ) -> str:
         """Generate text with retry logic."""
         url = f"{self.base_url}/api/generate"
         
@@ -27,6 +35,9 @@ class OllamaClient:
             "stream": False,
             "options": {"temperature": temperature}
         }
+
+        if think is not None:
+            payload["think"] = think
         
         if max_tokens:
             payload["options"]["num_predict"] = max_tokens
@@ -54,7 +65,7 @@ class OllamaClient:
             )
             response.raise_for_status()
             return response.json()["embedding"]
-        except Exception:
+        except (requests.RequestException, KeyError, TypeError, ValueError):
             return []
     
     def expand_query(self, query: str) -> dict:
@@ -74,15 +85,22 @@ Respond in JSON:
                 "intent": parsed.get("intent", query),
                 "original": query,
             }
-        except (json.JSONDecodeError, Exception):
+        except (
+            json.JSONDecodeError,
+            requests.RequestException,
+            KeyError,
+            TypeError,
+            ValueError,
+        ):
             return {"keywords": [query], "intent": query, "original": query}
     
     def is_available(self) -> bool:
         """Check if Ollama is running."""
         try:
-            requests.get(f"{self.base_url}/api/tags", timeout=2)
+            response = requests.get(f"{self.base_url}/api/tags", timeout=2)
+            response.raise_for_status()
             return True
-        except:
+        except requests.RequestException:
             return False
     
     def list_models(self) -> list[str]:
@@ -95,6 +113,5 @@ Respond in JSON:
         try:
             models = self.list_models()
             return any(model_name in m for m in models)
-        except:
+        except (requests.RequestException, KeyError, TypeError, ValueError):
             return False
-

@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meeting Assistant</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+      const theme =
+        param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --cp-bg: #f7f4ef;
+      --cp-bg-elevated: #fcfbf8;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #f5f5f5;
+      --cp-border: #dedede;
+      --cp-border-strong: #919191;
+      --cp-text: #242424;
+      --cp-text-muted: #5c5c5c;
+      --cp-text-soft: #6f6f6f;
+      --cp-accent: #b11f4b;
+      --cp-accent-hover: #9a1a41;
+      --cp-accent-soft: rgba(177, 31, 75, 0.08);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #16a34a;
+      --cp-danger: #dc2626;
+      --cp-warning: #f59e0b;
+      --cp-link: #0078d4;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+      --cp-overlay: rgba(255, 255, 255, 0.8);
+      --cp-panel: rgba(255, 255, 255, 0.86);
+      --cp-panel-strong: rgba(255, 255, 255, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.55);
+      --cp-highlight: rgba(177, 31, 75, 0.12);
+    }
+
+    async function loadConfig() {
+      const config = await request("/api/config");
+      appConfig = config;
+      $("stt-model").value = config.stt_model;
+      $("model").value = config.ollama_model;
+      $("interval").value = config.suggestion_interval_minutes;
+      if ([...$("live-interval").options].some(option => Number(option.value) === Number(config.suggestion_interval_minutes))) {
+        $("live-interval").value = config.suggestion_interval_minutes;
+      }
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #3d3b3a;
+      --cp-bg-elevated: #343231;
+      --cp-surface: #292929;
+      --cp-surface-soft: #2e2e2e;
+      --cp-border: #474747;
+      --cp-border-strong: #5f5f5f;
+      --cp-text: #dedede;
+      --cp-text-muted: #919191;
+      --cp-text-soft: #b0b0b0;
+      --cp-accent: #fd8ea1;
+      --cp-accent-hover: #fb7b91;
+      --cp-accent-soft: rgba(253, 142, 161, 0.14);
+      --cp-accent-fg: #1a1a1a;
+      --cp-success: #4ade80;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #4da6ff;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-overlay: rgba(41, 41, 41, 0.88);
+      --cp-panel: rgba(41, 41, 41, 0.72);
+      --cp-panel-strong: rgba(41, 41, 41, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.04);
+      --cp-highlight: rgba(253, 142, 161, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--cp-bg);
+      color: var(--cp-text);
+      font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    button, input, select, textarea { font: inherit; }
+    button, select, input, textarea {
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+      background: var(--cp-surface);
+      color: var(--cp-text);
+    }
+    button { cursor: pointer; padding: 9px 14px; font-weight: 600; }
+    button:hover { border-color: var(--cp-border-strong); }
+    button:disabled { cursor: not-allowed; opacity: .55; }
+    button.primary { background: var(--cp-accent); color: var(--cp-accent-fg); border-color: var(--cp-accent); }
+    button.primary:hover { background: var(--cp-accent-hover); }
+    button.danger { color: var(--cp-danger); }
+    input, select { padding: 9px 10px; width: 100%; }
+    textarea { padding: 10px; width: 100%; resize: vertical; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--cp-panel-strong); border-bottom: 1px solid var(--cp-border);
+      padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-mark {
+      width: 32px; height: 32px; display: grid; place-items: center;
+      border-radius: 0.625rem; background: var(--cp-accent); color: var(--cp-accent-fg);
+    }
+    h1 { font-size: 18px; margin: 0; }
+    h2 { font-size: 15px; margin: 0; }
+    .status { display: flex; align-items: center; gap: 8px; color: var(--cp-text-muted); font-size: 13px; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--cp-border-strong); }
+    .dot.live { background: var(--cp-danger); }
+    main { max-width: 1500px; margin: 0 auto; padding: 20px; }
+    .setup, .panel {
+      background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px;
+      box-shadow: var(--cp-shadow);
+    }
+    .setup { padding: 18px; margin-bottom: 16px; }
+    .setup-grid { display: grid; grid-template-columns: repeat(6, minmax(120px, 1fr)); gap: 12px; align-items: end; }
+    label { display: grid; gap: 6px; font-size: 12px; font-weight: 600; color: var(--cp-text-muted); }
+    .toggle-row { display: flex; align-items: center; gap: 8px; height: 39px; }
+    .toggle-row input { width: auto; }
+    .workspace { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(340px, .7fr); gap: 16px; }
+    .panel { min-height: 520px; overflow: hidden; }
+    .panel-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 16px; border-bottom: 1px solid var(--cp-border);
+    }
+    .panel-body { padding: 14px 16px; max-height: 68vh; overflow: auto; }
+    .empty {
+      color: var(--cp-text-muted); display: grid; place-items: center; text-align: center;
+      min-height: 360px; line-height: 1.5;
+    }
+    .segment { padding: 12px 0; border-bottom: 1px solid var(--cp-border); }
+    .segment:last-child { border-bottom: 0; }
+    .segment-meta { display: flex; gap: 8px; align-items: center; margin-bottom: 5px; font-size: 12px; color: var(--cp-text-muted); }
+    .speaker { color: var(--cp-accent); font-weight: 700; }
+    .segment p { margin: 0; line-height: 1.45; }
+    .toolbar { display: flex; gap: 8px; align-items: center; }
+    .toolbar select { width: 90px; padding: 7px; }
+    .suggestion {
+      padding: 13px; background: var(--cp-surface-soft); border: 1px solid var(--cp-border);
+      border-radius: 0.625rem; margin-bottom: 10px;
+    }
+    .suggestion-top { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+    .tag { font-size: 11px; font-weight: 700; color: var(--cp-accent); text-transform: uppercase; }
+    .confidence { font-size: 11px; color: var(--cp-text-muted); }
+    .suggestion textarea { min-height: 68px; background: var(--cp-surface); }
+    .rationale { color: var(--cp-text-muted); font-size: 12px; line-height: 1.4; margin: 8px 0; }
+    .actions { display: flex; flex-wrap: wrap; gap: 6px; }
+    .actions button { padding: 6px 9px; font-size: 12px; background: var(--cp-surface); }
+    .warning, .errors {
+      margin-top: 12px; border-radius: 0.625rem; padding: 10px 12px; font-size: 12px;
+      background: var(--cp-accent-soft); color: var(--cp-text);
+    }
+    .errors { color: var(--cp-danger); }
+    .history { margin-top: 16px; }
+    .history-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+    .history-card {
+      border: 1px solid var(--cp-border); border-radius: 0.625rem; padding: 12px;
+      background: var(--cp-surface-soft); cursor: pointer;
+    }
+    .history-card:hover { border-color: var(--cp-accent); }
+    .history-card strong { display: block; margin-bottom: 4px; }
+    .muted { color: var(--cp-text-muted); font-size: 12px; }
+    dialog { width: min(840px, 92vw); border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); color: var(--cp-text); padding: 0; }
+    dialog::backdrop { background: var(--cp-overlay); }
+    .dialog-content { max-height: 75vh; overflow: auto; padding: 18px; }
+    .dialog-head { padding: 14px 18px; border-bottom: 1px solid var(--cp-border); display: flex; justify-content: space-between; }
+    code { font-family: Consolas, "Courier New", Courier, monospace; }
+    @media (max-width: 1050px) {
+      .setup-grid { grid-template-columns: repeat(3, 1fr); }
+      .workspace { grid-template-columns: 1fr; }
+      .panel-body { max-height: 55vh; }
+    }
+    @media (max-width: 640px) {
+      header, main { padding-left: 12px; padding-right: 12px; }
+      .setup-grid { grid-template-columns: 1fr; }
+      .toolbar { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand"><div class="brand-mark">M</div><h1>Meeting Assistant</h1></div>
+    <div class="status"><span id="status-dot" class="dot"></span><span id="status-text">Ready</span></div>
+  </header>
+  <main>
+    <section class="setup">
+      <div class="setup-grid">
+        <label>Teams output device<select id="meeting-device"><option>Loading devices…</option></select></label>
+        <label>Microphone<select id="microphone-device"><option>Loading devices…</option></select></label>
+        <label>Transcription model<input id="stt-model" value="mlx-community/whisper-small-mlx"></label>
+        <label>Suggestion provider
+          <select id="provider"><option value="">Transcript only</option><option value="ollama">Ollama</option><option value="azure">Azure OpenAI</option></select>
+        </label>
+        <label>Suggestion model<input id="model" value="qwen3:4b"></label>
+        <div class="toolbar"><button id="record" class="primary">Start meeting</button><button id="refresh">Refresh</button></div>
+      </div>
+      <div class="setup-grid" style="margin-top:12px">
+        <label><span>Suggestions</span><span class="toggle-row"><input id="suggestions-enabled" type="checkbox"> Enable during this meeting</span></label>
+        <label>Cadence (minutes)<input id="interval" type="number" min=".25" max="60" step=".25" value="5"></label>
+        <div><button id="generate" disabled>Generate now</button></div>
+      </div>
+      <div id="egress-warning" class="warning" hidden>Azure OpenAI is explicit opt-in: transcript excerpts and compact meeting state leave this Mac for your configured Azure deployment.</div>
+      <div id="errors" class="errors" hidden></div>
+    </section>
+
+    <div class="workspace">
+      <section class="panel">
+        <div class="panel-head"><h2>Live transcript</h2><span id="segment-count" class="muted">0 segments</span></div>
+        <div id="transcript" class="panel-body"><div class="empty">Choose the BlackHole Teams output and your microphone, then start a meeting.<br>Audio stays local and raw audio is not saved.</div></div>
+      </section>
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Question suggestions</h2>
+          <div class="toolbar"><select id="live-interval" disabled><option value="1">1m</option><option value="2">2m</option><option value="5" selected>5m</option><option value="10">10m</option></select></div>
+        </div>
+        <div id="suggestions" class="panel-body"><div class="empty">Suggestions are optional.<br>Transcript-only mode makes zero LLM calls.</div></div>
+      </section>
+    </div>
+
+    <section class="setup history">
+      <div class="panel-head" style="padding:0 0 12px;border:0"><h2>Prior meetings &amp; audit files</h2><button id="load-history">Reload</button></div>
+      <div id="history-list" class="history-list"><span class="muted">Loading…</span></div>
+    </section>
+  </main>
+  <dialog id="history-dialog">
+    <div class="dialog-head"><h2 id="history-title">Meeting</h2><button onclick="document.getElementById('history-dialog').close()">Close</button></div>
+    <div id="history-detail" class="dialog-content"></div>
+  </dialog>
+
+  <script>
+    const ACCESS_TOKEN = new URLSearchParams(window.location.search).get("token");
+    const state = { recording: false, segments: [], suggestions: new Map() };
+    const $ = id => document.getElementById(id);
+
+    async function request(path, options = {}) {
+      const response = await fetch(path, { headers: { "Content-Type": "application/json", "X-Meeting-Token": ACCESS_TOKEN }, ...options });
+      if (!response.ok) {
+        const body = await response.json().catch(() => ({ detail: response.statusText }));
+        throw new Error(body.detail || response.statusText);
+      }
+      return response.json();
+    }
+
+    function error(message) {
+      $("errors").hidden = !message;
+      $("errors").textContent = message || "";
+    }
+
+    function renderStatus(status) {
+      state.recording = status.recording;
+      $("status-dot").className = `dot${status.recording ? " live" : ""}`;
+      $("status-text").textContent = status.recording ? `Recording · ${status.segment_count} segments` : "Ready";
+      $("record").textContent = status.recording ? "Stop meeting" : "Start meeting";
+      $("record").className = status.recording ? "danger" : "primary";
+      ["meeting-device", "microphone-device", "stt-model", "provider", "model"].forEach(id => $(id).disabled = status.recording);
+      $("generate").disabled = !status.recording || !status.suggestions_enabled;
+      $("live-interval").disabled = !status.recording;
+      $("suggestions-enabled").checked = status.suggestions_enabled;
+      $("segment-count").textContent = `${status.segment_count} segments`;
+      if (status.errors?.length) error(status.errors.at(-1));
+    }
+
+    async function loadDevices() {
+      try {
+        const { devices } = await request("/api/devices");
+        for (const id of ["meeting-device", "microphone-device"]) {
+          $(id).innerHTML = devices.map(device => `<option value="${device.id}">${escapeHtml(device.name)} · ${device.input_channels}ch</option>`).join("");
+        }
+        const blackhole = devices.find(device => device.name.toLowerCase().includes("blackhole"));
+        if (blackhole) $("meeting-device").value = blackhole.id;
+      } catch (cause) {
+        error(cause.message);
+        for (const id of ["meeting-device", "microphone-device"]) $(id).innerHTML = "<option value=''>Audio unavailable</option>";
+      }
+    }
+
+    function escapeHtml(value) {
+      const element = document.createElement("div");
+      element.textContent = value ?? "";
+      return element.innerHTML;
+    }
+
+    function addSegment(segment) {
+      if (!state.segments.length) $("transcript").innerHTML = "";
+      state.segments.push(segment);
+      const item = document.createElement("article");
+      item.className = "segment";
+      item.innerHTML = `<div class="segment-meta"><span class="speaker">${escapeHtml(segment.stream)}</span><span>${new Date(segment.start_timestamp).toLocaleTimeString()}</span></div><p>${escapeHtml(segment.text)}</p>`;
+      $("transcript").append(item);
+      $("transcript").scrollTop = $("transcript").scrollHeight;
+      $("segment-count").textContent = `${state.segments.length} segments`;
+    }
+
+    function addSuggestion(item) {
+      if (document.getElementById(`suggestion-${item.suggestion_id}`)) return;
+      state.suggestions.set(item.suggestion_id, item);
+      if (state.suggestions.size === 1) $("suggestions").innerHTML = "";
+      const card = document.createElement("article");
+      card.className = "suggestion";
+      card.id = `suggestion-${item.suggestion_id}`;
+      card.innerHTML = `<div class="suggestion-top"><span class="tag">${escapeHtml(item.type)}</span><span class="confidence">${Math.round(item.confidence * 100)}% confidence</span></div><textarea>${escapeHtml(item.text)}</textarea><p class="rationale">${escapeHtml(item.rationale)}</p><div class="actions"><button data-action="edit">Save edit</button><button data-action="copy">Copy</button><button data-action="mark-used">Mark used</button><button data-action="dismiss">Dismiss</button></div>`;
+      card.querySelectorAll("button").forEach(button => button.onclick = () => suggestionAction(item.suggestion_id, button.dataset.action, card));
+      $("suggestions").prepend(card);
+    }
+
+    async function suggestionAction(id, action, card) {
+      const text = card.querySelector("textarea").value;
+      try {
+        await request(`/api/suggestions/${id}`, { method: "PATCH", body: JSON.stringify({ action, text: action === "edit" ? text : null }) });
+        if (action === "copy") await navigator.clipboard.writeText(text);
+        if (action === "dismiss" || action === "mark-used") card.remove();
+      } catch (cause) { error(cause.message); }
+    }
+
+    async function toggleRecording() {
+      error("");
+      try {
+        if (state.recording) {
+          renderStatus(await request("/api/session/stop", { method: "POST" }));
+          await loadHistory();
+          return;
+        }
+        const provider = $("provider").value || null;
+        const enabled = $("suggestions-enabled").checked;
+        if (enabled && !provider) throw new Error("Select Ollama or Azure before enabling suggestions.");
+        const payload = {
+          meeting_device_id: Number($("meeting-device").value),
+          microphone_device_id: Number($("microphone-device").value),
+          stt_model: $("stt-model").value,
+          suggestions_enabled: enabled,
+          llm_provider: provider,
+          llm_model: provider ? ($("model").value.trim() || null) : null,
+          suggestion_interval_minutes: Number($("interval").value)
+        };
+        state.segments = []; state.suggestions.clear();
+        $("transcript").innerHTML = "<div class='empty'>Listening for speech…</div>";
+        $("suggestions").innerHTML = "<div class='empty'>No suggestions yet.</div>";
+        renderStatus(await request("/api/session/start", { method: "POST", body: JSON.stringify(payload) }));
+      } catch (cause) { error(cause.message); }
+    }
+
+    async function configureSuggestions() {
+      if (!state.recording) return;
+      try {
+        const status = await request("/api/session/suggestions", {
+          method: "PATCH",
+          body: JSON.stringify({ enabled: $("suggestions-enabled").checked })
+        });
+        renderStatus(status);
+      } catch (cause) {
+        $("suggestions-enabled").checked = false;
+        error(cause.message);
+      }
+    }
+
+    async function updateInterval(value) {
+      $("interval").value = value;
+      $("live-interval").value = value;
+      if (!state.recording) return;
+      try {
+        renderStatus(await request("/api/session/suggestions", { method: "PATCH", body: JSON.stringify({ interval_minutes: Number(value) }) }));
+      } catch (cause) { error(cause.message); }
+    }
+
+    async function generateNow() {
+      try {
+        $("generate").disabled = true;
+        const { suggestions } = await request("/api/session/suggestions/generate", { method: "POST" });
+        suggestions.forEach(addSuggestion);
+      } catch (cause) { error(cause.message); }
+      finally { $("generate").disabled = !state.recording || !$("suggestions-enabled").checked; }
+    }
+
+    async function loadHistory() {
+      try {
+        const { meetings } = await request("/api/meetings");
+        $("history-list").innerHTML = meetings.length ? meetings.map(item => `<div class="history-card" data-directory="${escapeHtml(item.directory)}"><strong>${new Date(item.started_at).toLocaleString()}</strong><span class="muted">${item.segment_count} segments · ${item.has_suggestions ? "suggestion audit" : "transcript only"}</span></div>`).join("") : "<span class='muted'>No saved meetings yet.</span>";
+        document.querySelectorAll(".history-card").forEach(card => card.onclick = () => showMeeting(card.dataset.directory));
+      } catch (cause) { error(cause.message); }
+    }
+
+    async function showMeeting(directory) {
+      try {
+        const meeting = await request(`/api/meetings/${encodeURIComponent(directory)}`);
+        $("history-title").textContent = new Date(meeting.metadata.started_at).toLocaleString();
+        const transcript = meeting.transcript.map(item => `<article class="segment"><div class="segment-meta"><span class="speaker">${escapeHtml(item.stream)}</span><span>${new Date(item.start_timestamp).toLocaleTimeString()}</span></div><p>${escapeHtml(item.text)}</p></article>`).join("") || "<p class='muted'>No finalized speech.</p>";
+        $("history-detail").innerHTML = `<p class="muted"><code>${escapeHtml(directory)}</code> · ${meeting.suggestion_events.length} suggestion audit events</p>${transcript}`;
+        $("history-dialog").showModal();
+      } catch (cause) { error(cause.message); }
+    }
+
+    function connectWebSocket() {
+      const protocol = location.protocol === "https:" ? "wss:" : "ws:";
+      const socket = new WebSocket(`${protocol}//${location.host}/ws?token=${encodeURIComponent(ACCESS_TOKEN)}`);
+      socket.onmessage = event => {
+        const value = JSON.parse(event.data);
+        if (value.type === "status") renderStatus(value.status);
+        if (value.type === "segment") addSegment(value.segment);
+        if (value.type === "suggestions") value.suggestions.forEach(addSuggestion);
+        if (value.type === "error") error(value.message);
+      };
+      socket.onclose = () => setTimeout(connectWebSocket, 1500);
+    }
+
+    $("record").onclick = toggleRecording;
+    $("refresh").onclick = loadDevices;
+    $("generate").onclick = generateNow;
+    $("load-history").onclick = loadHistory;
+    let appConfig = {};
+    $("provider").onchange = () => {
+      const azure = $("provider").value === "azure";
+      $("egress-warning").hidden = !azure;
+      $("model").value = azure ? (appConfig.azure_model || "") : (appConfig.ollama_model || "qwen3:4b");
+      $("model").placeholder = azure ? "Configured Azure deployment" : "Ollama model";
+    };
+    $("suggestions-enabled").onchange = configureSuggestions;
+    $("live-interval").onchange = event => updateInterval(event.target.value);
+    $("interval").onchange = event => updateInterval(event.target.value);
+    Promise.all([loadConfig(), loadDevices(), loadHistory(), request("/api/status").then(renderStatus)]).catch(cause => error(cause.message));
+    connectWebSocket();
+  </script>
+</body>
+</html>

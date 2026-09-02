@@ -1,0 +1,2 @@
+"""Bundled local browser UI."""
+

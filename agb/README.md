@@ -32,8 +32,14 @@ Single local tool (`agb`) that provides AI agents through both CLI commands and 
 # From the agb directory
 pipx install .
 
+# Add the isolated Meeting Assistant to the same pipx environment
+pipx inject ab '../meeting-assistant[audio,stt]'
+
 # Or in development mode
-pip install -e .
+pip install -e '../meeting-assistant[audio,stt]' -e .
+
+# uv repository install with Meeting Assistant
+uv sync --extra meeting
 ```
 
 ### Usage
@@ -56,6 +62,20 @@ agb serve                    # Opens at http://127.0.0.1:4747
 agb --help
 agb shell --help
 ```
+
+### Meeting Assistant
+
+The isolated [`meeting-assistant/`](../meeting-assistant/README.md) package adds
+a local Microsoft Teams transcript and question assistant:
+
+```bash
+agb meeting start       # foreground localhost server and browser UI
+agb meeting open        # open an already-running UI
+agb meeting status      # show server/recording status
+```
+
+It captures Teams output and microphone audio separately, never posts to Teams,
+and supports transcript-only operation without an LLM provider.
 
 ### Prasanna's Control Center
 

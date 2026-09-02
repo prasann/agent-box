@@ -3,6 +3,7 @@ import click
 import sys
 from ab.core import setup_logging, get_settings
 from ab.agents import text_group, findtab_group, shell_group
+from ab.meeting_command import meeting_group
 from ab.web_command import serve
 
 
@@ -23,6 +24,7 @@ def main(verbose):
 main.add_command(text_group)
 main.add_command(findtab_group)
 main.add_command(shell_group)
+main.add_command(meeting_group)
 main.add_command(serve)
 
 # Future agents can be added here:

@@ -17,6 +17,7 @@ A Python CLI (`agb`) running fully local AI via Ollama. Private, offline, free.
 | `agb text rewrite` | Rewrite text in clipboard |
 | `findtab search "..."` | Search browser history by meaning |
 | `agb shell purge` | Curate shell history with AI |
+| `agb meeting start` | Locally transcribe Teams and suggest meeting questions |
 
 ### 🧠 [`vscode-prompts/`](vscode-prompts/README.md) — VS Code Copilot Configuration
 Custom agents, skills, prompts, and hooks for GitHub Copilot in VS Code.
@@ -46,7 +47,8 @@ cd agent-box
 
 # Local CLI (requires Ollama)
 brew install ollama && ollama pull llama3.2:3b
-cd agb/ && pipx install .
+pipx install ./agb
+pipx inject ab './meeting-assistant[audio,stt]'
 
 # VS Code hooks (macOS)
 brew install terminal-notifier

@@ -26,36 +26,6 @@ AGENT_MANIFESTS = [
         ],
     },
     {
-        "id": "findtab",
-        "name": "FindTab",
-        "description": "Search and refresh your curated browser history.",
-        "icon": "Search",
-        "actions": [
-            {
-                "id": "search",
-                "name": "Search bookmarks",
-                "description": "Search the local bookmark index.",
-                "destructive": False,
-                "long_running": False,
-                "inputs": [
-                    {"name": "query", "type": "text", "required": True},
-                    {"name": "limit", "type": "number", "default": 12},
-                ],
-            },
-            {
-                "id": "index",
-                "name": "Refresh index",
-                "description": "Index new browser history in the background.",
-                "destructive": False,
-                "long_running": True,
-                "inputs": [
-                    {"name": "force", "type": "boolean", "default": False},
-                    {"name": "hours", "type": "number", "required": False},
-                ],
-            },
-        ],
-    },
-    {
         "id": "library",
         "name": "Library",
         "description": "Browse agents, prompts, skills, instructions, and hooks.",

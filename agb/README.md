@@ -49,7 +49,7 @@ agb text rewrite
 agb shell purge              # Preview mode (safe)
 agb shell purge --no-preview # Actually modify
 
-# Control Center - dashboard, FindTab, Text, Shell preview, and library
+# Control Center - dashboard, Text, Shell preview, and library
 agb serve                    # Opens at http://127.0.0.1:4747
 
 # Get help
@@ -68,7 +68,7 @@ agb serve
 agb serve --port 4748
 ```
 
-Open `http://127.0.0.1:4747` to use the dashboard. It exposes FindTab search and background indexing, paste-in/copy-out text tools, a read-only shell purge preview, health checks, recent activity, and a read-only browser for `vscode-prompts`.
+Open `http://127.0.0.1:4747` to use the dashboard. It exposes paste-in/copy-out text tools, a read-only shell purge preview, health checks, and a read-only browser for `vscode-prompts`. Saved-reading search will be added after the Reads agent is implemented and evaluated.
 
 `agb serve` expects an editable source checkout so it can load `web-app/backend`. The web UI intentionally cannot perform a destructive shell purge. Use the CLI after reviewing the preview. Autostart is not installed by default.
 

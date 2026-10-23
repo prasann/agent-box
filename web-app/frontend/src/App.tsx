@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import type { FormEvent } from "react"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import {
   BookOpen,
   Check,
@@ -13,7 +12,6 @@ import {
   Gauge,
   Library,
   Moon,
-  RefreshCw,
   Search,
   Sun,
   Terminal,
@@ -23,7 +21,7 @@ import Markdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import "./App.css"
 
-type View = "dashboard" | "findtab" | "text" | "shell" | "library"
+type View = "dashboard" | "text" | "shell" | "library"
 type Status = "healthy" | "unavailable"
 
 type Agent = {
@@ -39,16 +37,6 @@ type Health = {
   services: Record<string, { status: Status; detail: string; remedy?: string | null }>
 }
 
-type SearchResult = {
-  id: number
-  url: string
-  title: string
-  category?: string
-  summary?: string
-  topics: string[]
-  time_ago: string
-}
-
 type LibraryItem = {
   id: string
   name: string
@@ -61,15 +49,6 @@ type LibraryItem = {
 type LibraryDetail = LibraryItem & {
   content: string
   metadata: Record<string, unknown>
-}
-
-type Run = {
-  id: string
-  agent_id: string
-  action_id: string
-  status: string
-  created_at: string
-  error?: string
 }
 
 const request = async <T,>(path: string, init?: RequestInit): Promise<T> => {
@@ -87,13 +66,11 @@ const request = async <T,>(path: string, init?: RequestInit): Promise<T> => {
 const navItems: { id: View; label: string; icon: typeof Gauge }[] = [
   { id: "dashboard", label: "Dashboard", icon: Gauge },
   { id: "text", label: "Text", icon: Type },
-  { id: "findtab", label: "FindTab", icon: Search },
   { id: "library", label: "Library", icon: Library },
   { id: "shell", label: "Shell", icon: Terminal },
 ]
 
 const iconForAgent = {
-  findtab: Search,
   text: Type,
   shell: Terminal,
   library: Library,
@@ -126,71 +103,6 @@ function EmptyState({ title, body }: { title: string; body: string }) {
   )
 }
 
-function SearchPanel({ compact = false }: { compact?: boolean }) {
-  const [query, setQuery] = useState("")
-  const searchMutation = useMutation({
-    mutationFn: () =>
-      request<{ results: SearchResult[] }>("/api/findtab/search", {
-        method: "POST",
-        body: JSON.stringify({ query, limit: compact ? 6 : 18, use_llm: true }),
-      }),
-  })
-
-  const submit = (event: FormEvent) => {
-    event.preventDefault()
-    if (query.trim()) searchMutation.mutate()
-  }
-
-  return (
-    <section className={compact ? "search-section compact" : "search-section"}>
-      <form className="search-box" onSubmit={submit}>
-        <Search size={20} />
-        <input
-          aria-label="Search FindTab"
-          placeholder="Find that article, documentation page, or repo..."
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-        />
-        <button className="primary-button" disabled={searchMutation.isPending}>
-          {searchMutation.isPending ? "Searching..." : "Search"}
-        </button>
-      </form>
-      {searchMutation.error && <p className="error">{searchMutation.error.message}</p>}
-      {searchMutation.data && (
-        <div className="result-grid">
-          {searchMutation.data.results.map((result) => (
-            <a
-              className="result-card"
-              href={result.url}
-              key={result.id}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div className="result-heading">
-                <span className="result-category">{result.category || "bookmark"}</span>
-                <ExternalLink size={15} />
-              </div>
-              <h3>{result.title}</h3>
-              <p>{result.summary || result.url}</p>
-              <div className="topic-row">
-                {result.topics.slice(0, 3).map((topic) => (
-                  <span className="chip" key={topic}>
-                    {topic}
-                  </span>
-                ))}
-                <span className="time">{result.time_ago}</span>
-              </div>
-            </a>
-          ))}
-          {!searchMutation.data.results.length && (
-            <EmptyState title="No matches" body="Try broader keywords or refresh the index." />
-          )}
-        </div>
-      )}
-    </section>
-  )
-}
-
 function Dashboard({
   agents,
   navigate,
@@ -212,7 +124,7 @@ function Dashboard({
             Your <span className="hero-blue">agents</span>, one{" "}
             <span className="hero-green">command center</span>.
           </h1>
-          <p>Search your knowledge, run trusted workflows, and inspect the library behind them.</p>
+          <p>Run trusted workflows and inspect the library behind them.</p>
         </div>
         <div className="hero-mark">
           <Command size={28} />
@@ -220,14 +132,6 @@ function Dashboard({
         </div>
       </header>
       <TextView compact />
-      <div className="dashboard-search">
-        <div className="section-heading">
-          <div>
-            <h2>Find something you visited</h2>
-          </div>
-        </div>
-        <SearchPanel compact />
-      </div>
       <section>
         <div className="section-heading">
           <div>
@@ -259,95 +163,6 @@ function Dashboard({
         </div>
       </section>
     </>
-  )
-}
-
-function FindTabView() {
-  const queryClient = useQueryClient()
-  const [run, setRun] = useState<Run | null>(null)
-  const [progress, setProgress] = useState("")
-  const status = useQuery({
-    queryKey: ["findtab-status"],
-    queryFn: () => request<Record<string, unknown>>("/api/findtab/status"),
-  })
-  const indexMutation = useMutation({
-    mutationFn: () =>
-      request<Run>("/api/findtab/index", {
-        method: "POST",
-        body: JSON.stringify({ force: false }),
-      }),
-    onSuccess: setRun,
-  })
-
-  useEffect(() => {
-    if (!run) return
-    const events = new EventSource(`/api/runs/${run.id}/events`)
-    events.addEventListener("progress", (event) => {
-      setProgress(JSON.parse((event as MessageEvent).data).message)
-    })
-    const finish = () => {
-      events.close()
-      queryClient.invalidateQueries({ queryKey: ["findtab-status"] })
-      setProgress("Index refresh complete")
-    }
-    events.addEventListener("completed", finish)
-    events.addEventListener("failed", (event) => {
-      setProgress(JSON.parse((event as MessageEvent).data).message)
-      events.close()
-    })
-    return () => events.close()
-  }, [run, queryClient])
-
-  const lastIndexed =
-    typeof status.data?.last_processed_at === "string"
-      ? new Intl.DateTimeFormat(undefined, {
-          dateStyle: "medium",
-          timeStyle: "short",
-        }).format(new Date(status.data.last_processed_at))
-      : "Not indexed yet"
-  const metrics = [
-    { label: "Saved pages", value: status.data?.total ?? "—", tone: "blue" },
-    { label: "Enriched", value: status.data?.enriched ?? "—", tone: "green" },
-    { label: "Pending", value: status.data?.pending ?? "—", tone: "amber" },
-    { label: "Last indexed", value: lastIndexed, tone: "blue", compact: true },
-  ]
-
-  return (
-    <div className="findtab-page">
-      <header className="page-heading findtab-heading">
-        <div>
-          <h1>Find anything worth revisiting.</h1>
-          <p>Semantic search across the browser history you chose to keep.</p>
-        </div>
-        <button
-          className="secondary-button"
-          onClick={() => indexMutation.mutate()}
-          disabled={indexMutation.isPending || Boolean(run && progress !== "Index refresh complete")}
-        >
-          <RefreshCw size={16} /> Refresh index
-        </button>
-      </header>
-      {(progress || indexMutation.error) && (
-        <div className="notice">
-          <RefreshCw size={16} />
-          {indexMutation.error?.message || progress}
-        </div>
-      )}
-      <SearchPanel />
-      <div className="findtab-metrics">
-        {metrics.map((metric) => (
-          <div
-            className="findtab-metric"
-            data-compact={metric.compact || undefined}
-            data-tone={metric.tone}
-            key={metric.label}
-          >
-            <span>{metric.label}</span>
-            <strong>{String(metric.value)}</strong>
-          </div>
-        ))}
-      </div>
-    </div>
   )
 }
 
@@ -722,7 +537,6 @@ function App() {
   }
 
   const content = () => {
-    if (view === "findtab") return <FindTabView />
     if (view === "text") return <TextView />
     if (view === "shell") return <ShellView />
     if (view === "library") {

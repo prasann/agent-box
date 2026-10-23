@@ -35,13 +35,6 @@ class Settings(BaseSettings):
     # Text agent
     text_show_preview: bool = True
     
-    # Find That Tab agent
-    findtab_db_path: str = "~/.agb/findtab/bookmarks.db"
-    findtab_classifier_batch_size: int = 30
-    findtab_enricher_batch_size: int = 15
-    findtab_bootstrap_days: int = 7  # Days to look back on first run
-    findtab_rules_path: str = "~/.agb/findtab/rules.yaml"
-    
     # Logging
     log_level: str = "INFO"
     log_file: Path = Path.home() / ".agb" / "logs" / "ab.log"

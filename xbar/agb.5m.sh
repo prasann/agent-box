@@ -24,7 +24,7 @@ VENV_PATH="$HOME/.local/share/agent-box/venv"
 AGB_PATH="$VENV_PATH/bin/agb"
 FULL_AGB_PATH="/Users/$USER/.local/share/agent-box/venv/bin/agb"
 
-# Check if Azure CLI is authenticated (needed for text/findtab agents)
+# Check if Azure CLI is authenticated (needed for the text agent)
 check_az_auth() {
     az account show >/dev/null 2>&1
     return $?
@@ -103,7 +103,7 @@ main() {
     echo "Agent Box | size=14 font=Menlo-Bold"
     echo "---"
     
-    # Azure auth status warning (needed for text/findtab agents)
+    # Azure auth status warning (needed for the text agent)
     if ! check_az_auth; then
         echo "⚠️ Azure CLI not authenticated | color=orange"
         echo "--Run: az login | shell='$0' param1='iterm' param2='az login' terminal=false refresh=false"
@@ -115,19 +115,6 @@ main() {
     echo "--Fix Grammar | shell='$0' param1='run' param2='text fix' param3='Grammar Fix' terminal=false refresh=false"
     echo "--Rewrite Text | shell='$0' param1='run' param2='text rewrite' param3='Rewrite' terminal=false refresh=false"
     echo "---"
-    
-    # FindTab Agent commands (if available)
-    if "$AGB_PATH" findtab --help >/dev/null 2>&1; then
-        if check_az_auth; then
-            echo "🔍 FindTab Agent"
-            echo "--Search Tabs | shell='$0' param1='findtab-search' terminal=false refresh=false"
-            echo "--Index Tabs | shell='$0' param1='run' param2='findtab index' param3='FindTab Index' terminal=false refresh=true"
-            echo "--Status | shell='$0' param1='iterm' param2='findtab status' terminal=false refresh=false"
-        else
-            echo "🔍 FindTab Agent (needs az login) | color=gray"
-        fi
-        echo "---"
-    fi
     
     # Shell Agent commands (if available)
     if "$AGB_PATH" shell --help >/dev/null 2>&1; then
@@ -153,16 +140,10 @@ elif [ "$1" = "iterm" ]; then
     # Replace $AGB_PATH placeholder with full path if present
     cmd="${cmd//\$AGB_PATH/$FULL_AGB_PATH}"
     # If it's an agb command, use full path
-    if [[ "$cmd" == shell* ]] || [[ "$cmd" == findtab* ]] || [[ "$cmd" == text* ]]; then
+    if [[ "$cmd" == shell* ]] || [[ "$cmd" == text* ]]; then
         cmd="$FULL_AGB_PATH $cmd"
     fi
     run_in_iterm "$cmd"
-elif [ "$1" = "findtab-search" ]; then
-    # Prompt for search text using AppleScript
-    search_text=$(osascript -e 'display dialog "Enter search text:" default answer "" with title "FindTab Search"' -e 'text returned of result' 2>/dev/null)
-    if [ -n "$search_text" ]; then
-        run_in_iterm "$FULL_AGB_PATH findtab search '$search_text'"
-    fi
 else
     main
 fi

@@ -341,7 +341,6 @@ Options:
   --help             Show this message
 
 Commands:
-  findtab  Find That Tab - Semantic browser history search
   shell    Shell history management commands
   text     Text grammar and typo checker
 
@@ -382,7 +381,7 @@ Options:
 
 - [x] Text agent (grammar/typo checker)
 - [x] Shell agent (history curator)
-- [x] FindTab agent (semantic browser history search)
+- [ ] Reading Search agent ([implementation plan](../ideas/reading-search.approach.md))
 - [ ] Gmail agent (spam classifier)
 - [ ] Calendar agent (meeting summarizer)
 - [ ] File organizer agent

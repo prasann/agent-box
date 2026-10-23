@@ -15,7 +15,6 @@ A Python CLI (`agb`) running fully local AI via Ollama. Private, offline, free.
 |---|---|
 | `agb text fix` | Fix grammar in clipboard |
 | `agb text rewrite` | Rewrite text in clipboard |
-| `findtab search "..."` | Search browser history by meaning |
 | `agb shell purge` | Curate shell history with AI |
 
 ### 🧠 [`vscode-prompts/`](vscode-prompts/README.md) — VS Code Copilot Configuration

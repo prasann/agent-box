@@ -16,7 +16,7 @@ The application runs locally, starts automatically at login, and is reachable wi
 
 * Runs entirely on my Mac; no remote hosting, no cloud deployment.
 * Binds to `127.0.0.1` only, so no authentication layer and no network exposure.
-* Reuses the existing agent classes (`BookmarkSearcher`, `GrammarChecker`, `SafePurger`) directly instead of shelling out to the CLI, keeping one source of truth for logic.
+* Reuses the existing agent classes (`GrammarChecker`, `SafePurger`) directly instead of shelling out to the CLI, keeping one source of truth for logic. Integrate the planned Reads agent only after its search core passes evaluation.
 * Shares the existing configuration, virtual environment, and Azure or Ollama credentials already wired through `get_settings()`.
 * Coexists with xbar during the transition; xbar keeps working and is not removed.
 * Portability is a non-goal. This is tuned for one machine and one user.
@@ -26,7 +26,7 @@ The application runs locally, starts automatically at login, and is reachable wi
 * One command (`agb serve`) starts the whole application: API plus built frontend.
 * Auto-start at login through a `launchd` LaunchAgent, kept alive across crashes and restarts.
 * A dashboard home that lists every agent with live health and quick access to its actions.
-* FindTab search available front and center, since that is the most frequent need. Results render as clickable cards that open the source tab in a new browser tab.
+* After the [Reading Search agent](reading-search.approach.md) is implemented and evaluated, expose saved-reading search with validated excerpts and source links. Do not recreate browser-history indexing.
 * A read-only library view that lists and reads the agents, prompts, skills, instructions, and hooks under the `vscode-prompts` folder. Editing still happens in VS Code.
 * Global health indicators for Azure sign-in, Ollama reachability, and database presence.
 * Top-class UI and UX built on a real framework and CSS system, themeable and demo-ready.
@@ -37,7 +37,7 @@ The system splits into a Python API and a modern single-page application. The sp
 
 ```text
 Browser (SPA)  ->  FastAPI (agb serve)  ->  Agent classes + config
-   React            JSON APIs               BookmarkSearcher
+   React            JSON APIs               Future Reads search
    Tailwind         /api/agents             GrammarChecker
    shadcn/ui        /api/health             SafePurger
                     /api/library            Library reader
@@ -54,7 +54,7 @@ Planned endpoints:
 * `GET /api/agents` returns the registry manifests that drive the dashboard tiles and action forms.
 * `GET /api/health` returns aggregate and per-agent status for the badges.
 * `POST /api/agents/{id}/actions/{action}` invokes an agent action by calling the same classes the CLI uses.
-* `GET /api/agents/{id}/runs/{run_id}` streams progress for long-running jobs such as FindTab indexing.
+* `GET /api/agents/{id}/runs/{run_id}` streams progress for long-running jobs such as future Reads capture.
 * `GET /api/library` walks the `vscode-prompts` folder, parses YAML frontmatter, and returns a grouped catalog plus raw markdown for the reader.
 
 In production the FastAPI process also serves the built frontend assets, so a single process runs everything.
@@ -79,11 +79,11 @@ Each agent describes itself through a small manifest: id, display name, icon, a 
 
 ### Dashboard home
 
-A grid of agent tiles shows name, icon, a one-line status, and last-run information. A prominent FindTab search box sits at the top for the most common task. A recent-activity strip lists recent runs and their outcomes so the app feels like a real control center.
+A grid of agent tiles shows name, icon, a one-line status, and last-run information. Add saved-reading search after the Reads agent is implemented and evaluated. A recent-activity strip lists recent runs and their outcomes so the app feels like a real control center.
 
-### FindTab
+### Reads (Future)
 
-Search is the primary path. Results render as cards with title, category icon, summary, topic chips, and last-visited time, and clicking a card opens the source URL in a new tab. Indexing runs as a background job with live progress through server-sent events, which replaces the notification model xbar uses today. A status view surfaces index size and health.
+Follow the [Reading Search implementation plan](reading-search.approach.md). Search only the selected Reads bookmark subtree, show original titles and validated excerpts, and distinguish metadata-only matches and partial coverage. Capture jobs report progress and failures. Browser history, automatic membership classification, and generated summaries as evidence are out of scope.
 
 ### Text
 
@@ -107,7 +107,7 @@ The library has no write endpoints, so it is safe to demo.
 
 ## Layout and UX
 
-The application shell has a left navigation for Dashboard, FindTab, Text, Shell, Library, and future agents. A top bar carries the global health badges and the Cmd+K palette. Agent views render their action forms from the manifest and show results inline. Theming supports light and dark with a tuned color system and spacing. This is where the shadcn and Tailwind investment pays off for a team showcase.
+The application shell has a left navigation for Dashboard, Text, Shell, Library, and future agents, including Reads once implemented. A top bar carries the global health badges and the Cmd+K palette. Agent views render their action forms from the manifest and show results inline. Theming supports light and dark with a tuned color system and spacing. This is where the shadcn and Tailwind investment pays off for a team showcase.
 
 ## Access and Autostart
 
@@ -136,7 +136,7 @@ The application shell has a left navigation for Dashboard, FindTab, Text, Shell,
 ## Build Order
 
 1. FastAPI skeleton with `/api/health` and `/api/agents`, plus a Vite, React, Tailwind, and shadcn scaffold with the app shell and dashboard.
-2. FindTab search end to end, with polished result cards. This delivers the primary need first.
+2. Text actions and Shell preview end to end using the existing agents.
 3. Library module: `/api/library`, the catalog and reader, and Open in VS Code. This is the piece to showcase.
 4. `launchd` autostart, `install-web.sh`, and the open-in-browser shortcut.
-5. FindTab index with streamed progress, then Text, then Shell preview, then future agents through manifests.
+5. Integrate Reads after its independent search-quality milestone passes, then add future agents through manifests.

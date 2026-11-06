@@ -3,6 +3,7 @@ import click
 import sys
 from ab.core import setup_logging, get_settings
 from ab.agents import text_group, shell_group
+from ab.agents.reads.commands import reads_group
 from ab.web_command import serve
 
 
@@ -22,6 +23,7 @@ def main(verbose):
 # Register agent command groups
 main.add_command(text_group)
 main.add_command(shell_group)
+main.add_command(reads_group)
 main.add_command(serve)
 
 # Future agents can be added here:

@@ -17,7 +17,7 @@ class AgentCommandTests(unittest.TestCase):
         with patch("ab.__main__.get_settings", return_value=self.settings), patch(
             "ab.__main__.setup_logging"
         ):
-            for command in ("text", "shell"):
+            for command in ("text", "shell", "reads"):
                 with self.subTest(command=command):
                     result = self.runner.invoke(main, [command, "--help"])
                     self.assertEqual(result.exit_code, 0, result.output)

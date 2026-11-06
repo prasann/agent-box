@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "Agent Box Reads",
+  "version": "0.1.0",
+  "description": "Sync one selected reading-bookmark subtree to Agent Box on this Mac.",
+  "permissions": ["bookmarks", "nativeMessaging", "storage", "alarms", "activeTab", "scripting"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_title": "Reads", "default_popup": "popup.html" }
+}

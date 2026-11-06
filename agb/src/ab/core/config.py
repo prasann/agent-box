@@ -1,5 +1,6 @@
 """Shared configuration using Pydantic Settings."""
 from pydantic_settings import BaseSettings
+from pydantic import SecretStr
 from pathlib import Path
 
 # Keep the checkout-local file as a fallback for existing installations. The
@@ -34,6 +35,16 @@ class Settings(BaseSettings):
     
     # Text agent
     text_show_preview: bool = True
+
+    reads_db: str = "~/.agb/reads/reads.db"
+    reads_max_calls: int = 12
+    reads_timeout_seconds: int = 120
+    reads_decision_endpoint: str = ""
+    reads_decision_deployment: str = "Microsoft-Decision-1"
+    reads_decision_api_key: SecretStr = SecretStr("")
+    reads_decision_request_template: str = ""
+    reads_decision_response_path: str = ""
+    reads_extension_id: str = ""
     
     # Logging
     log_level: str = "INFO"

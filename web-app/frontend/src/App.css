@@ -1241,7 +1241,10 @@ code {
   }
 
   .brand > span:last-child,
-  .sidebar-footer,
+  .sidebar-footer {
+    display: none;
+  }
+
   .nav-item {
     font-size: 0;
   }

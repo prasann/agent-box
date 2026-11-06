@@ -20,8 +20,9 @@ import {
 import Markdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import "./App.css"
+import ReadsView from "./ReadsView"
 
-type View = "dashboard" | "text" | "shell" | "library"
+type View = "dashboard" | "text" | "shell" | "library" | "reads"
 type Status = "healthy" | "unavailable"
 
 type Agent = {
@@ -65,12 +66,14 @@ const request = async <T,>(path: string, init?: RequestInit): Promise<T> => {
 
 const navItems: { id: View; label: string; icon: typeof Gauge }[] = [
   { id: "dashboard", label: "Dashboard", icon: Gauge },
+  { id: "reads", label: "Reads", icon: BookOpen },
   { id: "text", label: "Text", icon: Type },
   { id: "library", label: "Library", icon: Library },
   { id: "shell", label: "Shell", icon: Terminal },
 ]
 
 const iconForAgent = {
+  reads: BookOpen,
   text: Type,
   shell: Terminal,
   library: Library,
@@ -537,6 +540,7 @@ function App() {
   }
 
   const content = () => {
+    if (view === "reads") return <ReadsView />
     if (view === "text") return <TextView />
     if (view === "shell") return <ShellView />
     if (view === "library") {
@@ -572,6 +576,8 @@ function App() {
               <button
                 className={view === item.id ? "nav-item active" : "nav-item"}
                 key={item.id}
+                aria-label={item.label}
+                title={item.label}
                 onClick={() => setView(item.id)}
               >
                 <Icon size={18} />

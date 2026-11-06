@@ -49,7 +49,11 @@ agb text rewrite
 agb shell purge              # Preview mode (safe)
 agb shell purge --no-preview # Actually modify
 
-# Control Center - dashboard, Text, Shell preview, and library
+# Reads - local evidence search
+agb reads status
+agb reads search "that explanation of latency numbers"
+
+# Control Center - Reads, Text, Shell preview, and library
 agb serve                    # Opens at http://127.0.0.1:4747
 
 # Get help
@@ -68,11 +72,21 @@ agb serve
 agb serve --port 4748
 ```
 
-Open `http://127.0.0.1:4747` to use the dashboard. It exposes paste-in/copy-out text tools, a read-only shell purge preview, health checks, and a read-only browser for `vscode-prompts`. Saved-reading search will be added after the Reads agent is implemented and evaluated.
+Open `http://127.0.0.1:4747` to use the dashboard. It exposes Reads search and capture, paste-in/copy-out text tools, a read-only shell purge preview, health checks, and a read-only browser for `vscode-prompts`.
 
 `agb serve` expects an editable source checkout so it can load `web-app/backend`. The web UI intentionally cannot perform a destructive shell purge. Use the CLI after reviewing the preview. Autostart is not installed by default.
 
 ## Available Agents
+
+### Reads Agent
+
+Recall readings from one selected native bookmark subtree using original page
+evidence. Local FTS5 search works offline; cloud assessment is optional and
+requires per-reading approval. Capture failures retain the last successful text.
+
+See [Reads setup and limitations](src/ab/agents/reads/README.md) for the Edge
+extension, CLI, model configuration, and validation commands. Live collection
+evaluation and Decision deployment compatibility are not yet verified.
 
 ### Text Agent
 

@@ -19,6 +19,7 @@ from ab.core.config import get_settings
 from .library import default_library_root, get_library_item, list_library
 from .registry import AGENT_MANIFESTS
 from .runs import RunStore
+from .reads import router as reads_router
 
 
 class TextRequest(BaseModel):
@@ -92,11 +93,14 @@ def _process_text(request: TextRequest) -> str:
 def create_app(
     library_root: Path | None = None,
     static_dir: Path | None = None,
+    reads_db: Path | None = None,
 ) -> FastAPI:
     """Create the API, optionally overriding filesystem roots for tests."""
     app = FastAPI(title="Prasanna's Control Center", version="0.1.0")
     app.state.runs = RunStore()
     app.state.library_root = library_root or default_library_root()
+    app.state.reads_db = reads_db
+    app.include_router(reads_router)
 
     app.add_middleware(
         CORSMiddleware,
@@ -112,6 +116,7 @@ def create_app(
             "text": health["services"]["azure"]["status"],
             "shell": "healthy" if (Path.home() / ".zsh_history").exists() else "unavailable",
             "library": "healthy" if app.state.library_root.exists() else "unavailable",
+            "reads": "healthy",
         }
         return [manifest | {"status": statuses[manifest["id"]]} for manifest in AGENT_MANIFESTS]
 

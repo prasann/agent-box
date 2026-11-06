@@ -2,6 +2,18 @@
 
 AGENT_MANIFESTS = [
     {
+        "id": "reads",
+        "name": "Reads",
+        "description": "Recall saved readings with original-text evidence.",
+        "icon": "BookOpen",
+        "actions": [
+            {"id": "search", "name": "Search readings", "destructive": False,
+             "long_running": False, "inputs": [{"name": "query", "type": "text", "required": True}]},
+            {"id": "capture", "name": "Capture pending", "destructive": False,
+             "long_running": True, "inputs": []},
+        ],
+    },
+    {
         "id": "text",
         "name": "Text",
         "description": "Fix grammar or rewrite pasted text with Azure OpenAI.",

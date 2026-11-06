@@ -12,6 +12,7 @@ dependencies = [
     "google-api-python-client>=2.0.0",
     # Text agent deps
     "requests>=2.31.0",
+    "trafilatura>=2.0,<3",
     # Azure OpenAI auth (Entra ID / az login, no API keys stored)
     "azure-identity>=1.15.0",
     # Shared deps
@@ -31,6 +32,7 @@ agb = "ab.__main__:main"
 
 [project.optional-dependencies]
 dev = [
+    "httpx2>=2.0",
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
     "black>=23.0.0",

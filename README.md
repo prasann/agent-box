@@ -16,6 +16,8 @@ A Python CLI (`agb`) running fully local AI via Ollama. Private, offline, free.
 | `agb text fix` | Fix grammar in clipboard |
 | `agb text rewrite` | Rewrite text in clipboard |
 | `agb shell purge` | Curate shell history with AI |
+| `agb reads search "..."` | Recall saved readings with original-text evidence |
+| `agb serve` | Open Control Center, including Reads search and collection controls |
 
 ### 🧠 [`vscode-prompts/`](vscode-prompts/README.md) — VS Code Copilot Configuration
 Custom agents, skills, prompts, and hooks for GitHub Copilot in VS Code.

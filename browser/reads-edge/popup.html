@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Reads</title><link rel="stylesheet" href="popup.css"></head>
+<body>
+  <header><h1>Reads</h1><span>Edge</span></header>
+  <label for="folder">Reading folder</label><select id="folder"></select>
+  <div class="actions"><button id="preview">Preview subtree</button><button id="sync">Sync now</button></div>
+  <p id="status" role="status"></p>
+  <ul id="items"></ul>
+  <button id="accept" hidden>Accept complete snapshot</button>
+  <hr>
+  <button id="capture">Capture current reading locally</button>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

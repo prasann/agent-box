@@ -1,219 +1,78 @@
-# Hooks — macOS Notifications
+# Personal Copilot hooks
 
-Native macOS notifications for VS Code Copilot agent lifecycle events, using [`terminal-notifier`](https://github.com/julienXX/terminal-notifier).
+These hooks are optional automatic actions. Review the JSON definitions and
+[scripts](scripts/) before enabling them.
 
-## What fires
+## What runs
 
-| Event | Notification | When |
-|---|---|---|
-| `Stop` | ✅ Agent Done | Agent finished its turn, waiting for your input |
+| Definition | Events | Action |
+| --- | --- | --- |
+| [session-notifications.json](session-notifications.json) | `Stop` | Send a macOS completion notification with the repository name |
 
-The subtitle shows the **repo name** so you always know which project to switch to. Clicking the notification focuses VS Code.
+Definitions use version 1 and Copilot's compatible PascalCase event aliases,
+which deliver snake_case fields to the existing scripts. Don't change event
+names to camelCase without also adapting and testing the input payloads.
 
-## Requirements
+## Install
 
-```bash
-brew install terminal-notifier
-```
-
-For persistent (non-dismissing) alerts: **System Settings → Notifications → terminal-notifier** → set style to **Alert**.
-
-## Installation
-
-From the repo root:
+From the repository root:
 
 ```bash
-./install-hooks.sh
+./install-copilot.sh --with-hooks --dry-run
+./install-copilot.sh --with-hooks
+./install-copilot.sh --with-hooks --check
 ```
 
-Add to VS Code user settings (`Cmd+Shift+P` → `Preferences: Open User Settings JSON`):
+This creates native `~/.copilot/hooks` discovery and the
+`~/.agent-box-toolkit/hooks` link used by the commands. `COPILOT_HOME` overrides
+the native Copilot root if set. The compatibility link stays under your home
+directory.
 
-```json
-{
-  "chat.hookFilesLocations": {
-    "~/.agent-box-toolkit/hooks": true
-  }
-}
-```
+The old `./install-hooks.sh` command delegates to the same installer. Conflicts
+are never deleted; use `--backup` to preserve and replace them.
 
-Then reload VS Code (`Developer: Reload Window`).
+Modern Copilot sessions in VS Code and CLI discover the native user hooks.
+Remove the old `~/.agent-box-toolkit/hooks` entry from the VS Code
+`chat.hookFilesLocations` setting to avoid loading the same hooks twice. Legacy
+Local sessions may still need that setting. Start a fresh session after setup.
 
-## Hook Files
+## Dependencies and behavior
 
-Enable/disable notifications by adding/removing these files:
+- Notifications require macOS. Install `terminal-notifier` with
+  `brew install terminal-notifier` for grouped, clickable notifications.
+  The script falls back to `osascript` if it isn't installed.
+- Notification clicks focus VS Code Insiders when installed, otherwise Stable.
+- Notification logs go to `~/.agent-box/logs/notifications.log`.
 
-| File | Events | Purpose |
-|------|--------|---------|
-| `session-notifications.json` | SessionStart, Stop | Main session lifecycle |
-| `subagent-notifications.json` | SubagentStart, SubagentStop | Track subagent spawning |
-| `prompt-notifications.json` | UserPromptSubmit | Every prompt submission |
+The old custom branch-attribution hook and script have been removed. Notification
+installation no longer enables telemetry or depends on a collector. Existing
+attribution logs and opt-out markers are left untouched. See the
+[telemetry revival plan](../../TELEMETRY_PLAN.md) for a separate, opt-in replacement.
 
-**To disable a notification type:** Rename or delete the corresponding `.json` file.
+Dependencies and user paths must exist on the host where the agent runs.
+Installing links on your laptop doesn't configure remote hosts or containers.
 
-## Customization
+## Verify
 
-### Change Notification Appearance
-
-Edit [scripts/notify.sh](scripts/notify.sh) to customize titles, messages, and sounds per event:
+Send a synthetic completion event on macOS:
 
 ```bash
-case "$HOOK_EVENT" in
-    SessionStart)
-        TITLE="🤖 Agent Session Started"
-        MESSAGE="New Copilot session initialized"
-        SOUND="Glass"  # macOS sound name
-        ;;
-    # ... more events
-esac
+printf '%s\n' '{"hook_event_name":"Stop","cwd":"/tmp/example-project"}' |
+  bash ~/.agent-box-toolkit/hooks/scripts/notify.sh
 ```
 
-Available macOS sounds: `Basso`, `Blow`, `Bottle`, `Frog`, `Funk`, `Glass`, `Hero`, `Morse`, `Ping`, `Pop`, `Purr`, `Sosumi`, `Submarine`
+Then start a fresh Copilot session in another repository and confirm the hooks
+appear in **Chat: Open Customizations**, under **Hooks**. Finish a turn and
+check the notification and log. A direct script test doesn't prove runtime
+discovery.
 
-Run `ls /System/Library/Sounds/` to see all available sounds.
+For persistent alerts, set the notification style to **Alert** in macOS
+notification settings. If notifications don't appear, check notification
+permissions and the agent's hook debug output. If the script reports
+`Notifications are not allowed for this application`, enable notifications for
+`terminal-notifier` in **System Settings > Notifications**, then repeat the test.
+Creating symlinks does not grant macOS notification permission.
 
-### View Notification Log
-
-All notifications are logged to `~/.agent-box/logs/notifications.log`:
-
-```bash
-tail -f ~/.agent-box/logs/notifications.log
-```
-
-## Phone Notifications (Coming Soon)
-
-The script includes a placeholder for phone notifications. To enable:
-
-1. **Choose a service:**
-   - [ntfy.sh](https://ntfy.sh/) - Free, open source, self-hostable
-   - [Pushover](https://pushover.net/) - $5 one-time, iOS/Android
-   - [Telegram Bot API](https://core.telegram.org/bots/api) - Free
-
-2. **Create config:**
-```bash
-mkdir -p ~/.agent-box/config
-nano ~/.agent-box/config/phone-notify.sh
-```
-
-3. **Example for ntfy.sh:**
-```bash
-send_to_phone() {
-    local title="$1"
-    local message="$2"
-    curl -s -d "$message" \
-        -H "Title: $title" \
-        -H "Priority: low" \
-        ntfy.sh/your-unique-topic
-}
-```
-
-4. **Uncomment in notify.sh** (lines 73-76)
-
-## Troubleshooting
-
-### Notifications not showing
-
-1. **Check VS Code loaded the hooks:**
-   - View → Output → Select "GitHub Copilot Chat Hooks"
-   - Look for "Load Hooks" messages
-
-2. **Test notification manually:**
-   ```bash
-   echo '{"hookEventName":"SessionStart","timestamp":"2026-03-10T10:30:00Z"}' | \
-       ~/.agent-box-toolkit/hooks/scripts/notify.sh
-   ```
-
-3. **Check macOS notification permissions:**
-   - System Settings → Notifications → VS Code
-   - Ensure "Allow Notifications" is enabled
-
-### Script not executable
-
-```bash
-chmod +x ~/.agent-box-toolkit/hooks/scripts/notify.sh
-```
-
-### Symlink broken
-
-```bash
-# Remove old link
-rm ~/.agent-box-toolkit/hooks
-
-# Recreate from agent-box repo
-cd /path/to/agent-box
-ln -sf "$(pwd)/vscode-prompts/.github/hooks" ~/.agent-box-toolkit/hooks
-```
-
-## Advanced Usage
-
-### Project-Specific Overrides
-
-Add a `.github/hooks/` directory to any project to override or extend global hooks:
-
-```
-my-project/
-└── .github/
-    └── hooks/
-        └── custom-notifications.json  # Project-specific hooks
-```
-
-Workspace hooks run **in addition to** global hooks.
-
-### Agent-Scoped Notifications
-
-Add hooks to specific agents in their YAML frontmatter:
-
-```yaml
----
-name: My Agent
-hooks:
-  Stop:
-    - type: command
-      command: "osascript -e 'display notification \"Agent complete\" with title \"My Agent\"'"
----
-```
-
-Requires `chat.useCustomAgentHooks: true` in VS Code settings.
-
-### Disable Specific Events
-
-To disable only SessionStart notifications, edit `session-notifications.json`:
-
-```json
-{
-  "hooks": {
-    "Stop": [
-      {
-        "type": "command",
-        "command": "bash ~/.agent-box-toolkit/hooks/scripts/notify.sh",
-        "timeout": 5
-      }
-    ]
-  }
-}
-```
-
-## Example Notifications
-
-**Session Start:**
-```
-🤖 Agent Session Started
-New Copilot session initialized
-```
-
-**Subagent Spawned:**
-```
-🔄 Subagent Started
-Agent: AGB - Implementer
-```
-
-**Session Complete:**
-```
-✅ Agent Session Complete
-Copilot session finished
-```
-
-## Related
-
-- [VS Code Hooks Documentation](https://code.visualstudio.com/docs/copilot/customization/hooks)
-- [Agents](../agents/) - Custom agent definitions
-- [Skills](../skills/) - Reusable agent skills
+User and repository hooks run together; repository hooks don't override these
+user hooks. See the official [VS Code hooks guide](https://code.visualstudio.com/docs/agent-customization/hooks)
+and [Copilot hooks reference](https://docs.github.com/en/copilot/reference/hooks-reference).

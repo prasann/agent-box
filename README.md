@@ -47,21 +47,23 @@ cd agent-box
 
 # Local CLI (requires Ollama)
 brew install ollama && ollama pull llama3.2:3b
-cd agb/ && pipx install .
+pipx install ./agb
 
-# VS Code hooks (macOS)
+# Personal Copilot skills and agents (VS Code Stable, Insiders, and CLI)
+# Run from the repository root.
+./install-copilot.sh
+./install-copilot.sh --check
+```
+
+Optional macOS hooks:
+```bash
 brew install terminal-notifier
-./install-hooks.sh
+./install-copilot.sh --with-hooks
 ```
 
-Then add to VS Code user settings:
-```json
-{
-  "chat.hookFilesLocations": {
-    "~/.agent-box-toolkit/hooks": true
-  }
-}
-```
+Skills and agents are symlinked from this checkout into native user folders.
+No multi-root workspace or editor settings required for the modern Copilot
+harness. See [setup, migration, and safety details](vscode-prompts/README.md).
 
 ---
 

@@ -1,12 +1,11 @@
 {
   "version": 1,
   "hooks": {
-    "Stop": [
+    "agentStop": [
       {
         "type": "command",
-        "command": "bash ~/.agent-box-toolkit/hooks/scripts/notify.sh",
-        "osx": "bash ~/.agent-box-toolkit/hooks/scripts/notify.sh",
-        "timeout": 5
+        "command": "bash \"${COPILOT_HOME:-$HOME/.copilot}/hooks/scripts/notify-copilot.sh\"",
+        "timeoutSec": 5
       }
     ]
   }

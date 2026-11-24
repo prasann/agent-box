@@ -7,11 +7,13 @@ These hooks are optional automatic actions. Review the JSON definitions and
 
 | Definition | Events | Action |
 | --- | --- | --- |
-| [session-notifications.json](session-notifications.json) | `Stop` | Send a macOS completion notification with the repository name |
+| [session-notifications.json](session-notifications.json) | `agentStop` | Send a macOS completion notification with the repository name |
 
-Definitions use version 1 and Copilot's compatible PascalCase event aliases,
-which deliver snake_case fields to the existing scripts. Don't change event
-names to camelCase without also adapting and testing the input payloads.
+The definition uses version 1 and Copilot's native `agentStop` event with
+[notify-copilot.sh](scripts/notify-copilot.sh). Native input has `cwd` but no
+`hook_event_name`. The original [notify.sh](scripts/notify.sh) is retained
+unchanged for legacy consumers; this migrated definition no longer works in
+the Local harness.
 
 ## Install
 
@@ -24,7 +26,7 @@ From the repository root:
 ```
 
 This creates native `~/.copilot/hooks` discovery and the
-`~/.agent-box-toolkit/hooks` link used by the commands. `COPILOT_HOME` overrides
+`~/.agent-box-toolkit/hooks` compatibility link. `COPILOT_HOME` overrides
 the native Copilot root if set. The compatibility link stays under your home
 directory.
 
@@ -41,6 +43,7 @@ Local sessions may still need that setting. Start a fresh session after setup.
 - Notifications require macOS. Install `terminal-notifier` with
   `brew install terminal-notifier` for grouped, clickable notifications.
   The script falls back to `osascript` if it isn't installed.
+- The native script requires `python3` to parse JSON input.
 - Notification clicks focus VS Code Insiders when installed, otherwise Stable.
 - Notification logs go to `~/.agent-box/logs/notifications.log`.
 
@@ -57,14 +60,20 @@ Installing links on your laptop doesn't configure remote hosts or containers.
 Send a synthetic completion event on macOS:
 
 ```bash
-printf '%s\n' '{"hook_event_name":"Stop","cwd":"/tmp/example-project"}' |
-  bash ~/.agent-box-toolkit/hooks/scripts/notify.sh
+printf '%s\n' '{"cwd":"/tmp/example-project","stopReason":"end_turn"}' |
+  bash "${COPILOT_HOME:-$HOME/.copilot}/hooks/scripts/notify-copilot.sh"
 ```
 
 Then start a fresh Copilot session in another repository and confirm the hooks
 appear in **Chat: Open Customizations**, under **Hooks**. Finish a turn and
 check the notification and log. A direct script test doesn't prove runtime
 discovery.
+
+Run focused tests with mocked notification commands from the repository root:
+
+```bash
+python3 -m unittest discover -s tests -p test_notify_copilot.py
+```
 
 For persistent alerts, set the notification style to **Alert** in macOS
 notification settings. If notifications don't appear, check notification
